@@ -1,10 +1,10 @@
 import { render, wait } from "@testing-library/react";
-import getCurrentDateTime from "infrastructure/date";
+import getCurrentDateTime from "infrastructure/fetchUser";
 import apiGet from "lib/apiGet";
 import HomePage from "pages";
 import React from "react";
 
-jest.mock("lib/apiGet");
+jest.mock("lib/httpGet");
 jest.mock("infrastructure/date");
 
 describe("With React Testing Library", () => {

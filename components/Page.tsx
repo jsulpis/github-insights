@@ -1,5 +1,4 @@
 import Head, { HeadProps } from "components/Head";
-import Header from "components/Header";
 import React, { ReactNode } from "react";
 
 export interface PageProps extends HeadProps {
@@ -9,7 +8,6 @@ export interface PageProps extends HeadProps {
 const Page = (props: PageProps) => (
   <div>
     <Head {...props} />
-    <Header />
     {props.children}
     <style global jsx>
       {`

@@ -8,6 +8,7 @@
     "lint": "tslint -p .",
     "lint:fix": "tslint --fix -p .",
     "test": "jest",
+    "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",

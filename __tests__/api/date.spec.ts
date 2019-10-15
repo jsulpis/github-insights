@@ -4,7 +4,7 @@ import dateApi from "pages/api/date";
 
 jest.mock("infrastructure/date");
 
-describe("Date api", () => {
+xdescribe("Date api", () => {
   it("should return a date", () => {
     // Given
     const MOCK_DATE = "2019-09-14 12:13:14";
