@@ -1,7 +1,7 @@
 import Page from "components/Page";
+import fetchUser from "infrastructure/fetchUser";
+import User from "models/User";
 import React from "react";
-import fetchUser from "../infrastructure/fetchUser";
-import User from "../models/User";
 
 interface HomePageState {
   user: User;
@@ -14,7 +14,7 @@ class HomePage extends React.Component<any, HomePageState> {
   }
 
   public componentDidMount() {
-    fetchUser().then(user => this.setState({ user }));
+    fetchUser("jsulpis").then(user => this.setState({ user }));
   }
 
   public render() {

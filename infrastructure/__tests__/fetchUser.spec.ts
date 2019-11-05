@@ -1,9 +1,13 @@
-import httpGet from "../../lib/httpGet";
+import httpGet from "lib/httpGet";
 import fetchUser from "../fetchUser";
 
 jest.mock("lib/httpGet");
 
 describe("User api", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it("should return a user", async () => {
     // Given
     (httpGet as jest.Mock).mockImplementation(() =>
@@ -11,7 +15,7 @@ describe("User api", () => {
     );
 
     // When
-    const user = await fetchUser();
+    const user = await fetchUser("jsulpis");
 
     // Then
     const expectedUser = {
@@ -26,13 +30,20 @@ describe("User api", () => {
       email: null,
       hireable: null,
       name: "Julien Sulpis",
-      organisationsUrl: "https://api.github.com/users/jsulpis/orgs",
-      reposUrl: "https://api.github.com/users/jsulpis/repos",
       followers: 4,
       followersUrl: "https://api.github.com/users/jsulpis/followers",
       gists: 2,
       gistsUrl: "https://api.github.com/users/jsulpis/gists{/gist_id}"
     };
+
+    expect(httpGet).toHaveBeenCalledWith(
+      "https://api.github.com/users/jsulpis"
+    );
     expect(user).toEqual(expectedUser);
+  });
+
+  it("should have a username as argument", async () => {
+    await fetchUser("toto");
+    expect(httpGet).toHaveBeenCalledWith("https://api.github.com/users/toto");
   });
 });

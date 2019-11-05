@@ -49,7 +49,7 @@
     }
   },
   "lint-staged": {
-    "{components,pages}/**/*.{js,jsx,ts,tsx,json}": [
+    "{components,infrastructure,lib,models,pages}/**/*.{js,jsx,ts,tsx,json}": [
       "tslint --fix",
       "git add"
     ]
