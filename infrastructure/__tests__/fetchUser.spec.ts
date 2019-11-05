@@ -3,7 +3,7 @@ import fetchUser from "../fetchUser";
 
 jest.mock("lib/httpGet");
 
-describe("User api", () => {
+describe("fetchUser", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
