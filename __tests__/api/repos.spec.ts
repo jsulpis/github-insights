@@ -5,7 +5,7 @@ import reposApi from "pages/api/repos";
 jest.mock("infrastructure/fetchRepos");
 
 describe("Repos api", () => {
-  it("should return a repo", () => {
+  it("should return a repo", async () => {
     // Given
     const MOCK_REPOS = [
       {
@@ -43,7 +43,7 @@ describe("Repos api", () => {
 
     // When
     // @ts-ignore
-    reposApi(null, res);
+    await reposApi(null, res);
 
     // Then
     expect(fetchRepos).toHaveBeenCalled();

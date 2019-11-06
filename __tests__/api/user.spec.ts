@@ -5,7 +5,7 @@ import userApi from "pages/api/user";
 jest.mock("infrastructure/fetchUser");
 
 describe("User api", () => {
-  it("should return a user", () => {
+  it("should return a user", async () => {
     // Given
     const MOCK_USER = {
       profileUrl: "https://api.github.com/users/jsulpis",
@@ -24,13 +24,15 @@ describe("User api", () => {
       gists: 2,
       gistsUrl: "https://api.github.com/users/jsulpis/gists{/gist_id}"
     };
-    (fetchUser as jest.Mock).mockImplementation(() => MOCK_USER);
+    (fetchUser as jest.Mock).mockImplementation(() =>
+      Promise.resolve(MOCK_USER)
+    );
 
     const res = new MockNextApiResponse();
 
     // When
     // @ts-ignore
-    userApi(null, res);
+    await userApi(null, res);
 
     // Then
     expect(fetchUser).toHaveBeenCalled();

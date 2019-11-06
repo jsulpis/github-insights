@@ -1,6 +1,6 @@
 import User from "models/User";
 
-export class UserDTO {
+export default class UserDTO {
   public "login": string;
   public "id": number;
   public "node_id": string;
