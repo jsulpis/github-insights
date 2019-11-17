@@ -1,4 +1,4 @@
-import apiGet from "lib/apiGet";
+import fetchRepos from "infrastructure/fetchRepos";
 import httpGet from "lib/httpGet";
 import Repository from "models/Repository";
 
@@ -18,7 +18,7 @@ function languagesReducer(acc: Languages, val: Languages): Languages {
 }
 
 async function fetchAllRepoLanguages(username: string): Promise<Languages[]> {
-  const repos = await apiGet<Repository[]>(`/repos/${username}`);
+  const repos = await fetchRepos(username);
   return Promise.all(
     repos.map((repo: Repository) =>
       httpGet(`https://api.github.com/repos/${username}/${repo.name}/languages`)

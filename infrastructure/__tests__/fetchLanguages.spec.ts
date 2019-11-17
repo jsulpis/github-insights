@@ -1,9 +1,9 @@
-import apiGet from "lib/apiGet";
+import fetchRepos from "infrastructure/fetchRepos";
 import httpGet from "lib/httpGet";
 import fetchLanguages from "../fetchLanguages";
 
+jest.mock("infrastructure/fetchRepos");
 jest.mock("lib/httpGet");
-jest.mock("lib/apiGet");
 
 describe("fetchLanguages", () => {
   afterEach(() => {
@@ -30,7 +30,7 @@ describe("fetchLanguages", () => {
       JavaScript: 100
     };
 
-    (apiGet as jest.Mock).mockImplementation(() =>
+    (fetchRepos as jest.Mock).mockImplementation(() =>
       Promise.resolve(mockReposList)
     );
 
@@ -53,7 +53,7 @@ describe("fetchLanguages", () => {
       Python: 23651
     };
 
-    expect(apiGet).toHaveBeenCalledWith("/repos/jsulpis");
+    expect(fetchRepos).toHaveBeenCalledWith("jsulpis");
     expect(httpGet).toHaveBeenCalledTimes(2);
     expect(httpGet).toHaveBeenNthCalledWith(1, REPO1_LANGUAGE_URL);
     expect(httpGet).toHaveBeenNthCalledWith(2, REPO2_LANGUAGE_URL);

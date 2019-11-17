@@ -31,7 +31,7 @@ export default class RepositoryDTO {
       this.updated_at,
       this.language,
       this.size,
-      this.license.spdx_id,
+      this.license ? this.license.spdx_id : null,
       this.forks_count,
       this.stargazers_count,
       this.fork,

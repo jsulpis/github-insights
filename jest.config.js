@@ -9,7 +9,8 @@ module.exports = {
     "infrastructure/**",
     "pages/**",
     "!pages/_app.tsx",
-    "!pages/_document.tsx"
+    "!pages/_document.tsx",
+    "!**/__tests__/**" // skip json files
   ],
   moduleNameMapper:{
     "\\.(css|less|scss|sass)$": "identity-obj-proxy"
