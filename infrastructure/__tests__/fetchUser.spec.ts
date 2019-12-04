@@ -19,7 +19,7 @@ describe("fetchUser", () => {
 
     // Then
     const expectedUser = {
-      profileUrl: "https://api.github.com/users/jsulpis",
+      profileUrl: "https://github.com/jsulpis",
       username: "jsulpis",
       avatarUrl: "https://avatars2.githubusercontent.com/u/22420399?v=4",
       bio:

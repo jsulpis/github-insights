@@ -39,7 +39,7 @@ export default class UserDTO {
 
   public toModel(): User {
     return new User(
-      this.url,
+      this.html_url,
       this.login,
       this.name,
       this.avatar_url,
