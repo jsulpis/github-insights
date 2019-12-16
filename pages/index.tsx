@@ -1,48 +1,44 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import Page from "components/Page";
+// reactstrap components
+import UserProfile from "components/UserProfile/UserProfile";
+import fetchRepos from "infrastructure/fetchRepos";
 import fetchUser from "infrastructure/fetchUser";
+import Repository from "models/Repository";
 import User from "models/User";
+import "paper-dashboard-react/src/assets/css/paper-dashboard.css";
 import React from "react";
 
 interface HomePageState {
   user: User;
+  repos: Repository[];
 }
 
 class HomePage extends React.Component<any, HomePageState> {
   constructor(args) {
     super(args);
-    this.state = { user: null };
+    this.state = { user: null, repos: [] };
   }
 
   public componentDidMount() {
     fetchUser("jsulpis").then(user => this.setState({ user }));
+    fetchRepos("jsulpis").then(repos => this.setState({ repos }));
   }
 
   public render() {
     const user = this.state.user;
+    const repos = this.state.repos;
     return (
-      <Page title={"Home"} description={"This is the home page"}>
-        <div className="hero">
-          {!!user && <h1 className="title">{user.username}</h1>}
-        </div>
-
-        <style jsx>{`
-          .hero {
-            width: 100%;
-            color: #333;
-          }
-          .title {
-            margin: 0;
-            width: 100%;
-            padding-top: 80px;
-            line-height: 1.15;
-            font-size: 48px;
-          }
-          .title,
-          .description {
-            text-align: center;
-          }
-        `}</style>
-      </Page>
+      <>
+        {user && repos && (
+          <Page
+            title={"GitHub stats of " + user.name}
+            description={"This is the home page"}
+          >
+            <UserProfile user={user} repos={repos} />
+          </Page>
+        )}
+      </>
     );
   }
 }
