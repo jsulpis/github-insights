@@ -1,6 +1,8 @@
 const webpack = require("webpack");
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
 const withSass = require("@zeit/next-sass");
+const withCSS = require('@zeit/next-css');
+const withFonts = require('next-fonts');
 const path = require("path");
 
 const nextConfig = {
@@ -15,11 +17,6 @@ const nextConfig = {
       analyzerMode: "static",
       reportFilename: "bundles/client.html"
     }
-  },
-  cssModules: true,
-  cssLoaderOptions: {
-    importLoaders: 1,
-    localIdentName: "[local]-[hash:base64:8]"
   },
   exportPathMap: function() {
     return {
@@ -41,4 +38,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withSass(withBundleAnalyzer(nextConfig));
+module.exports = withSass(withCSS(withFonts(withBundleAnalyzer(nextConfig))));
