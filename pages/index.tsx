@@ -2,7 +2,6 @@ import "@fortawesome/fontawesome-free/js/fontawesome";
 import "@fortawesome/fontawesome-free/js/solid";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Page from "components/Page";
-// reactstrap components
 import UserProfile from "components/UserProfile/UserProfile";
 import fetchRepos from "infrastructure/fetchRepos";
 import fetchUser from "infrastructure/fetchUser";
