@@ -23,6 +23,10 @@ function UserProfile(props: UserProfileProps) {
       }
       return acc;
     }, []);
+  let userWebsite = user.website;
+  if (!!userWebsite && !userWebsite.startsWith("http")) {
+    userWebsite = "https://" + userWebsite;
+  }
 
   return (
     <Card className="card-user">
@@ -36,18 +40,13 @@ function UserProfile(props: UserProfileProps) {
             className="avatar border-gray"
             src={user.avatarUrl}
           />
-          <h5 className="fullname">{user.name}</h5>
+          <h1 className="fullname">{user.name}</h1>
           <a className="username" href={user.profileUrl}>
             @{user.username}
           </a>
-          <a
-            className="company"
-            href={"https://github.com/" + user.company.slice(1)}
-          >
-            {user.company}
-          </a>
+          <p className="company">{user.company}</p>
           <p className="location">{user.location}</p>
-          <a className="website" href={user.website}>
+          <a className="website" href={userWebsite}>
             {user.website}
           </a>
         </div>
@@ -56,11 +55,41 @@ function UserProfile(props: UserProfileProps) {
       <CardFooter>
         <hr />
         <div className="figures">
-          <span className="followers">{user.followers} Followers</span>
-          <span className="repos">{repos.length} Repos</span>
-          <span className="stars">{totalStars} Total Stars</span>
-          <span className="forks">{totalForks} Total Forks</span>
-          <span className="languages">{languages.length} Languages</span>
+          <div>
+            <div>
+              <i className="fas fa-users" />
+              <span className="followers">{user.followers}</span>
+            </div>
+            <p>Followers</p>
+          </div>
+          <div>
+            <div>
+              <i className="fas fa-language" />
+              <span className="languages">{languages.length}</span>
+            </div>
+            <p>Languages</p>
+          </div>
+          <div>
+            <div>
+              <i className="fas fa-code" />
+              <span className="repos">{repos.length}</span>
+            </div>
+            <p>Repos</p>
+          </div>
+          <div>
+            <div>
+              <i className="fas fa-star" />
+              <span className="stars">{totalStars}</span>
+            </div>
+            <p>Total Stars</p>
+          </div>
+          <div>
+            <div>
+              <i className="fas fa-code-branch" />
+              <span className="forks">{totalForks}</span>
+            </div>
+            <p>Total Forks</p>
+          </div>
         </div>
       </CardFooter>
     </Card>

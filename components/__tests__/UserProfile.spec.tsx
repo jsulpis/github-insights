@@ -90,15 +90,12 @@ describe("UserProfile", () => {
         MOCK_USER.location
       );
       expect(getContentByClass(container, ".company")).toBe(MOCK_USER.company);
-      expect(getAttributeValueByClass(container, ".company", "href")).toBe(
-        `https://github.com/${MOCK_USER.company.slice(1)}`
-      );
       expect(getContentByClass(container, ".website")).toBe(MOCK_USER.website);
       expect(getAttributeValueByClass(container, ".website", "href")).toBe(
-        MOCK_USER.website
+        "https://" + MOCK_USER.website
       );
       expect(getContentByClass(container, ".followers")).toBe(
-        `${MOCK_USER.followers} Followers`
+        `${MOCK_USER.followers}`
       );
     });
   });
@@ -110,11 +107,11 @@ describe("UserProfile", () => {
 
     await wait(() => {
       expect(getContentByClass(container, ".repos")).toBe(
-        `${MOCK_REPOS.length} Repos`
+        `${MOCK_REPOS.length}`
       );
-      expect(getContentByClass(container, ".stars")).toBe(`5 Total Stars`);
-      expect(getContentByClass(container, ".forks")).toBe(`5 Total Forks`);
-      expect(getContentByClass(container, ".languages")).toBe(`2 Languages`);
+      expect(getContentByClass(container, ".stars")).toBe(`5`);
+      expect(getContentByClass(container, ".forks")).toBe(`5`);
+      expect(getContentByClass(container, ".languages")).toBe(`2`);
     });
   });
 

@@ -1,3 +1,5 @@
+import "@fortawesome/fontawesome-free/js/fontawesome";
+import "@fortawesome/fontawesome-free/js/solid";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Page from "components/Page";
 // reactstrap components
@@ -6,7 +8,7 @@ import fetchRepos from "infrastructure/fetchRepos";
 import fetchUser from "infrastructure/fetchUser";
 import Repository from "models/Repository";
 import User from "models/User";
-import "paper-dashboard-react/src/assets/css/paper-dashboard.css";
+import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
 import React from "react";
 
 interface HomePageState {

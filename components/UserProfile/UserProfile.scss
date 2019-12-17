@@ -1,4 +1,57 @@
 .card-user {
   margin: 2rem;
-  max-width:800px;
+  max-width: 800px;
+
+  .fullname {
+    font-size: 2em;
+    margin: 0;
+  }
+
+  .username {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+  }
+
+  .company, .location {
+    margin: 0;
+  }
+
+  .website {
+    margin-bottom: 1em;
+  }
+
+  a, a:hover, a:focus {
+    display: block;
+    color: #102f6a;
+    font-weight: bold;
+  }
+
+  .figures {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    opacity: 0.8;
+
+    > div {
+      @media only screen and (max-width: 768px) {
+        margin: 0.5em;
+      }
+
+      > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    span {
+      font-size: 1.5em;
+      margin-left: 0.25em;
+      line-height: initial;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
 }
