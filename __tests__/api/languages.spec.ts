@@ -1,6 +1,6 @@
 import MockNextApiResponse from "__tests__/api/MockNextApiResponse";
 import fetchLanguages from "infrastructure/fetchLanguages";
-import languageApi from "pages/api/languages";
+import languageApi from "pages/api/[username]/languages";
 
 jest.mock("infrastructure/fetchLanguages");
 
@@ -21,10 +21,10 @@ describe("Languages api", () => {
 
     // When
     // @ts-ignore
-    await languageApi(null, res);
+    await languageApi({ query: { username: "tutu" } }, res);
 
     // Then
-    expect(fetchLanguages).toHaveBeenCalled();
+    expect(fetchLanguages).toHaveBeenCalledWith("tutu");
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(MOCK_LANGUAGES);
   });

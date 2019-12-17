@@ -1,6 +1,6 @@
 import MockNextApiResponse from "__tests__/api/MockNextApiResponse";
 import fetchUser from "infrastructure/fetchUser";
-import userApi from "pages/api/user";
+import userApi from "pages/api/[username]/index";
 
 jest.mock("infrastructure/fetchUser");
 
@@ -32,10 +32,10 @@ describe("User api", () => {
 
     // When
     // @ts-ignore
-    await userApi(null, res);
+    await userApi({ query: { username: "toto" } }, res);
 
     // Then
-    expect(fetchUser).toHaveBeenCalled();
+    expect(fetchUser).toHaveBeenCalledWith("toto");
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(MOCK_USER);
   });

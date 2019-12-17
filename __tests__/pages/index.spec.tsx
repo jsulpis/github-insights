@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import fetchRepos from "infrastructure/fetchRepos";
 import fetchUser from "infrastructure/fetchUser";
 import User from "models/User";
-import HomePage from "pages";
+import HomePage from "pages/[username]";
 import React from "react";
 
 jest.mock("lib/httpGet");
@@ -46,6 +46,7 @@ describe("Home Page", () => {
 
   const mockFetchUser = jest.fn(() => Promise.resolve(USER));
   const mockFetchRepos = jest.fn(() => Promise.resolve(MOCK_REPOS));
+  const mockRouter = { asPath: `/${USER.username}` };
 
   beforeEach(() => {
     (fetchUser as jest.Mock).mockImplementation(mockFetchUser);
@@ -57,14 +58,14 @@ describe("Home Page", () => {
   });
 
   it("should query for a user", () => {
-    const { container } = render(<HomePage date={""} />);
+    const { container } = render(<HomePage router={mockRouter} />);
     expect(container).toBeTruthy();
 
     expect(mockFetchUser).toHaveBeenCalledWith("jsulpis");
   });
 
   it("should query for the user repos", () => {
-    const { container } = render(<HomePage date={""} />);
+    const { container } = render(<HomePage router={mockRouter} />);
     expect(container).toBeTruthy();
 
     expect(mockFetchRepos).toHaveBeenCalledWith("jsulpis");

@@ -1,6 +1,6 @@
 import MockNextApiResponse from "__tests__/api/MockNextApiResponse";
 import fetchRepos from "infrastructure/fetchRepos";
-import reposApi from "pages/api/repos";
+import reposApi from "pages/api/[username]/repos";
 
 jest.mock("infrastructure/fetchRepos");
 
@@ -43,10 +43,10 @@ describe("Repos api", () => {
 
     // When
     // @ts-ignore
-    await reposApi(null, res);
+    await reposApi({ query: { username: "titi" } }, res);
 
     // Then
-    expect(fetchRepos).toHaveBeenCalled();
+    expect(fetchRepos).toHaveBeenCalledWith("titi");
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(MOCK_REPOS);
   });

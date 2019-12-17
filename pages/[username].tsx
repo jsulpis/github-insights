@@ -7,6 +7,7 @@ import fetchRepos from "infrastructure/fetchRepos";
 import fetchUser from "infrastructure/fetchUser";
 import Repository from "models/Repository";
 import User from "models/User";
+import { withRouter } from "next/router";
 import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
 import React from "react";
 
@@ -22,8 +23,9 @@ class HomePage extends React.Component<any, HomePageState> {
   }
 
   public componentDidMount() {
-    fetchUser("jsulpis").then(user => this.setState({ user }));
-    fetchRepos("jsulpis").then(repos => this.setState({ repos }));
+    const username = this.props.router.asPath.slice(1);
+    fetchUser(username).then(user => this.setState({ user }));
+    fetchRepos(username).then(repos => this.setState({ repos }));
   }
 
   public render() {
@@ -34,7 +36,7 @@ class HomePage extends React.Component<any, HomePageState> {
         {user && repos && (
           <Page
             title={"GitHub stats of " + user.name}
-            description={"This is the home page"}
+            description={`Some stats about ${user.name}'s GitHub profile`}
           >
             <UserProfile user={user} repos={repos} />
           </Page>
@@ -44,4 +46,4 @@ class HomePage extends React.Component<any, HomePageState> {
   }
 }
 
-export default HomePage;
+export default withRouter(HomePage);

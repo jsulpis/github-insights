@@ -67,7 +67,7 @@ function UserProfile(props: UserProfileProps) {
               <i className="fas fa-language" />
               <span className="languages">{languages.length}</span>
             </div>
-            <p>Languages</p>
+            <p>Main languages</p>
           </div>
           <div>
             <div>
