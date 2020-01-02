@@ -1,0 +1,33 @@
+@import '~paper-dashboard-react/src/assets/scss/paper-dashboard/variables';
+
+form {
+  margin-top: 2em;
+}
+
+input#username-input {
+  height: 38px;
+
+  &:focus {
+    border-color: $medium-gray;
+  }
+}
+
+button#search-button {
+  border-radius: 0 4px 4px 0;
+  border: none;
+  padding: 0 .7em 0 0.9em;
+  height: 38px;
+  margin-left: -5px;
+  background-color: $medium-gray;
+  color: #66615b;
+  align-self: baseline;
+  transition: background-color .1s ease-in-out;
+
+  &:hover {
+    background-color: $table-line-color;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

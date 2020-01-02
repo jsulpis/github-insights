@@ -1,49 +1,53 @@
 import "@fortawesome/fontawesome-free/js/fontawesome";
 import "@fortawesome/fontawesome-free/js/solid";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Page from "components/Page";
 import UserProfile from "components/UserProfile/UserProfile";
-import fetchRepos from "infrastructure/fetchRepos";
-import fetchUser from "infrastructure/fetchUser";
 import Repository from "models/Repository";
 import User from "models/User";
+import Router from "next/router";
 import { withRouter } from "next/router";
 import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
 import React from "react";
+import SearchForm from "../components/SearchForm/SearchForm";
+import apiGet from "../lib/apiGet";
 
-interface HomePageState {
+interface UserPageState {
   user: User;
   repos: Repository[];
 }
 
-class HomePage extends React.Component<any, HomePageState> {
+class UserPage extends React.Component<any, UserPageState> {
   constructor(args) {
     super(args);
     this.state = { user: null, repos: [] };
   }
 
-  public componentDidMount() {
-    const username = this.props.router.asPath.slice(1);
-    fetchUser(username).then(user => this.setState({ user }));
-    fetchRepos(username).then(repos => this.setState({ repos }));
+  public componentDidUpdate(prevProps) {
+    const username = this.props.router.query.username;
+    // verify props have changed to avoid an infinite loop
+    if (username !== prevProps.router.query.username) {
+      apiGet<User>("/" + username).then(user => this.setState({ user }));
+      apiGet<Repository[]>("/" + username + "/repos").then(repos =>
+        this.setState({ repos })
+      );
+    }
   }
 
   public render() {
     const user = this.state.user;
     const repos = this.state.repos;
+    const userFullName = !!user ? user.name : "";
+
     return (
-      <>
-        {user && repos && (
-          <Page
-            title={"GitHub stats of " + user.name}
-            description={`Some stats about ${user.name}'s GitHub profile`}
-          >
-            <UserProfile user={user} repos={repos} />
-          </Page>
-        )}
-      </>
+      <Page
+        title={"GitHub stats of " + userFullName}
+        description={`Some stats about ${userFullName}'s GitHub profile`}
+      >
+        <SearchForm searchUser={username => Router.push("/" + username)} />
+        {user && repos && <UserProfile user={user} repos={repos} />}
+      </Page>
     );
   }
 }
 
-export default withRouter(HomePage);
+export default withRouter(UserPage);

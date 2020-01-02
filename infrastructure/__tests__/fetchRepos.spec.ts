@@ -7,12 +7,13 @@ jest.mock("lib/httpGet");
 describe("Repo api", () => {
   it("should return a list of repositories", async () => {
     // Given
+    const username = "jsulpis";
     (httpGet as jest.Mock).mockImplementation(() =>
       Promise.resolve(require("./mocks/mockRepos.json"))
     );
 
     // When
-    const repos = await fetchRepos("jsulpis");
+    const repos = await fetchRepos(username);
 
     // Then
     const expectedReposList: Repository[] = [
@@ -47,15 +48,16 @@ describe("Repo api", () => {
     ];
 
     expect(httpGet).toHaveBeenCalledWith(
-      "https://api.github.com/users/jsulpis/repos"
+      "https://api.github.com/users/" + username + "/repos?per_page=100"
     );
     expect(repos).toEqual(expectedReposList);
   });
 
   it("should have a username as argument", async () => {
-    await fetchRepos("toto");
+    const username = "toto";
+    await fetchRepos(username);
     expect(httpGet).toHaveBeenCalledWith(
-      "https://api.github.com/users/toto/repos"
+      "https://api.github.com/users/" + username + "/repos?per_page=100"
     );
   });
 });

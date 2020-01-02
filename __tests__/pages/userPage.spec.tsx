@@ -5,8 +5,6 @@ import React from "react";
 import apiGet from "../../lib/apiGet";
 
 jest.mock("lib/apiGet");
-jest.mock("infrastructure/fetchUser");
-jest.mock("infrastructure/fetchRepos");
 
 describe("User Page", () => {
   const USER: User = {
