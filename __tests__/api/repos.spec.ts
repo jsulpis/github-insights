@@ -5,7 +5,7 @@ import reposApi from "pages/api/[username]/repos";
 jest.mock("infrastructure/fetchRepos");
 
 describe("Repos api", () => {
-  it("should return a repo", async () => {
+  it("should return repositories", async () => {
     // Given
     const MOCK_REPOS = [
       {
@@ -37,7 +37,9 @@ describe("Repos api", () => {
         url: "https://github.com/jsulpis/blender-addons"
       }
     ];
-    (fetchRepos as jest.Mock).mockImplementation(() => MOCK_REPOS);
+    (fetchRepos as jest.Mock).mockImplementation(() =>
+      Promise.resolve(MOCK_REPOS)
+    );
 
     const res = new MockNextApiResponse();
 
@@ -49,5 +51,22 @@ describe("Repos api", () => {
     expect(fetchRepos).toHaveBeenCalledWith("titi");
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(MOCK_REPOS);
+  });
+
+  it("should forward errors", async () => {
+    (fetchRepos as jest.Mock).mockImplementation(() =>
+      Promise.reject({ status: 403, message: "Forbidden" })
+    );
+
+    const res = new MockNextApiResponse();
+
+    // When
+    // @ts-ignore
+    await reposApi({ query: { username: "toto" } }, res);
+
+    // Then
+    expect(fetchRepos).toHaveBeenCalledWith("toto");
+    expect(res.statusCode).toBe(403);
+    expect(res.body).toEqual("Forbidden");
   });
 });

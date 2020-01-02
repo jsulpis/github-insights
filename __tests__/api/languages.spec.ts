@@ -28,4 +28,21 @@ describe("Languages api", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(MOCK_LANGUAGES);
   });
+
+  it("should forward errors", async () => {
+    (fetchLanguages as jest.Mock).mockImplementation(() =>
+      Promise.reject({ status: 403, message: "Forbidden" })
+    );
+
+    const res = new MockNextApiResponse();
+
+    // When
+    // @ts-ignore
+    await languageApi({ query: { username: "tutu" } }, res);
+
+    // Then
+    expect(fetchLanguages).toHaveBeenCalledWith("tutu");
+    expect(res.statusCode).toBe(403);
+    expect(res.body).toEqual("Forbidden");
+  });
 });

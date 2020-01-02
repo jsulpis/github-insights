@@ -1,4 +1,4 @@
-import fetch from "isomorphic-unfetch";
+import httpGet from "./httpGet";
 
 /**
  * Helper function to make API calls and testing pages easier
@@ -8,6 +8,5 @@ export default async function apiGet<T>(name: string): Promise<T> {
   const ROOT_URL = window.location.origin;
   const API_URL = "/api";
 
-  const res = await fetch(ROOT_URL + API_URL + name);
-  return res.json();
+  return httpGet<T>(ROOT_URL + API_URL + name);
 }

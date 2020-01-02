@@ -39,4 +39,21 @@ describe("User api", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(MOCK_USER);
   });
+
+  it("should forward errors", async () => {
+    (fetchUser as jest.Mock).mockImplementation(() =>
+      Promise.reject({ status: 403, message: "Forbidden" })
+    );
+
+    const res = new MockNextApiResponse();
+
+    // When
+    // @ts-ignore
+    await userApi({ query: { username: "toto" } }, res);
+
+    // Then
+    expect(fetchUser).toHaveBeenCalledWith("toto");
+    expect(res.statusCode).toBe(403);
+    expect(res.body).toEqual("Forbidden");
+  });
 });

@@ -1,9 +1,10 @@
 import fetchRepos from "infrastructure/fetchRepos";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default (req: NextApiRequest, res: NextApiResponse) => {
   const username = req.query.username;
-  const repos = await fetchRepos(username as string);
 
-  res.status(200).json(repos);
+  return fetchRepos(username as string)
+    .then(repos => res.status(200).json(repos))
+    .catch(err => res.status(err.status).json(err.message));
 };

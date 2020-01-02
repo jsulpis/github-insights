@@ -7,6 +7,5 @@ export default function fetchRepos(username: string): Promise<Repository[]> {
     .then((payload: any[]) => payload.map(repo => new RepositoryDTO(repo)))
     .then((repositoryDtos: RepositoryDTO[]) =>
       repositoryDtos.map(repositoryDto => repositoryDto.toModel())
-    )
-    .catch(() => []);
+    );
 }
