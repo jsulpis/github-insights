@@ -8,6 +8,7 @@ import Router from "next/router";
 import { withRouter } from "next/router";
 import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
 import React from "react";
+import ContributionsChart from "../components/ContributionsChart/ContributionsChart";
 import SearchForm from "../components/SearchForm/SearchForm";
 import Spinner from "../components/Spinner/Spinner";
 import apiGet from "../lib/apiGet";
@@ -39,6 +40,20 @@ class UserPage extends React.Component<any, UserPageState> {
     const repos = this.state.repos;
     const userFullName = !!user ? user.name : "";
     const isDataPresent = user && repos;
+    const contributions = [
+      542,
+      480,
+      430,
+      550,
+      530,
+      453,
+      380,
+      434,
+      568,
+      610,
+      700,
+      630
+    ];
 
     return (
       <Page
@@ -46,7 +61,12 @@ class UserPage extends React.Component<any, UserPageState> {
         description={`Some stats about ${userFullName}'s GitHub profile`}
       >
         <SearchForm searchUser={username => Router.push("/" + username)} />
-        {isDataPresent && <UserProfile user={user} repos={repos} />}
+        {isDataPresent && (
+          <>
+            <UserProfile user={user} repos={repos} />
+            <ContributionsChart data={contributions} />
+          </>
+        )}
         {!isDataPresent && <Spinner />}
       </Page>
     );
