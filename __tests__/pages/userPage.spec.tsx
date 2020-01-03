@@ -45,8 +45,10 @@ describe("User Page", () => {
     (apiGet as jest.Mock).mockImplementation((path: string) => {
       if (path.includes("/")) {
         return Promise.resolve(MOCK_REPOS);
-      } else {
+      } else if (path.includes("/" + USER.username)) {
         return Promise.resolve(USER);
+      } else {
+        return Promise.reject();
       }
     });
   });
@@ -56,13 +58,24 @@ describe("User Page", () => {
   });
 
   it("should fetch data using the API", () => {
+    const username = USER.username;
     let mockRouter = { query: {} };
     const { rerender } = render(<UserPage router={mockRouter} />);
 
-    mockRouter = { query: { username: USER.username } };
+    mockRouter = { query: { username } };
     rerender(<UserPage router={mockRouter} />);
 
-    expect(apiGet).toHaveBeenCalledWith("/jsulpis");
-    expect(apiGet).toHaveBeenCalledWith("/jsulpis/repos");
+    expect(apiGet).toHaveBeenCalledWith("/" + username);
+    expect(apiGet).toHaveBeenCalledWith("/" + username + "/repos");
+  });
+
+  it("should display a spinner when loading", () => {
+    let mockRouter = { query: {} };
+    const { container, rerender } = render(<UserPage router={mockRouter} />);
+
+    mockRouter = { query: { username: "wrong" } };
+    rerender(<UserPage router={mockRouter} />);
+
+    expect(container.querySelector(".sk-chase")).toBeTruthy();
   });
 });

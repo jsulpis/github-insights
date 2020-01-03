@@ -9,6 +9,7 @@ import { withRouter } from "next/router";
 import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
 import React from "react";
 import SearchForm from "../components/SearchForm/SearchForm";
+import Spinner from "../components/Spinner/Spinner";
 import apiGet from "../lib/apiGet";
 
 interface UserPageState {
@@ -37,6 +38,7 @@ class UserPage extends React.Component<any, UserPageState> {
     const user = this.state.user;
     const repos = this.state.repos;
     const userFullName = !!user ? user.name : "";
+    const isDataPresent = user && repos;
 
     return (
       <Page
@@ -44,7 +46,8 @@ class UserPage extends React.Component<any, UserPageState> {
         description={`Some stats about ${userFullName}'s GitHub profile`}
       >
         <SearchForm searchUser={username => Router.push("/" + username)} />
-        {user && repos && <UserProfile user={user} repos={repos} />}
+        {isDataPresent && <UserProfile user={user} repos={repos} />}
+        {!isDataPresent && <Spinner />}
       </Page>
     );
   }
