@@ -13,6 +13,7 @@ export default class User {
     public followers: number,
     public followersUrl: string,
     public gists: number,
-    public gistsUrl: string
+    public gistsUrl: string,
+    public repos: number
   ) {}
 }

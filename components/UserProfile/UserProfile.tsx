@@ -51,6 +51,12 @@ function UserProfile(props: UserProfileProps) {
           </a>
         </div>
         <p className="description text-center">{user.bio}</p>
+        {user.repos > 100 && (
+          <p className="message-many-repos text-warning">
+            <strong>Note:</strong> Only the latest 100 repos were used for the
+            following stats.
+          </p>
+        )}
       </CardBody>
       <CardFooter>
         <hr />
@@ -72,7 +78,7 @@ function UserProfile(props: UserProfileProps) {
           <div>
             <div>
               <i className="fas fa-code" />
-              <span className="repos">{repos.length}</span>
+              <span className="repos">{user.repos}</span>
             </div>
             <p>Repos</p>
           </div>

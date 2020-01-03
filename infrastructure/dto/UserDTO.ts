@@ -52,7 +52,8 @@ export default class UserDTO {
       this.followers,
       this.followers_url,
       this.public_gists,
-      this.gists_url
+      this.gists_url,
+      this.public_repos
     );
   }
 }

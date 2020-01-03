@@ -21,7 +21,8 @@ describe("UserProfile", () => {
     followers: 4,
     followersUrl: "https://api.github.com/users/jsulpis/followers",
     gists: 2,
-    gistsUrl: "https://api.github.com/users/jsulpis/gists{/gist_id}"
+    gistsUrl: "https://api.github.com/users/jsulpis/gists{/gist_id}",
+    repos: 15
   };
 
   const MOCK_REPOS: Repository[] = [
@@ -97,6 +98,19 @@ describe("UserProfile", () => {
       expect(getContentByClass(container, ".followers")).toBe(
         `${MOCK_USER.followers}`
       );
+      expect(container.querySelector(".message-many-repos")).not.toBeTruthy();
+    });
+  });
+
+  it("displays a message when there are to many repos", async () => {
+    const userWithManyRepos = Object.assign({}, MOCK_USER);
+    userWithManyRepos.repos = 300;
+    const { container } = render(
+      <UserProfile user={userWithManyRepos} repos={MOCK_REPOS} />
+    );
+
+    await wait(() => {
+      expect(container.querySelector(".message-many-repos")).toBeTruthy();
     });
   });
 
@@ -106,9 +120,7 @@ describe("UserProfile", () => {
     );
 
     await wait(() => {
-      expect(getContentByClass(container, ".repos")).toBe(
-        `${MOCK_REPOS.length}`
-      );
+      expect(getContentByClass(container, ".repos")).toBe(`${MOCK_USER.repos}`);
       expect(getContentByClass(container, ".stars")).toBe(`5`);
       expect(getContentByClass(container, ".forks")).toBe(`5`);
       expect(getContentByClass(container, ".languages")).toBe(`2`);

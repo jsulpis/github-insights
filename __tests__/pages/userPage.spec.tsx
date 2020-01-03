@@ -21,7 +21,8 @@ describe("User Page", () => {
     followers: 4,
     followersUrl: "https://api.github.com/users/jsulpis/followers",
     gists: 2,
-    gistsUrl: "https://api.github.com/users/jsulpis/gists{/gist_id}"
+    gistsUrl: "https://api.github.com/users/jsulpis/gists{/gist_id}",
+    repos: 15
   };
 
   const MOCK_REPOS = [
