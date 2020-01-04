@@ -10,7 +10,8 @@ function ContributionsChart(props: ContributionsChartProps) {
   const data = makeDataFromProps(props);
   return (
     <div className="chart-wrapper">
-      <Line data={data} options={options} />
+      {// don't render the chart in tests
+      process.browser && <Line data={data} options={options} />}
     </div>
   );
 }
