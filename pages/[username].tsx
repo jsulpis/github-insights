@@ -8,9 +8,11 @@ import Router from "next/router";
 import { withRouter } from "next/router";
 import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
 import React from "react";
-import ContributionsChart from "../components/ContributionsChart/ContributionsChart";
+import ContributionsChart from "../components/charts/Contributions/ContributionsChart";
+import LanguagesCharts from "../components/charts/Languages/LanguagesCharts";
 import SearchForm from "../components/SearchForm/SearchForm";
 import Spinner from "../components/Spinner/Spinner";
+import { Languages } from "../infrastructure/fetchLanguages";
 import apiGet from "../lib/apiGet";
 import { MonthlyContribution } from "../models/MonthlyContribution";
 
@@ -18,12 +20,13 @@ interface UserPageState {
   user: User;
   repos: Repository[];
   contributions: MonthlyContribution[];
+  languages: Languages;
 }
 
 class UserPage extends React.Component<any, UserPageState> {
   constructor(args) {
     super(args);
-    this.state = { user: null, repos: [], contributions: [] };
+    this.state = { user: null, repos: [], contributions: [], languages: null };
   }
 
   public componentDidUpdate(prevProps) {
@@ -37,6 +40,9 @@ class UserPage extends React.Component<any, UserPageState> {
       apiGet<Repository[]>("/" + username + "/repos").then(repos =>
         this.setState({ repos })
       );
+      apiGet<Languages>("/" + username + "/languages").then(languages =>
+        this.setState({ languages })
+      );
     }
   }
 
@@ -44,8 +50,10 @@ class UserPage extends React.Component<any, UserPageState> {
     const user = this.state.user;
     const repos = this.state.repos;
     const contributions = this.state.contributions;
+    const languages = this.state.languages;
     const userFullName = !!user ? user.name : "";
-    const isDataPresent = user && repos.length > 0 && contributions.length > 0;
+    const isDataPresent =
+      !!user && repos.length > 0 && contributions.length > 0 && !!languages;
 
     return (
       <Page
@@ -57,6 +65,7 @@ class UserPage extends React.Component<any, UserPageState> {
           <>
             <UserProfile user={user} repos={repos} />
             <ContributionsChart contributions={contributions} />
+            <LanguagesCharts languages={languages} />
           </>
         )}
         {!isDataPresent && <Spinner />}

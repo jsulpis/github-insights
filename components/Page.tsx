@@ -12,11 +12,6 @@ const Page = (props: PageProps) => (
     {props.children}
     <style global jsx>
       {`
-        html,
-        body,
-        .page {
-          height: fill-available;
-        }
         body {
           text-align: center;
           font-family: Segoe UI, Helvetica, Arial, sans-serif;

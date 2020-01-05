@@ -1,32 +1,17 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { MonthlyContribution } from "../../models/MonthlyContribution";
-import "./ContributionsChart.scss";
+import { ChartProps } from "./chart.models";
 
-interface ContributionsChartProps {
-  contributions: MonthlyContribution[];
-}
-
-function ContributionsChart(props: ContributionsChartProps) {
+function LineChart(props: ChartProps) {
   const data = makeDataFromProps(props);
-  const totalContributions = props.contributions.reduce(
-    (acc, current) => acc + current.contributions,
-    0
-  );
-  return (
-    <div className="chart-wrapper">
-      <h4>Activity</h4>
-      <h5>{totalContributions} contributions in the last year</h5>
-      {// don't render the chart in tests
-      process.browser && <Line data={data} options={options} />}
-    </div>
-  );
+  // don't render the chart in tests
+  return <>{process.browser && <Line data={data} options={options} />}</>;
 }
 
 const chartColor = "rgb(123, 201, 111)";
 const chartColorLight = "rgba(123, 201, 111, 0.8)";
 
-const makeDataFromProps = (props: ContributionsChartProps) => {
+const makeDataFromProps = (props: ChartProps) => {
   return canvas => {
     const ctx = canvas.getContext("2d");
 
@@ -34,7 +19,7 @@ const makeDataFromProps = (props: ContributionsChartProps) => {
     gradientFill.addColorStop(0.1, "#fff");
     gradientFill.addColorStop(1, chartColorLight);
     return {
-      labels: props.contributions.map(contrib => contrib.month),
+      labels: props.data.map(data => data.label),
       datasets: [
         {
           label: "Contributions",
@@ -48,7 +33,7 @@ const makeDataFromProps = (props: ContributionsChartProps) => {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: props.contributions.map(contrib => contrib.contributions)
+          data: props.data.map(data => data.value)
         }
       ]
     };
@@ -101,4 +86,4 @@ const options = {
   }
 };
 
-export default ContributionsChart;
+export default LineChart;
