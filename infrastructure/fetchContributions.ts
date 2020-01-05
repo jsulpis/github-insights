@@ -1,6 +1,9 @@
 import httpPost from "../lib/httpPost";
 import { MonthlyContribution } from "../models/MonthlyContribution";
-import { GraphQLContributionResponse, Week } from "./dto/graphqlDTOs";
+import {
+  GraphQLContributionResponse,
+  Week
+} from "./dto/graphql/contributionsDTOs";
 
 export default function fetchContributions(
   username: string

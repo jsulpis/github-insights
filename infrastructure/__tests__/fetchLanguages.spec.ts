@@ -1,9 +1,7 @@
-import fetchRepos from "infrastructure/fetchRepos";
-import httpGet from "lib/httpGet";
+import httpPost from "../../lib/httpPost";
 import fetchLanguages from "../fetchLanguages";
 
-jest.mock("infrastructure/fetchRepos");
-jest.mock("lib/httpGet");
+jest.mock("lib/httpPost");
 
 describe("fetchLanguages", () => {
   afterEach(() => {
@@ -12,55 +10,26 @@ describe("fetchLanguages", () => {
 
   it("should return a list of languages with a size", async () => {
     // Given
-    const mockReposList = [
-      { name: "personal-website" },
-      { name: "blender-addons" }
-    ];
-    const REPO1_LANGUAGE_URL =
-      "https://api.github.com/repos/jsulpis/personal-website/languages";
-    const REPO2_LANGUAGE_URL =
-      "https://api.github.com/repos/jsulpis/blender-addons/languages";
-    const mockLanguagesRepo1 = {
-      Vue: 60718,
-      JavaScript: 11455,
-      CSS: 452
-    };
-    const mockLanguagesRepo2 = {
-      Python: 23651,
-      JavaScript: 100
-    };
-
-    (fetchRepos as jest.Mock).mockImplementation(() =>
-      Promise.resolve(mockReposList)
+    (httpPost as jest.Mock).mockImplementation(() =>
+      Promise.resolve(require("./mocks/mockLanguages.json"))
     );
-
-    (httpGet as jest.Mock).mockImplementation((url: string) => {
-      if (url === REPO1_LANGUAGE_URL) {
-        return Promise.resolve(mockLanguagesRepo1);
-      } else if (url === REPO2_LANGUAGE_URL) {
-        return Promise.resolve(mockLanguagesRepo2);
-      }
-    });
 
     // When
     const languages = await fetchLanguages("jsulpis");
 
     // Then
     const expectedLanguages = {
-      Vue: 60718,
-      JavaScript: 11555,
-      CSS: 452,
-      Python: 23651
+      CSS: 1556,
+      Java: 75172,
+      JavaScript: 1336
     };
 
-    expect(fetchRepos).toHaveBeenCalledWith("jsulpis");
-    expect(httpGet).toHaveBeenCalledTimes(2);
-    expect(httpGet).toHaveBeenNthCalledWith(1, REPO1_LANGUAGE_URL, {
-      Authorization: expect.stringContaining("bearer ")
-    });
-    expect(httpGet).toHaveBeenNthCalledWith(2, REPO2_LANGUAGE_URL, {
-      Authorization: expect.stringContaining("bearer ")
-    });
+    expect(httpPost).toHaveBeenCalledTimes(1);
+    expect(httpPost).toHaveBeenCalledWith(
+      "https://api.github.com/graphql",
+      expect.anything(),
+      { Authorization: expect.stringContaining("bearer ") }
+    );
     expect(languages).toEqual(expectedLanguages);
   });
 });

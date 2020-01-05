@@ -1,0 +1,50 @@
+{
+  "data": {
+    "user": {
+      "repositories": {
+        "edges": [
+          {
+            "node": {
+              "languages": {
+                "edges": [
+                  {
+                    "size": 59908,
+                    "node": {
+                      "name": "Java"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "node": {
+              "languages": {
+                "edges": [
+                  {
+                    "size": 1336,
+                    "node": {
+                      "name": "JavaScript"
+                    }
+                  },
+                  {
+                    "size": 15264,
+                    "node": {
+                      "name": "Java"
+                    }
+                  },
+                  {
+                    "size": 1556,
+                    "node": {
+                      "name": "CSS"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

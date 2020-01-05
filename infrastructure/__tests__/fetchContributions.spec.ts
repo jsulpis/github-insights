@@ -33,7 +33,11 @@ describe("fetchContributions", () => {
       { month: "Dec", contributions: 7 }
     ];
 
-    expect(httpPost).toHaveBeenCalled();
+    expect(httpPost).toHaveBeenCalledWith(
+      "https://api.github.com/graphql",
+      expect.anything(),
+      { Authorization: expect.stringContaining("bearer ") }
+    );
     expect(contributions).toEqual(expectedContributions);
   });
 });
