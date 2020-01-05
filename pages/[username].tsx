@@ -12,16 +12,18 @@ import ContributionsChart from "../components/ContributionsChart/ContributionsCh
 import SearchForm from "../components/SearchForm/SearchForm";
 import Spinner from "../components/Spinner/Spinner";
 import apiGet from "../lib/apiGet";
+import { MonthlyContribution } from "../models/MonthlyContribution";
 
 interface UserPageState {
   user: User;
   repos: Repository[];
+  contributions: MonthlyContribution[];
 }
 
 class UserPage extends React.Component<any, UserPageState> {
   constructor(args) {
     super(args);
-    this.state = { user: null, repos: [] };
+    this.state = { user: null, repos: [], contributions: [] };
   }
 
   public componentDidUpdate(prevProps) {
@@ -29,6 +31,9 @@ class UserPage extends React.Component<any, UserPageState> {
     // verify props have changed to avoid an infinite loop
     if (username !== prevProps.router.query.username) {
       apiGet<User>("/" + username).then(user => this.setState({ user }));
+      apiGet<MonthlyContribution[]>("/" + username + "/contributions").then(
+        contributions => this.setState({ contributions })
+      );
       apiGet<Repository[]>("/" + username + "/repos").then(repos =>
         this.setState({ repos })
       );
@@ -38,22 +43,9 @@ class UserPage extends React.Component<any, UserPageState> {
   public render() {
     const user = this.state.user;
     const repos = this.state.repos;
+    const contributions = this.state.contributions;
     const userFullName = !!user ? user.name : "";
-    const isDataPresent = user && repos;
-    const contributions = [
-      542,
-      480,
-      430,
-      550,
-      530,
-      453,
-      380,
-      434,
-      568,
-      610,
-      700,
-      630
-    ];
+    const isDataPresent = user && repos.length > 0 && contributions.length > 0;
 
     return (
       <Page
@@ -64,7 +56,7 @@ class UserPage extends React.Component<any, UserPageState> {
         {isDataPresent && (
           <>
             <UserProfile user={user} repos={repos} />
-            <ContributionsChart data={contributions} />
+            <ContributionsChart contributions={contributions} />
           </>
         )}
         {!isDataPresent && <Spinner />}

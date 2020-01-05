@@ -29,7 +29,8 @@ describe("fetchContributions", () => {
       { month: "Aug", contributions: 61 },
       { month: "Sep", contributions: 13 },
       { month: "Oct", contributions: 3 },
-      { month: "Nov", contributions: 4 }
+      { month: "Nov", contributions: 4 },
+      { month: "Dec", contributions: 7 }
     ];
 
     expect(httpPost).toHaveBeenCalled();

@@ -1,15 +1,22 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
+import { MonthlyContribution } from "../../models/MonthlyContribution";
 import "./ContributionsChart.scss";
 
 interface ContributionsChartProps {
-  data: number[];
+  contributions: MonthlyContribution[];
 }
 
 function ContributionsChart(props: ContributionsChartProps) {
   const data = makeDataFromProps(props);
+  const totalContributions = props.contributions.reduce(
+    (acc, current) => acc + current.contributions,
+    0
+  );
   return (
     <div className="chart-wrapper">
+      <h4>Activity</h4>
+      <h5>{totalContributions} contributions in the last year</h5>
       {// don't render the chart in tests
       process.browser && <Line data={data} options={options} />}
     </div>
@@ -23,24 +30,11 @@ const makeDataFromProps = (props: ContributionsChartProps) => {
   return canvas => {
     const ctx = canvas.getContext("2d");
 
-    const gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
-    gradientFill.addColorStop(0.4, "#fff");
+    const gradientFill = ctx.createLinearGradient(0, 100, 0, 0);
+    gradientFill.addColorStop(0.1, "#fff");
     gradientFill.addColorStop(1, chartColorLight);
     return {
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec"
-      ],
+      labels: props.contributions.map(contrib => contrib.month),
       datasets: [
         {
           label: "Contributions",
@@ -54,7 +48,7 @@ const makeDataFromProps = (props: ContributionsChartProps) => {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: props.data
+          data: props.contributions.map(contrib => contrib.contributions)
         }
       ]
     };
@@ -65,10 +59,6 @@ const options = {
   maintainAspectRatio: false,
   legend: {
     display: false
-  },
-  title: {
-    display: true,
-    text: "Contributions"
   },
   tooltips: {
     bodySpacing: 4,
@@ -108,9 +98,6 @@ const options = {
         }
       }
     ]
-  },
-  layout: {
-    padding: { left: 0, right: 0, top: 15, bottom: 15 }
   }
 };
 

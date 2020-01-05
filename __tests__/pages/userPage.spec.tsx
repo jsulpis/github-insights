@@ -68,6 +68,7 @@ describe("User Page", () => {
 
     expect(apiGet).toHaveBeenCalledWith("/" + username);
     expect(apiGet).toHaveBeenCalledWith("/" + username + "/repos");
+    expect(apiGet).toHaveBeenCalledWith("/" + username + "/contributions");
   });
 
   it("should display a spinner when loading", () => {

@@ -54,6 +54,10 @@ const countContributionsPerMonth = (weeks: Week[]): MonthlyContribution[] => {
       }
     }
   }
+  contributionsPerMonth.push({
+    month: currentMonth,
+    contributions: currentMonthContributions
+  });
   return contributionsPerMonth.slice(1);
 };
 
