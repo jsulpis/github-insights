@@ -38,13 +38,16 @@ describe("fetchUser", () => {
     };
 
     expect(httpGet).toHaveBeenCalledWith(
-      "https://api.github.com/users/jsulpis"
+      "https://api.github.com/users/jsulpis",
+      { Authorization: expect.stringContaining("bearer ") }
     );
     expect(user).toEqual(expectedUser);
   });
 
   it("should have a username as argument", async () => {
     await fetchUser("toto");
-    expect(httpGet).toHaveBeenCalledWith("https://api.github.com/users/toto");
+    expect(httpGet).toHaveBeenCalledWith("https://api.github.com/users/toto", {
+      Authorization: expect.stringContaining("bearer ")
+    });
   });
 });

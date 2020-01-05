@@ -48,7 +48,8 @@ describe("Repo api", () => {
     ];
 
     expect(httpGet).toHaveBeenCalledWith(
-      "https://api.github.com/users/" + username + "/repos?per_page=100"
+      "https://api.github.com/users/" + username + "/repos?per_page=100",
+      { Authorization: expect.stringContaining("bearer ") }
     );
     expect(repos).toEqual(expectedReposList);
   });
@@ -57,7 +58,8 @@ describe("Repo api", () => {
     const username = "toto";
     await fetchRepos(username);
     expect(httpGet).toHaveBeenCalledWith(
-      "https://api.github.com/users/" + username + "/repos?per_page=100"
+      "https://api.github.com/users/" + username + "/repos?per_page=100",
+      { Authorization: expect.stringContaining("bearer ") }
     );
   });
 });

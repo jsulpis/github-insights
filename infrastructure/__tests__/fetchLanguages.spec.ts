@@ -55,8 +55,12 @@ describe("fetchLanguages", () => {
 
     expect(fetchRepos).toHaveBeenCalledWith("jsulpis");
     expect(httpGet).toHaveBeenCalledTimes(2);
-    expect(httpGet).toHaveBeenNthCalledWith(1, REPO1_LANGUAGE_URL);
-    expect(httpGet).toHaveBeenNthCalledWith(2, REPO2_LANGUAGE_URL);
+    expect(httpGet).toHaveBeenNthCalledWith(1, REPO1_LANGUAGE_URL, {
+      Authorization: expect.stringContaining("bearer ")
+    });
+    expect(httpGet).toHaveBeenNthCalledWith(2, REPO2_LANGUAGE_URL, {
+      Authorization: expect.stringContaining("bearer ")
+    });
     expect(languages).toEqual(expectedLanguages);
   });
 });

@@ -19,9 +19,15 @@ function languagesReducer(acc: Languages, val: Languages): Languages {
 
 async function fetchAllRepoLanguages(username: string): Promise<Languages[]> {
   const repos = await fetchRepos(username);
+  const headers = {
+    Authorization: `bearer ${process.env.GITHUB_API_TOKEN}`
+  };
   return Promise.all(
     repos.map((repo: Repository) =>
-      httpGet(`https://api.github.com/repos/${username}/${repo.name}/languages`)
+      httpGet(
+        `https://api.github.com/repos/${username}/${repo.name}/languages`,
+        headers
+      )
     )
   );
 }

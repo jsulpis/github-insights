@@ -6,7 +6,7 @@ export default function fetchContributions(
   username: string
 ): Promise<MonthlyContribution[]> {
   const headers = {
-    Authorization: `bearer ${process.env.GITHUB_GRAPHQL_TOKEN}`
+    Authorization: `bearer ${process.env.GITHUB_API_TOKEN}`
   };
   const body = {
     query: `query {
