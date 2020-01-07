@@ -8,16 +8,22 @@ interface ContributionsChartProps {
 }
 
 function ContributionsChart(props: ContributionsChartProps) {
-  const chartData = props.contributions.map(contrib => {
-    return {
-      label: contrib.month,
-      value: contrib.contributions
-    };
-  });
+  const chartData = props.contributions
+    .map(contrib => {
+      return {
+        label: contrib.month,
+        value: contrib.contributions
+      };
+    })
+    .slice(1);
+  // the most ancient month is not displayed in the chart because
+  // it can distort it if there is only a few days' worth of data
+
   const totalContributions = props.contributions.reduce(
     (acc, current) => acc + current.contributions,
     0
   );
+
   return (
     <div>
       <h4 className="chart-title">Activity</h4>

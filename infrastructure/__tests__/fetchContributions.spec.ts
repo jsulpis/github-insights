@@ -19,6 +19,7 @@ describe("fetchContributions", () => {
 
     // Then
     const expectedContributions = [
+      { month: "Dec", contributions: 0 },
       { month: "Jan", contributions: 30 },
       { month: "Feb", contributions: 0 },
       { month: "Mar", contributions: 5 },

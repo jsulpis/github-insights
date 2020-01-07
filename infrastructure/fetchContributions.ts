@@ -61,7 +61,7 @@ const countContributionsPerMonth = (weeks: Week[]): MonthlyContribution[] => {
     month: currentMonth,
     contributions: currentMonthContributions
   });
-  return contributionsPerMonth.slice(1);
+  return contributionsPerMonth;
 };
 
 const dateStringToMonthString = (date: string): string => {
