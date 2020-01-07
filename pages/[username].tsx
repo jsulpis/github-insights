@@ -65,7 +65,7 @@ class UserPage extends React.Component<any, UserPageState> {
           <>
             <UserProfile user={user} repos={repos} />
             <ContributionsChart contributions={contributions} />
-            <LanguagesCharts languages={languages} />
+            <LanguagesCharts languages={languages} repos={repos} />
           </>
         )}
         {!isDataPresent && <Spinner />}

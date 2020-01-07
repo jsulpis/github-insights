@@ -24,7 +24,7 @@ const makeDataFromProps = (props: ChartProps) => {
       labels: props.data.map(data => data.label),
       datasets: [
         {
-          label: "Size",
+          label: props.unit,
           borderColor: chartColor,
           fill: true,
           backgroundColor: gradientFill,
@@ -57,7 +57,8 @@ const options = {
     xAxes: [
       {
         ticks: {
-          display: false
+          display: false,
+          beginAtZero: true
         },
         gridLines: {
           zeroLineColor: "transparent",

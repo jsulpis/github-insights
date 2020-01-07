@@ -5,4 +5,5 @@ export interface ChartData {
 
 export interface ChartProps {
   data: ChartData[];
+  unit: string;
 }

@@ -22,7 +22,7 @@ const makeDataFromProps = (props: ChartProps) => {
       labels: props.data.map(data => data.label),
       datasets: [
         {
-          label: "Contributions",
+          label: props.unit,
           borderColor: chartColor,
           pointBorderColor: "#FFF",
           pointBackgroundColor: chartColor,

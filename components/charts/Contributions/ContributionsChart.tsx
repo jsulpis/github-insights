@@ -25,7 +25,7 @@ function ContributionsChart(props: ContributionsChartProps) {
         {totalContributions} contributions in the last year
       </h5>
       <div className="contributions-chart-wrapper">
-        <LineChart data={chartData} />
+        <LineChart data={chartData} unit="Contributions" />
       </div>
     </div>
   );

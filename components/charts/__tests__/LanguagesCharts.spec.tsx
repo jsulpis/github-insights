@@ -13,16 +13,18 @@ describe("LanguagesCharts", () => {
       CSS: 10,
       Typescript: 51
     };
-    const { container } = render(<LanguagesCharts languages={languages} />);
+    const { container } = render(
+      <LanguagesCharts languages={languages} repos={[]} />
+    );
 
     await wait(() => {
       expect(container.querySelector("h5").textContent).toBe(
-        "6 most used languages, by repos size"
+        "6 most used languages, by amount of code"
       );
     });
   });
 
-  it("should display a genecir message if 6 languages or less", async () => {
+  it("should display a generic message if 6 languages or less", async () => {
     const languages: Languages = {
       Javascript: 100,
       Python: 200,
@@ -31,10 +33,14 @@ describe("LanguagesCharts", () => {
       CSS: 10,
       Typescript: 51
     };
-    const { container } = render(<LanguagesCharts languages={languages} />);
+    const { container } = render(
+      <LanguagesCharts languages={languages} repos={[]} />
+    );
 
     await wait(() => {
-      expect(container.querySelector("h5").textContent).toBe("By repos size");
+      expect(container.querySelector("h5").textContent).toBe(
+        "By amount of code"
+      );
     });
   });
 });
