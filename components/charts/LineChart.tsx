@@ -73,7 +73,8 @@ const options = {
     xAxes: [
       {
         ticks: {
-          display: true
+          display: true,
+          padding: 5
         },
         gridLines: {
           zeroLineColor: "transparent",

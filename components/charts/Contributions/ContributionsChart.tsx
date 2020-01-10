@@ -1,5 +1,6 @@
 import { MonthlyContribution } from "models/MonthlyContribution";
 import React from "react";
+import { Card, CardBody } from "reactstrap";
 import LineChart from "../LineChart";
 import "./ContributionsChart.scss";
 
@@ -25,15 +26,17 @@ function ContributionsChart(props: ContributionsChartProps) {
   );
 
   return (
-    <div>
-      <h4 className="chart-title">Activity</h4>
-      <h5 className="chart-subtitle">
-        {totalContributions} contributions in the last year
-      </h5>
-      <div className="contributions-chart-wrapper">
-        <LineChart data={chartData} unit="Contributions" />
-      </div>
-    </div>
+    <Card className="card-user">
+      <CardBody>
+        <h4 className="chart-title">Activity</h4>
+        <h5 className="chart-subtitle">
+          {totalContributions} contributions in the last year
+        </h5>
+        <div className="contributions-chart-wrapper">
+          <LineChart data={chartData} unit="Contributions" />
+        </div>
+      </CardBody>
+    </Card>
   );
 }
 
