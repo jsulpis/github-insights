@@ -10,7 +10,8 @@
                   {
                     "size": 59908,
                     "node": {
-                      "name": "Java"
+                      "name": "Java",
+                      "color": "#b07219"
                     }
                   }
                 ]
@@ -24,19 +25,22 @@
                   {
                     "size": 1336,
                     "node": {
-                      "name": "JavaScript"
+                      "name": "JavaScript",
+                      "color": "#f1e05a"
                     }
                   },
                   {
                     "size": 15264,
                     "node": {
-                      "name": "Java"
+                      "name": "Java",
+                      "color": "#b07219"
                     }
                   },
                   {
                     "size": 1556,
                     "node": {
-                      "name": "CSS"
+                      "name": "CSS",
+                      "color": "#563d7c"
                     }
                   }
                 ]

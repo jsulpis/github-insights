@@ -12,15 +12,15 @@ import ContributionsChart from "../components/charts/Contributions/Contributions
 import LanguagesCharts from "../components/charts/Languages/LanguagesCharts";
 import SearchForm from "../components/SearchForm/SearchForm";
 import Spinner from "../components/Spinner/Spinner";
-import { Languages } from "../infrastructure/fetchLanguages";
 import apiGet from "../lib/apiGet";
+import { Language } from "../models/Language";
 import { MonthlyContribution } from "../models/MonthlyContribution";
 
 interface UserPageState {
   user: User;
   repos: Repository[];
   contributions: MonthlyContribution[];
-  languages: Languages;
+  languages: Map<Language, number>;
 }
 
 class UserPage extends React.Component<any, UserPageState> {
@@ -40,8 +40,8 @@ class UserPage extends React.Component<any, UserPageState> {
       apiGet<Repository[]>("/" + username + "/repos").then(repos =>
         this.setState({ repos })
       );
-      apiGet<Languages>("/" + username + "/languages").then(languages =>
-        this.setState({ languages })
+      apiGet("/" + username + "/languages").then((languages: any) =>
+        this.setState({ languages: new Map(languages) })
       );
     }
   }

@@ -1,4 +1,5 @@
 import httpPost from "../../lib/httpPost";
+import { Language } from "../../models/Language";
 import fetchLanguages from "../fetchLanguages";
 
 jest.mock("lib/httpPost");
@@ -18,11 +19,10 @@ describe("fetchLanguages", () => {
     const languages = await fetchLanguages("jsulpis");
 
     // Then
-    const expectedLanguages = {
-      CSS: 1556,
-      Java: 75172,
-      JavaScript: 1336
-    };
+    const languagesMap = new Map<Language, number>();
+    languagesMap.set({ name: "Java", color: "#b07219" }, 75172);
+    languagesMap.set({ name: "JavaScript", color: "#f1e05a" }, 1336);
+    languagesMap.set({ name: "CSS", color: "#563d7c" }, 1556);
 
     expect(httpPost).toHaveBeenCalledTimes(1);
     expect(httpPost).toHaveBeenCalledWith(
@@ -30,6 +30,6 @@ describe("fetchLanguages", () => {
       expect.anything(),
       { Authorization: expect.stringContaining("bearer ") }
     );
-    expect(languages).toEqual(expectedLanguages);
+    expect(languages).toEqual(languagesMap);
   });
 });

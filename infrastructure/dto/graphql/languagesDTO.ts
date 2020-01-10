@@ -2,6 +2,7 @@ export interface LanguageEdge {
   size: number;
   node: {
     name: string;
+    color: string;
   };
 }
 

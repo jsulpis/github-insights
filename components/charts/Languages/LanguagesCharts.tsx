@@ -1,13 +1,13 @@
-import { Languages } from "infrastructure/fetchLanguages";
 import Repository from "models/Repository";
 import React from "react";
 import { Card, CardBody } from "reactstrap";
+import { Language } from "../../../models/Language";
 import { ChartData } from "../chart.models";
 import HorizontalBarChart from "../HorizontalBarsChart";
 import "./LanguagesBars.scss";
 
 interface LanguagesChartsProps {
-  languages: Languages;
+  languages: Map<Language, number>;
   repos: Repository[];
 }
 
@@ -17,11 +17,11 @@ function LanguagesCharts(props: LanguagesChartsProps) {
   ).slice(0, 6);
 
   const languagesByNumberOfRepos = makeChartDataFromLanguages(
-    collectLanguages(props.repos)
+    countReposPerLanguage(props.repos)
   );
 
   const message =
-    Object.keys(props.languages).length > 6
+    props.languages.size > 6
       ? "6 most used languages, by amount of code"
       : "By amount of code";
 
@@ -47,24 +47,37 @@ function LanguagesCharts(props: LanguagesChartsProps) {
   );
 }
 
-function makeChartDataFromLanguages(languages: Languages) {
-  return Object.entries(languages)
+function makeChartDataFromLanguages(
+  languages: Map<Language, number>
+): ChartData[] {
+  return [...languages.entries()]
     .map(([language, totalSize]) => {
       return {
-        label: language,
-        value: totalSize
+        label: language.name,
+        value: totalSize,
+        color: language.color
       };
     })
     .sort((lang1, lang2) => lang2.value - lang1.value);
 }
 
-function collectLanguages(repos: Repository[]): Languages {
-  const languages = {};
+function countReposPerLanguage(repos: Repository[]): Map<Language, number> {
+  const languagesMap = new Map<string, number>(); // I use string keys to fake shallow keys equality
   for (const repo of repos) {
-    const language = repo.language || "None";
-    languages[language] = (languages[language] || 0) + 1;
+    const repoLanguage = JSON.stringify({
+      name: repo.language || "None",
+      color: "TODO"
+    }); // workaround to use string keys instead of objects
+    const currentLanguageSize = languagesMap.get(repoLanguage) || 0;
+    languagesMap.set(repoLanguage, currentLanguageSize + 1);
   }
-  return languages;
+  // back to Language objects
+  return new Map<Language, number>(
+    [...languagesMap.entries()].map(([langToString, size]) => [
+      JSON.parse(langToString),
+      size
+    ])
+  );
 }
 
 export default LanguagesCharts;

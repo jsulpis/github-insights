@@ -1,12 +1,13 @@
 import httpPost from "lib/httpPost";
+import { Language } from "../models/Language";
 import {
   GraphQLLanguagesResponse,
   RepositoryEdge
 } from "./dto/graphql/languagesDTO";
 
-export type Languages = { [K in string]: number };
-
-export default function fetchLanguages(username: string): Promise<Languages> {
+export default function fetchLanguages(
+  username: string
+): Promise<Map<Language, number>> {
   const headers = {
     Authorization: `bearer ${process.env.GITHUB_API_TOKEN}`
   };
@@ -20,7 +21,8 @@ export default function fetchLanguages(username: string): Promise<Languages> {
                       edges {
                         size,
                         node {
-                          name
+                          name,
+                          color
                         }
                       }
                     }
@@ -36,12 +38,20 @@ export default function fetchLanguages(username: string): Promise<Languages> {
   );
 }
 
-function collectLanguages(repos: RepositoryEdge[]): Languages {
-  const languages = {};
+function collectLanguages(repos: RepositoryEdge[]): Map<Language, number> {
+  const languagesMap = new Map<string, number>(); // I use string keys to fake shallow keys equality
   for (const repo of repos) {
     for (const lang of repo.node.languages.edges) {
-      languages[lang.node.name] = (languages[lang.node.name] || 0) + lang.size;
+      const repoLanguage = JSON.stringify(lang.node); // workaround to use string keys instead of objects
+      const currentLanguageSize = languagesMap.get(repoLanguage) || 0;
+      languagesMap.set(repoLanguage, currentLanguageSize + lang.size);
     }
   }
-  return languages;
+  // back to Language objects
+  return new Map<Language, number>(
+    [...languagesMap.entries()].map(([langToString, size]) => [
+      JSON.parse(langToString),
+      size
+    ])
+  );
 }

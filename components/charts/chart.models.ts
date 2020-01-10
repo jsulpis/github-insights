@@ -1,6 +1,7 @@
 export interface ChartData {
   label: string;
   value: number;
+  color?: string;
 }
 
 export interface ChartProps {
