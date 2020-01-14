@@ -12,10 +12,13 @@ interface UserProfileProps {
 function UserProfile(props: UserProfileProps) {
   const user = props.user;
   const repos = props.repos;
-  const totalStars = repos.reduce((acc, current) => acc + current.stars, 0);
-  const totalForks = repos.reduce((acc, current) => acc + current.forks, 0);
+  const totalStars = repos.reduce(
+    (acc, current) => acc + (current.starCount || 0),
+    0
+  );
+  const totalForks = repos.reduce((acc, current) => acc + current.forkCount, 0);
   const languages = repos
-    .map(repo => repo.language)
+    .map(repo => (repo.primaryLanguage ? repo.primaryLanguage.name : null))
     .filter(language => !!language)
     .reduce((acc: string[], lang) => {
       if (!acc.includes(lang)) {

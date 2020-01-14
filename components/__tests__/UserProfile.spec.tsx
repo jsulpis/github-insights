@@ -27,46 +27,46 @@ describe("UserProfile", () => {
 
   const MOCK_REPOS: Repository[] = [
     {
-      archived: false,
-      creationDate: new Date("2018-06-01T15:10:08Z"),
-      description: "A set of common Android components.",
-      forked: false,
-      forks: 3,
-      language: "Java",
-      license: "MIT",
       name: "android-modules",
-      size: 279,
-      stars: 1,
+      description: "A set of common Android components.",
+      url: "https://github.com/jsulpis/android-modules",
+      isForked: false,
+      isArchived: false,
+      creationDate: new Date("2018-06-01T15:10:08Z"),
       updateDate: new Date("2018-10-25T12:18:19Z"),
-      url: "https://github.com/jsulpis/android-modules"
+      diskUsage: 279,
+      forkCount: 3,
+      starCount: 1,
+      primaryLanguage: { name: "Java", color: "#b07219" },
+      license: "MIT"
     },
     {
-      archived: false,
-      creationDate: new Date("2018-01-25T21:00:53Z"),
-      description: "My repository of add-ons for Blender.",
-      forked: false,
-      forks: 1,
-      language: "Python",
-      license: "GPL-3.0",
       name: "blender-addons",
-      size: 1076,
-      stars: 2,
+      description: "My repository of add-ons for Blender.",
+      url: "https://github.com/jsulpis/blender-addons",
+      isForked: false,
+      isArchived: false,
+      creationDate: new Date("2018-01-25T21:00:53Z"),
       updateDate: new Date("2019-06-10T15:26:14Z"),
-      url: "https://github.com/jsulpis/blender-addons"
+      diskUsage: 1076,
+      forkCount: 1,
+      starCount: 2,
+      primaryLanguage: { name: "Python", color: "#3572A5" },
+      license: "GPL-3.0"
     },
     {
-      archived: false,
+      name: "blender-addons",
+      description: "My repository of add-ons for Blender.",
+      url: "https://github.com/jsulpis/blender-addons",
+      isForked: false,
+      isArchived: false,
       creationDate: new Date("2018-01-25T21:00:53Z"),
-      description: "My repository.",
-      forked: false,
-      forks: 1,
-      language: "Python",
-      license: "GPL-3.0",
-      name: "repo",
-      size: 1076,
-      stars: 2,
       updateDate: new Date("2019-06-10T15:26:14Z"),
-      url: "https://github.com/jsulpis/repo"
+      diskUsage: 1076,
+      forkCount: 1,
+      starCount: 2,
+      primaryLanguage: { name: "Python", color: "#3572A5" },
+      license: "GPL-3.0"
     }
   ];
 

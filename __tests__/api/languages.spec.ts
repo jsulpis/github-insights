@@ -7,12 +7,10 @@ jest.mock("infrastructure/fetchLanguages");
 describe("Languages api", () => {
   it("should return a list of languages", async () => {
     // Given
-    const MOCK_LANGUAGES = {
-      Vue: 60718,
-      JavaScript: 11555,
-      CSS: 452,
-      Python: 23651
-    };
+    const MOCK_LANGUAGES = [
+      [{ name: "Java", color: "#b07219" }, 173534],
+      [{ name: "JavaScript", color: "#f1e05a" }, 30258]
+    ];
     (fetchLanguages as jest.Mock).mockImplementation(() =>
       Promise.resolve(MOCK_LANGUAGES)
     );

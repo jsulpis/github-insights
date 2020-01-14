@@ -1,40 +1,41 @@
 import MockNextApiResponse from "__tests__/api/MockNextApiResponse";
 import fetchRepos from "infrastructure/fetchRepos";
 import reposApi from "pages/api/[username]/repos";
+import Repository from "../../models/Repository";
 
 jest.mock("infrastructure/fetchRepos");
 
 describe("Repos api", () => {
   it("should return repositories", async () => {
     // Given
-    const MOCK_REPOS = [
+    const MOCK_REPOS: Repository[] = [
       {
-        archived: false,
-        creationDate: "2018-06-01T15:10:08Z",
-        description: "A set of common Android components.",
-        forked: false,
-        forks: 0,
-        language: "Java",
-        license: "MIT",
         name: "android-modules",
-        size: 279,
-        stars: 0,
-        updateDate: "2018-10-25T12:18:19Z",
-        url: "https://github.com/jsulpis/android-modules"
+        description: "A set of common Android components.",
+        url: "https://github.com/jsulpis/android-modules",
+        isForked: false,
+        isArchived: false,
+        creationDate: new Date("2018-06-01T15:10:08Z"),
+        updateDate: new Date("2018-10-25T12:18:19Z"),
+        diskUsage: 279,
+        forkCount: 0,
+        starCount: 0,
+        primaryLanguage: { name: "Java", color: "#b07219" },
+        license: "MIT"
       },
       {
-        archived: false,
-        creationDate: "2018-01-25T21:00:53Z",
-        description: "My repository of add-ons for Blender.",
-        forked: false,
-        forks: 1,
-        language: "Python",
-        license: "GPL-3.0",
         name: "blender-addons",
-        size: 1076,
-        stars: 2,
-        updateDate: "2019-06-10T15:26:14Z",
-        url: "https://github.com/jsulpis/blender-addons"
+        description: "My repository of add-ons for Blender.",
+        url: "https://github.com/jsulpis/blender-addons",
+        isForked: false,
+        isArchived: false,
+        creationDate: new Date("2018-01-25T21:00:53Z"),
+        updateDate: new Date("2019-06-10T15:26:14Z"),
+        diskUsage: 1076,
+        forkCount: 1,
+        starCount: 2,
+        primaryLanguage: { name: "Python", color: "#3572A5" },
+        license: "GPL-3.0"
       }
     ];
     (fetchRepos as jest.Mock).mockImplementation(() =>
