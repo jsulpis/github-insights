@@ -18,7 +18,7 @@ describe("LanguagesCharts", () => {
     );
 
     await wait(() => {
-      expect(container.querySelector("h5").textContent).toBe(
+      expect(container.querySelector(".code-languages").textContent).toBe(
         "6 most used languages, by amount of code"
       );
     });
@@ -38,8 +38,55 @@ describe("LanguagesCharts", () => {
     );
 
     await wait(() => {
-      expect(container.querySelector("h5").textContent).toBe(
+      expect(container.querySelector(".code-languages").textContent).toBe(
         "By amount of code"
+      );
+    });
+  });
+
+  it("should display a message if more than 6 repo languages", async () => {
+    const languages: Map<Language, number> = new Map([]);
+    const repos = [
+      { primaryLanguage: { name: "java", color: "" } },
+      { primaryLanguage: { name: "python", color: "" } },
+      { primaryLanguage: { name: "javascript", color: "" } },
+      { primaryLanguage: { name: "typescript", color: "" } },
+      { primaryLanguage: { name: "css", color: "" } },
+      { primaryLanguage: { name: "html", color: "" } },
+      { primaryLanguage: { name: "shell", color: "" } }
+    ];
+
+    const { container } = render(
+      // @ts-ignore
+      <LanguagesCharts languages={languages} repos={repos} />
+    );
+
+    await wait(() => {
+      expect(container.querySelector(".repo-languages").textContent).toBe(
+        "6 most used languages, by number of repos"
+      );
+    });
+  });
+
+  it("should display a generic message if 6 repo languages or less", async () => {
+    const languages: Map<Language, number> = new Map([]);
+    const repos = [
+      { primaryLanguage: { name: "java", color: "" } },
+      { primaryLanguage: { name: "python", color: "" } },
+      { primaryLanguage: { name: "javascript", color: "" } },
+      { primaryLanguage: { name: "typescript", color: "" } },
+      { primaryLanguage: { name: "css", color: "" } },
+      { primaryLanguage: { name: "html", color: "" } }
+    ];
+
+    const { container } = render(
+      // @ts-ignore
+      <LanguagesCharts languages={languages} repos={repos} />
+    );
+
+    await wait(() => {
+      expect(container.querySelector(".repo-languages").textContent).toBe(
+        "By number of repos"
       );
     });
   });

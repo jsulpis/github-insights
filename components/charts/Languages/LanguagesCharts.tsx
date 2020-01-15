@@ -14,16 +14,21 @@ interface LanguagesChartsProps {
 function LanguagesCharts(props: LanguagesChartsProps) {
   const languagesByAmountOfCode: ChartData[] = makeChartDataFromLanguages(
     props.languages
-  ).slice(0, 6);
+  );
 
-  const languagesByNumberOfRepos = makeChartDataFromLanguages(
+  const languagesByNumberOfRepos: ChartData[] = makeChartDataFromLanguages(
     countReposPerLanguage(props.repos)
   );
 
-  const message =
+  const codeLanguagesMessage =
     props.languages.size > 6
       ? "6 most used languages, by amount of code"
       : "By amount of code";
+
+  const repoLanguagesMessage =
+    languagesByNumberOfRepos.length > 6
+      ? "6 most used languages, by number of repos"
+      : "By number of repos";
 
   return (
     <Card className="card-user">
@@ -31,15 +36,22 @@ function LanguagesCharts(props: LanguagesChartsProps) {
         <h4 className="chart-title">Languages</h4>
         <div className="languages-charts">
           <div>
-            <h5 className="chart-subtitle">{message}</h5>
+            <h5 className="chart-subtitle code-languages">
+              {codeLanguagesMessage}
+            </h5>
             <HorizontalBarChart
-              data={languagesByAmountOfCode}
+              data={languagesByAmountOfCode.slice(0, 6)}
               unit="Bytes of code"
             />
           </div>
           <div>
-            <h5 className="chart-subtitle">By number of repos</h5>
-            <HorizontalBarChart data={languagesByNumberOfRepos} unit="Repos" />
+            <h5 className="chart-subtitle repo-languages">
+              {repoLanguagesMessage}
+            </h5>
+            <HorizontalBarChart
+              data={languagesByNumberOfRepos.slice(0, 6)}
+              unit="Repos"
+            />
           </div>
         </div>
       </CardBody>
@@ -55,7 +67,7 @@ function makeChartDataFromLanguages(
       return {
         label: language.name,
         value: totalSize,
-        color: language.color
+        color: language.color || ""
       };
     })
     .sort((lang1, lang2) => lang2.value - lang1.value);
