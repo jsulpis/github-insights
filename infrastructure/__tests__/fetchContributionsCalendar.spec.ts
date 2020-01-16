@@ -1,4 +1,5 @@
-import httpPost from "../../lib/httpPost";
+import httpPost from "lib/httpPost";
+import { ContributionsPerMonth } from "models/ContributionsPerMonth";
 import fetchContributionsCalendar from "../fetchContributionsCalendar";
 
 jest.mock("lib/httpPost");
@@ -11,14 +12,14 @@ describe("fetchContributionsCalendar", () => {
   it("should return contributions for a user", async () => {
     // Given
     (httpPost as jest.Mock).mockImplementation(() =>
-      Promise.resolve(require("./mocks/mockContributions.json"))
+      Promise.resolve(require("./mocks/mockContributionsCalendar.json"))
     );
 
     // When
     const contributions = await fetchContributionsCalendar("jsulpis");
 
     // Then
-    const expectedContributions = [
+    const expectedContributions: ContributionsPerMonth[] = [
       { month: "Dec", contributions: 0 },
       { month: "Jan", contributions: 30 },
       { month: "Feb", contributions: 0 },

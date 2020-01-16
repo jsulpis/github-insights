@@ -11,7 +11,7 @@ export interface ContributionCalendar {
   weeks: Week[];
 }
 
-export interface GraphQLContributionResponse {
+export interface GraphQLContributionCalendarResponse {
   data: {
     user: {
       contributionsCollection: {

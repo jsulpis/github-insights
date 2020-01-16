@@ -1,13 +1,13 @@
 import httpPost from "../lib/httpPost";
-import { MonthlyContribution } from "../models/MonthlyContribution";
+import { ContributionsPerMonth } from "../models/ContributionsPerMonth";
 import {
-  GraphQLContributionResponse,
+  GraphQLContributionCalendarResponse,
   Week
-} from "./dto/graphql/contributionsDTOs";
+} from "./dto/graphql/contributionsCalendarDTOs";
 
 export default function fetchContributionsCalendar(
   username: string
-): Promise<MonthlyContribution[]> {
+): Promise<ContributionsPerMonth[]> {
   const headers = {
     Authorization: `bearer ${process.env.GITHUB_API_TOKEN}`
   };
@@ -28,7 +28,7 @@ export default function fetchContributionsCalendar(
           }`
   };
   return httpPost("https://api.github.com/graphql", body, headers).then(
-    (res: GraphQLContributionResponse) => {
+    (res: GraphQLContributionCalendarResponse) => {
       return countContributionsPerMonth(
         res.data.user.contributionsCollection.contributionCalendar.weeks
       );
@@ -36,7 +36,7 @@ export default function fetchContributionsCalendar(
   );
 }
 
-const countContributionsPerMonth = (weeks: Week[]): MonthlyContribution[] => {
+const countContributionsPerMonth = (weeks: Week[]): ContributionsPerMonth[] => {
   const contributionsPerMonth = [];
 
   let currentMonth = dateStringToMonthString(weeks[0].contributionDays[0].date);

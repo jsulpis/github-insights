@@ -1,11 +1,11 @@
 import { render, wait } from "@testing-library/react";
-import { MonthlyContribution } from "models/MonthlyContribution";
+import { ContributionsPerMonth } from "models/ContributionsPerMonth";
 import React from "react";
 import ContributionsChart from "../Contributions/ContributionsChart";
 
 describe("ContributionsChart", () => {
   it("displays the total number of contributions", async () => {
-    const contributions: MonthlyContribution[] = [
+    const contributions: ContributionsPerMonth[] = [
       { month: "Jan", contributions: 12 },
       { month: "Feb", contributions: 10 },
       { month: "Mar", contributions: 5 }

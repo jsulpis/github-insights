@@ -1,0 +1,42 @@
+{
+  "data": {
+    "user": {
+      "contributionsCollection": {
+        "commitContributionsByRepository": [
+          {
+            "contributions": {
+              "totalCount": 50
+            },
+            "repository": {
+              "name": "personal-website"
+            }
+          },
+          {
+            "contributions": {
+              "totalCount": 48
+            },
+            "repository": {
+              "name": "daily-recap"
+            }
+          },
+          {
+            "contributions": {
+              "totalCount": 48
+            },
+            "repository": {
+              "name": "java-study"
+            }
+          },
+          {
+            "contributions": {
+              "totalCount": 27
+            },
+            "repository": {
+              "name": "github-stats"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

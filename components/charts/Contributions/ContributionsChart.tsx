@@ -1,11 +1,11 @@
-import { MonthlyContribution } from "models/MonthlyContribution";
+import { ContributionsPerMonth } from "models/ContributionsPerMonth";
 import React from "react";
 import { Card, CardBody } from "reactstrap";
 import LineChart from "../LineChart";
 import "./ContributionsChart.scss";
 
 interface ContributionsChartProps {
-  contributions: MonthlyContribution[];
+  contributions: ContributionsPerMonth[];
 }
 
 function ContributionsChart(props: ContributionsChartProps) {
