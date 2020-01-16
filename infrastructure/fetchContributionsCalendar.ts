@@ -5,7 +5,7 @@ import {
   Week
 } from "./dto/graphql/contributionsDTOs";
 
-export default function fetchContributions(
+export default function fetchContributionsCalendar(
   username: string
 ): Promise<MonthlyContribution[]> {
   const headers = {

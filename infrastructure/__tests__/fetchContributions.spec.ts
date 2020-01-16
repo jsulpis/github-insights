@@ -1,9 +1,9 @@
 import httpPost from "../../lib/httpPost";
-import fetchContributions from "../fetchContributions";
+import fetchContributionsCalendar from "../fetchContributionsCalendar";
 
 jest.mock("lib/httpPost");
 
-describe("fetchContributions", () => {
+describe("fetchContributionsCalendar", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -15,7 +15,7 @@ describe("fetchContributions", () => {
     );
 
     // When
-    const contributions = await fetchContributions("jsulpis");
+    const contributions = await fetchContributionsCalendar("jsulpis");
 
     // Then
     const expectedContributions = [

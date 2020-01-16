@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
+import apiGet from "lib/apiGet";
 import UserPage from "pages/[username]";
 import React from "react";
-import apiGet from "../../lib/apiGet";
 
 jest.mock("lib/apiGet");
 
@@ -33,7 +33,7 @@ describe("User Page", () => {
 
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME);
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/repos");
-    expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/contributions");
+    expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/timeline");
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/languages");
   });
 

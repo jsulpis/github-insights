@@ -1,8 +1,8 @@
 import MockNextApiResponse from "__tests__/api/MockNextApiResponse";
-import contributionsApi from "pages/api/[username]/contributions";
-import fetchContributions from "../../infrastructure/fetchContributions";
+import contributionsApi from "pages/api/[username]/timeline";
+import fetchContributionsCalendar from "../../infrastructure/fetchContributionsCalendar";
 
-jest.mock("infrastructure/fetchContributions");
+jest.mock("infrastructure/fetchContributionsCalendar");
 
 describe("User api", () => {
   it("should return a user", async () => {
@@ -21,7 +21,7 @@ describe("User api", () => {
       { month: "Nov", contributions: 4 }
     ];
 
-    (fetchContributions as jest.Mock).mockImplementation(() =>
+    (fetchContributionsCalendar as jest.Mock).mockImplementation(() =>
       Promise.resolve(MOCK_CONTRIBS)
     );
 
@@ -32,13 +32,13 @@ describe("User api", () => {
     await contributionsApi({ query: { username: "toto" } }, res);
 
     // Then
-    expect(fetchContributions).toHaveBeenCalledWith("toto");
+    expect(fetchContributionsCalendar).toHaveBeenCalledWith("toto");
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(MOCK_CONTRIBS);
   });
 
   it("should forward errors", async () => {
-    (fetchContributions as jest.Mock).mockImplementation(() =>
+    (fetchContributionsCalendar as jest.Mock).mockImplementation(() =>
       Promise.reject({ status: 401, message: "Unauthorized" })
     );
 
@@ -49,7 +49,7 @@ describe("User api", () => {
     await contributionsApi({ query: { username: "toto" } }, res);
 
     // Then
-    expect(fetchContributions).toHaveBeenCalledWith("toto");
+    expect(fetchContributionsCalendar).toHaveBeenCalledWith("toto");
     expect(res.statusCode).toBe(401);
     expect(res.body).toEqual("Unauthorized");
   });

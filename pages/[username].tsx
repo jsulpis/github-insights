@@ -34,7 +34,7 @@ class UserPage extends React.Component<any, UserPageState> {
     // verify props have changed to avoid an infinite loop
     if (username !== prevProps.router.query.username) {
       apiGet<User>("/" + username).then(user => this.setState({ user }));
-      apiGet<MonthlyContribution[]>("/" + username + "/contributions").then(
+      apiGet<MonthlyContribution[]>("/" + username + "/timeline").then(
         contributions => this.setState({ contributions })
       );
       apiGet<Repository[]>("/" + username + "/repos").then(repos =>
