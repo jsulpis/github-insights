@@ -1,11 +1,12 @@
 import httpPost from "lib/httpPost";
 import { ContributionsPerRepo } from "models/ContributionsPerRepo";
+import { Language } from "models/Language";
 import {
-  ContributionByRepo,
-  GraphQLContributionsByRepoResponse
+  ContributionPerRepo,
+  GraphQLContributionsPerRepoResponse
 } from "./dto/graphql/contributionsByRepoDTOs";
 
-export default function fetchContributionsByRepo(
+export default function fetchContributionsPerRepo(
   username: string
 ): Promise<ContributionsPerRepo[]> {
   const headers = {
@@ -20,7 +21,11 @@ export default function fetchContributionsByRepo(
                     totalCount
                   },
                   repository {
-                    name
+                    name,
+                    primaryLanguage {
+                      name,
+                      color
+                    }
                   }
                 }
               }
@@ -28,7 +33,7 @@ export default function fetchContributionsByRepo(
           }`
   };
   return httpPost("https://api.github.com/graphql", body, headers).then(
-    (res: GraphQLContributionsByRepoResponse) => {
+    (res: GraphQLContributionsPerRepoResponse) => {
       return formatResonse(
         res.data.user.contributionsCollection.commitContributionsByRepository
       );
@@ -37,10 +42,19 @@ export default function fetchContributionsByRepo(
 }
 
 const formatResonse = (
-  response: ContributionByRepo[]
+  response: ContributionPerRepo[]
 ): ContributionsPerRepo[] => {
-  return response.map(contributionsByRepoDto => ({
-    repoName: contributionsByRepoDto.repository.name,
-    contributions: contributionsByRepoDto.contributions.totalCount
-  }));
+  return response.map(contributionsByRepoDto => {
+    const emptyLanguage: Language = { name: "None", color: "" };
+    const language =
+      contributionsByRepoDto.repository.primaryLanguage || emptyLanguage;
+    return {
+      repoName: contributionsByRepoDto.repository.name,
+      primaryLanguage: {
+        name: language.name,
+        color: language.color
+      },
+      contributions: contributionsByRepoDto.contributions.totalCount
+    };
+  });
 };

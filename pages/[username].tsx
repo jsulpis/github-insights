@@ -1,25 +1,25 @@
 import "@fortawesome/fontawesome-free/js/fontawesome";
 import "@fortawesome/fontawesome-free/js/solid";
+import ContributionsChart from "components/charts/Contributions/ContributionsChart";
+import LanguagesCharts from "components/charts/Languages/LanguagesCharts";
 import Page from "components/Page";
+import SearchForm from "components/SearchForm/SearchForm";
+import Spinner from "components/Spinner/Spinner";
 import UserProfile from "components/UserProfile/UserProfile";
+import apiGet from "lib/apiGet";
+import { ContributionsPerMonth } from "models/ContributionsPerMonth";
+import { Language } from "models/Language";
 import Repository from "models/Repository";
 import User from "models/User";
-import Router from "next/router";
 import { withRouter } from "next/router";
+import Router from "next/router";
 import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
 import React from "react";
-import ContributionsChart from "../components/charts/Contributions/ContributionsChart";
-import LanguagesCharts from "../components/charts/Languages/LanguagesCharts";
-import SearchForm from "../components/SearchForm/SearchForm";
-import Spinner from "../components/Spinner/Spinner";
-import apiGet from "../lib/apiGet";
-import { Language } from "../models/Language";
-import { MonthlyContribution } from "../models/MonthlyContribution";
 
 interface UserPageState {
   user: User;
   repos: Repository[];
-  contributions: MonthlyContribution[];
+  contributions: ContributionsPerMonth[];
   languages: Map<Language, number>;
 }
 
@@ -34,7 +34,7 @@ class UserPage extends React.Component<any, UserPageState> {
     // verify props have changed to avoid an infinite loop
     if (username !== prevProps.router.query.username) {
       apiGet<User>("/" + username).then(user => this.setState({ user }));
-      apiGet<MonthlyContribution[]>("/" + username + "/timeline").then(
+      apiGet<ContributionsPerMonth[]>("/" + username + "/timeline").then(
         contributions => this.setState({ contributions })
       );
       apiGet<Repository[]>("/" + username + "/repos").then(repos =>

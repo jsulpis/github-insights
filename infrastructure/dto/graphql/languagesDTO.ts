@@ -1,9 +1,11 @@
+export interface LanguageNode {
+  name: string;
+  color: string;
+}
+
 export interface LanguageEdge {
   size: number;
-  node: {
-    name: string;
-    color: string;
-  };
+  node: LanguageNode;
 }
 
 export interface RepositoryEdge {

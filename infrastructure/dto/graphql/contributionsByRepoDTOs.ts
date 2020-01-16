@@ -1,17 +1,20 @@
-export interface ContributionByRepo {
+import { LanguageNode } from "./languagesDTO";
+
+export interface ContributionPerRepo {
   contributions: {
     totalCount: number;
   };
   repository: {
     name: string;
+    primaryLanguage: LanguageNode;
   };
 }
 
-export interface GraphQLContributionsByRepoResponse {
+export interface GraphQLContributionsPerRepoResponse {
   data: {
     user: {
       contributionsCollection: {
-        commitContributionsByRepository: ContributionByRepo[];
+        commitContributionsByRepository: ContributionPerRepo[];
       };
     };
   };

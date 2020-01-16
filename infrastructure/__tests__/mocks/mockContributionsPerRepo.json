@@ -8,7 +8,11 @@
               "totalCount": 50
             },
             "repository": {
-              "name": "personal-website"
+              "name": "personal-website",
+              "primaryLanguage": {
+                "name": "Vue",
+                "color": "#2c3e50"
+              }
             }
           },
           {
@@ -16,23 +20,20 @@
               "totalCount": 48
             },
             "repository": {
-              "name": "daily-recap"
+              "name": "daily-recap",
+              "primaryLanguage": {
+                "name": "TypeScript",
+                "color": "#2b7489"
+              }
             }
           },
           {
             "contributions": {
-              "totalCount": 48
+              "totalCount": 1
             },
             "repository": {
-              "name": "java-study"
-            }
-          },
-          {
-            "contributions": {
-              "totalCount": 27
-            },
-            "repository": {
-              "name": "github-stats"
+              "name": "readme-templates",
+              "primaryLanguage": null
             }
           }
         ]

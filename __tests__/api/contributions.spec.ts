@@ -1,28 +1,34 @@
 import MockNextApiResponse from "__tests__/api/MockNextApiResponse";
-import contributionsApi from "pages/api/[username]/timeline";
-import fetchContributionsCalendar from "../../infrastructure/fetchContributionsCalendar";
+import fetchContributionsPerRepo from "infrastructure/fetchContributionsPerRepo";
+import { ContributionsPerRepo } from "models/ContributionsPerRepo";
+import contributionsApi from "pages/api/[username]/contributions";
 
-jest.mock("infrastructure/fetchContributionsCalendar");
+jest.mock("infrastructure/fetchContributionsPerRepo");
 
-describe("User api", () => {
-  it("should return a user", async () => {
+describe("Contributions api", () => {
+  it("should return the number of contributions per repository", async () => {
     // Given
-    const MOCK_CONTRIBS = [
-      { month: "Jan", contributions: 30 },
-      { month: "Feb", contributions: 0 },
-      { month: "Mar", contributions: 5 },
-      { month: "Apr", contributions: 26 },
-      { month: "May", contributions: 59 },
-      { month: "Jun", contributions: 42 },
-      { month: "Jul", contributions: 18 },
-      { month: "Aug", contributions: 61 },
-      { month: "Sep", contributions: 13 },
-      { month: "Oct", contributions: 3 },
-      { month: "Nov", contributions: 4 }
+    const MOCK_CONTRIBUTIONS: ContributionsPerRepo[] = [
+      {
+        repoName: "personal-website",
+        primaryLanguage: {
+          name: "Vue",
+          color: "#2c3e50"
+        },
+        contributions: 50
+      },
+      {
+        repoName: "daily-recap",
+        primaryLanguage: {
+          name: "TypeScript",
+          color: "#2b7489"
+        },
+        contributions: 48
+      }
     ];
 
-    (fetchContributionsCalendar as jest.Mock).mockImplementation(() =>
-      Promise.resolve(MOCK_CONTRIBS)
+    (fetchContributionsPerRepo as jest.Mock).mockImplementation(() =>
+      Promise.resolve(MOCK_CONTRIBUTIONS)
     );
 
     const res = new MockNextApiResponse();
@@ -32,13 +38,13 @@ describe("User api", () => {
     await contributionsApi({ query: { username: "toto" } }, res);
 
     // Then
-    expect(fetchContributionsCalendar).toHaveBeenCalledWith("toto");
+    expect(fetchContributionsPerRepo).toHaveBeenCalledWith("toto");
     expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual(MOCK_CONTRIBS);
+    expect(res.body).toEqual(MOCK_CONTRIBUTIONS);
   });
 
   it("should forward errors", async () => {
-    (fetchContributionsCalendar as jest.Mock).mockImplementation(() =>
+    (fetchContributionsPerRepo as jest.Mock).mockImplementation(() =>
       Promise.reject({ status: 401, message: "Unauthorized" })
     );
 
@@ -49,7 +55,7 @@ describe("User api", () => {
     await contributionsApi({ query: { username: "toto" } }, res);
 
     // Then
-    expect(fetchContributionsCalendar).toHaveBeenCalledWith("toto");
+    expect(fetchContributionsPerRepo).toHaveBeenCalledWith("toto");
     expect(res.statusCode).toBe(401);
     expect(res.body).toEqual("Unauthorized");
   });
