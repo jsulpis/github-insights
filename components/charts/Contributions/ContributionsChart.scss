@@ -1,7 +1,20 @@
-.contributions-chart-wrapper {
+.timeline-wrapper, .contributions-wrapper {
+  margin: auto;
+  max-width: 100%;
+}
+
+.timeline-wrapper {
   height: 100px;
   width: 600px;
-  max-width: 100%;
+}
+
+.contributions-wrapper {
+  height: 200px;
+  width: 400px;
+}
+
+.chart-subtitle.contributions-subtitle {
+  margin-bottom: 0;
 }
 
 .chart-title {
@@ -10,7 +23,15 @@
   margin: 0.5em;
 }
 
+.chart-subsubtitle {
+  font-size: 0.8em;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+
 .chart-subtitle {
   font-size: 0.9em;
+  font-weight: 600;
+  margin-top: 1.5em;
   margin-bottom: 0.5em;
 }

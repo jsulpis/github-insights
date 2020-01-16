@@ -1,10 +1,10 @@
+import { Language } from "models/Language";
 import Repository from "models/Repository";
 import React from "react";
 import { Card, CardBody } from "reactstrap";
-import { Language } from "../../../models/Language";
+import HorizontalBarChart from "../BarCharts/HorizontalBarsChart";
 import { ChartData } from "../chart.models";
-import HorizontalBarChart from "../HorizontalBarsChart";
-import "./LanguagesBars.scss";
+import "./LanguagesCharts.scss";
 
 interface LanguagesChartsProps {
   languages: Map<Language, number>;
