@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import HomePage from "pages/[username]";
+import HomePage from "pages/index";
 import React from "react";
 
 describe("Home Page", () => {
