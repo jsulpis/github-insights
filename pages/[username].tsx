@@ -55,9 +55,9 @@ class UserPage extends React.Component<any, UserPageState> {
         title={"GitHub stats of " + userFullName}
         description={`Some stats about ${userFullName}'s GitHub profile`}
       >
-        <SearchForm searchUser={username => Router.push("/" + username)} />
         {isDataPresent && (
           <>
+            <SearchForm searchUser={username => Router.push("/" + username)} />
             <UserProfile user={user} repos={repos} />
             <ContributionsChart
               contributionsPerMonth={contributionsPerMonth}

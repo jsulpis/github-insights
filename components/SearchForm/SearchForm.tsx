@@ -2,7 +2,7 @@ import React from "react";
 import { Form, FormGroup, Input } from "reactstrap";
 import "./SearchForm.scss";
 
-interface SearchFormProps {
+export interface SearchFormProps {
   searchUser: (user: string) => any;
 }
 
@@ -16,8 +16,8 @@ function SearchForm(props: SearchFormProps) {
   }
 
   return (
-    <Form inline onSubmit={handleSubmit}>
-      <FormGroup>
+    <Form className="username-form" inline onSubmit={handleSubmit}>
+      <FormGroup className="username-formgroup">
         <Input
           name="username"
           id="username-input"

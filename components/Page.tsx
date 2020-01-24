@@ -15,13 +15,15 @@ const Page = (props: PageProps) => (
         body {
           text-align: center;
           font-family: Segoe UI, Helvetica, Arial, sans-serif;
+          background-color: #fafafa;
         }
         .page {
           display: flex;
           flex-direction: column;
           align-items: center;
-          min-height: 100%;
-          background-color: #fafafa;
+          justify-content: center;
+          min-height: 85vh;
+          padding: 2rem 0;
         }
       `}
     </style>
