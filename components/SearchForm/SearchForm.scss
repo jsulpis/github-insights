@@ -5,6 +5,8 @@ $height: 3em;
 
 .username {
   &-form {
+    justify-content: center;
+
     button#search-button {
       border-radius: 0 $radius $radius 0;
       border: none;

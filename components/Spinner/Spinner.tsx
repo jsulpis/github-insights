@@ -2,13 +2,10 @@ import "./Spinner.scss";
 
 function Spinner() {
   return (
-    <div className="sk-chase">
-      <div className="sk-chase-dot" />
-      <div className="sk-chase-dot" />
-      <div className="sk-chase-dot" />
-      <div className="sk-chase-dot" />
-      <div className="sk-chase-dot" />
-      <div className="sk-chase-dot" />
+    <div className="spinner">
+      <div className="bounce1" />
+      <div className="bounce2" />
+      <div className="bounce3" />
     </div>
   );
 }
