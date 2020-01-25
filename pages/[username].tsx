@@ -2,6 +2,7 @@ import "@fortawesome/fontawesome-free/js/fontawesome";
 import "@fortawesome/fontawesome-free/js/solid";
 import ContributionsChart from "components/charts/Contributions/ContributionsChart";
 import LanguagesCharts from "components/charts/Languages/LanguagesCharts";
+import FadeTransition from "components/FadeTransition/FadeTransition";
 import Page from "components/Page";
 import SearchForm from "components/SearchForm/SearchForm";
 import Spinner from "components/Spinner/Spinner";
@@ -56,7 +57,7 @@ class UserPage extends React.Component<any, UserPageState> {
         description={`Some stats about ${userFullName}'s GitHub profile`}
       >
         {isDataPresent && (
-          <>
+          <FadeTransition>
             <SearchForm searchUser={username => Router.push("/" + username)} />
             <UserProfile user={user} repos={repos} />
             <ContributionsChart
@@ -64,9 +65,14 @@ class UserPage extends React.Component<any, UserPageState> {
               contributionsPerRepo={contributionsPerRepo}
             />
             <LanguagesCharts languages={languages} repos={repos} />
-          </>
+          </FadeTransition>
         )}
-        {!isDataPresent && <Spinner />}
+        {!isDataPresent && (
+          <FadeTransition>
+            <p className="h5">Fetching your data...</p>
+            <Spinner />
+          </FadeTransition>
+        )}
       </Page>
     );
   }
