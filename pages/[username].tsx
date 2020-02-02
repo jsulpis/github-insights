@@ -25,16 +25,18 @@ interface UserPageState {
   languages: Map<Language, number>;
 }
 
+const defaultState = {
+  user: null,
+  repos: null,
+  contributionsPerMonth: null,
+  contributionsPerRepo: null,
+  languages: null
+};
+
 class UserPage extends React.Component<any, UserPageState> {
   constructor(args) {
     super(args);
-    this.state = {
-      user: null,
-      repos: null,
-      contributionsPerMonth: null,
-      contributionsPerRepo: null,
-      languages: null
-    };
+    this.state = defaultState;
   }
 
   public render() {
@@ -58,7 +60,12 @@ class UserPage extends React.Component<any, UserPageState> {
       >
         {isDataPresent && (
           <FadeTransition>
-            <SearchForm searchUser={username => Router.push("/" + username)} />
+            <SearchForm
+              searchUser={username => {
+                this.setState(defaultState);
+                Router.push("/[username]", "/" + username);
+              }}
+            />
             <UserProfile user={user} repos={repos} />
             <ContributionsChart
               contributionsPerMonth={contributionsPerMonth}
@@ -75,6 +82,11 @@ class UserPage extends React.Component<any, UserPageState> {
         )}
       </Page>
     );
+  }
+
+  public componentDidMount() {
+    const username = this.props.router.query.username;
+    this.fetchAllData(username);
   }
 
   public componentDidUpdate(prevProps) {
