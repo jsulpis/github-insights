@@ -9,9 +9,8 @@ export interface SearchFormProps {
 function SearchForm(props: SearchFormProps) {
   function handleSubmit(event) {
     event.preventDefault();
-    const username = (document.querySelector(
-      "#username-input"
-    ) as HTMLInputElement).value;
+    // @ts-ignore
+    const username = document.querySelector("#username-input").value;
     props.searchUser(username);
   }
 
