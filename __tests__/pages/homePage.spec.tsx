@@ -1,11 +1,21 @@
 import { render } from "@testing-library/react";
+import Router from "next/router";
 import HomePage from "pages/index";
 import React from "react";
 
-describe("Home Page", () => {
-  it("should contain the search input", () => {
-    const { container } = render(<HomePage />);
+jest.mock("next/router");
 
-    expect(container.querySelector("input")).toBeTruthy();
+describe("Home Page", () => {
+  it("should have a search input and redirect to the user page", () => {
+    // Given
+    const { container } = render(<HomePage />);
+    const inputElement = container.querySelector("input");
+    inputElement.value = "jsulpis";
+
+    // When
+    container.querySelector("button").click();
+
+    // Then
+    expect(Router.push).toHaveBeenCalledWith("/[username]", "/jsulpis");
   });
 });

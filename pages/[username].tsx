@@ -13,7 +13,7 @@ import { ContributionsPerRepo } from "models/ContributionsPerRepo";
 import { Language } from "models/Language";
 import Repository from "models/Repository";
 import User from "models/User";
-import Router, { withRouter } from "next/router";
+import { withRouter } from "next/router";
 import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
 import React from "react";
 
@@ -63,7 +63,7 @@ class UserPage extends React.Component<any, UserPageState> {
             <SearchForm
               searchUser={username => {
                 this.setState(defaultState);
-                Router.push("/[username]", "/" + username);
+                this.props.router.push("/[username]", "/" + username);
               }}
             />
             <UserProfile user={user} repos={repos} />
@@ -86,13 +86,15 @@ class UserPage extends React.Component<any, UserPageState> {
 
   public componentDidMount() {
     const username = this.props.router.query.username;
-    this.fetchAllData(username);
+    if (!!username) {
+      this.fetchAllData(username);
+    }
   }
 
   public componentDidUpdate(prevProps) {
     const username = this.props.router.query.username;
     // verify props have changed to avoid an infinite loop
-    if (username !== prevProps.router.query.username) {
+    if (!!username && username !== prevProps.router.query.username) {
       this.fetchAllData(username);
     }
   }

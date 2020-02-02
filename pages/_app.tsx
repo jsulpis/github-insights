@@ -7,17 +7,7 @@ import * as gtag from "lib/gtag";
 
 Router.events.on("routeChangeComplete", url => gtag.pageview(url));
 
-export default class MyApp extends App {
-  public static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-
+export default class extends App {
   public render() {
     const { Component, pageProps, router } = this.props;
     return (

@@ -12,12 +12,30 @@ interface LanguagesChartsProps {
 }
 
 function LanguagesCharts(props: LanguagesChartsProps) {
+  const { languages, repos } = props;
+  const displayLanguagesCodeAmount = !!languages && languages.size > 0;
+  const displayLanguagesByRepos = !!repos && repos.length > 0;
+
+  return (
+    <Card className="card-user">
+      <CardBody>
+        <h4 className="chart-title">Languages</h4>
+        <div className="languages-charts">
+          {displayLanguagesCodeAmount && (
+            <LanguagesByCodeAmountChart languages={languages} />
+          )}
+          {displayLanguagesByRepos && <LanguagesByReposChart repos={repos} />}
+        </div>
+      </CardBody>
+    </Card>
+  );
+}
+
+function LanguagesByCodeAmountChart(props: {
+  languages: Map<Language, number>;
+}) {
   const languagesByAmountOfCode: ChartData[] = makeChartDataFromLanguages(
     props.languages
-  );
-
-  const languagesByNumberOfRepos: ChartData[] = makeChartDataFromLanguages(
-    countReposPerLanguage(props.repos)
   );
 
   const codeLanguagesMessage =
@@ -25,37 +43,35 @@ function LanguagesCharts(props: LanguagesChartsProps) {
       ? "6 most used languages, by amount of code"
       : "By amount of code";
 
+  return (
+    <div>
+      <h5 className="chart-subtitle code-languages">{codeLanguagesMessage}</h5>
+      <HorizontalBarChart
+        data={languagesByAmountOfCode.slice(0, 6)}
+        unit="Bytes of code"
+      />
+    </div>
+  );
+}
+
+function LanguagesByReposChart(props: { repos: Repository[] }) {
+  const languagesByNumberOfRepos: ChartData[] = makeChartDataFromLanguages(
+    countReposPerLanguage(props.repos)
+  );
+
   const repoLanguagesMessage =
     languagesByNumberOfRepos.length > 6
       ? "6 most used languages, by number of repos"
       : "By number of repos";
 
   return (
-    <Card className="card-user">
-      <CardBody>
-        <h4 className="chart-title">Languages</h4>
-        <div className="languages-charts">
-          <div>
-            <h5 className="chart-subtitle code-languages">
-              {codeLanguagesMessage}
-            </h5>
-            <HorizontalBarChart
-              data={languagesByAmountOfCode.slice(0, 6)}
-              unit="Bytes of code"
-            />
-          </div>
-          <div>
-            <h5 className="chart-subtitle repo-languages">
-              {repoLanguagesMessage}
-            </h5>
-            <HorizontalBarChart
-              data={languagesByNumberOfRepos.slice(0, 6)}
-              unit="Repos"
-            />
-          </div>
-        </div>
-      </CardBody>
-    </Card>
+    <div>
+      <h5 className="chart-subtitle repo-languages">{repoLanguagesMessage}</h5>
+      <HorizontalBarChart
+        data={languagesByNumberOfRepos.slice(0, 6)}
+        unit="Repos"
+      />
+    </div>
   );
 }
 
