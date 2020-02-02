@@ -37,6 +37,9 @@ const options = {
       {
         gridLines: {
           display: false
+        },
+        ticks: {
+          min: 0
         }
       }
     ],

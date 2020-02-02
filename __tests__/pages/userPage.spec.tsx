@@ -45,6 +45,6 @@ describe("User Page", () => {
     mockRouter = { query: { username: "wrong" } };
     rerender(<UserPage router={mockRouter} />);
 
-    expect(container.querySelector(".sk-chase")).toBeTruthy();
+    expect(container.querySelector(".spinner")).toBeTruthy();
   });
 });

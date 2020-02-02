@@ -1,14 +1,18 @@
-import { useEffect } from "react";
+import React from "react";
 import "./FadeTransition.scss";
 
-function FadeTransition(props) {
-  useEffect(() => {
-    document
-      .querySelector(".fade-transition")
-      .setAttribute("style", "opacity: 1;");
-  });
+class FadeTransition extends React.Component {
+  public componentDidMount(): void {
+    if (process.browser) {
+      document
+        .querySelector(".fade-transition")
+        .setAttribute("style", "opacity: 1;");
+    }
+  }
 
-  return <div className="fade-transition">{props.children}</div>;
+  public render() {
+    return <div className="fade-transition">{this.props.children}</div>;
+  }
 }
 
 export default FadeTransition;
