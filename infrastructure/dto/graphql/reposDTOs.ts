@@ -2,19 +2,18 @@ import { Language } from "models/Language";
 
 export interface RepositoryNode {
   name: string;
-  description: string;
-  url: string;
-  isPrivate: boolean;
-  isFork: false;
-  isArchived: boolean;
-  isDisabled: boolean;
-  createdAt: string;
   updatedAt: string;
   diskUsage: number;
   forkCount: number;
   stargazers: { totalCount: number };
   primaryLanguage: Language;
-  licenseInfo: { spdxId: string };
+  defaultBranchRef: {
+    target: {
+      history: {
+        totalCount: number;
+      };
+    };
+  };
 }
 
 export interface RepositoryEdge {
@@ -24,7 +23,7 @@ export interface RepositoryEdge {
 export interface GraphQLRepositoriesResponse {
   data: {
     user: {
-      repositories: {
+      repositoriesContributedTo: {
         edges: RepositoryEdge[];
       };
     };
