@@ -6,13 +6,6 @@
           {
             "node": {
               "name": "android-modules",
-              "description": "A set of common Android components.",
-              "url": "https://github.com/jsulpis/android-modules",
-              "isPrivate": false,
-              "isFork": false,
-              "isArchived": false,
-              "isDisabled": false,
-              "createdAt": "2018-06-01T15:10:08Z",
               "updatedAt": "2018-10-25T12:18:19Z",
               "diskUsage": 279,
               "forkCount": 0,
@@ -23,21 +16,18 @@
                 "name": "Java",
                 "color": "#b07219"
               },
-              "licenseInfo": {
-                "spdxId": "MIT"
+              "defaultBranchRef": {
+                "target": {
+                  "history": {
+                    "totalCount": 20
+                  }
+                }
               }
             }
           },
           {
             "node": {
               "name": "blender-addons",
-              "description": "My repository of add-ons for Blender.",
-              "url": "https://github.com/jsulpis/blender-addons",
-              "isPrivate": false,
-              "isFork": false,
-              "isArchived": false,
-              "isDisabled": false,
-              "createdAt": "2018-01-25T21:00:53Z",
               "updatedAt": "2019-06-10T15:26:14Z",
               "diskUsage": 1076,
               "forkCount": 1,
@@ -48,8 +38,12 @@
                 "name": "Python",
                 "color": "#3572A5"
               },
-              "licenseInfo": {
-                "spdxId": "GPL-3.0"
+              "defaultBranchRef": {
+                "target": {
+                  "history": {
+                    "totalCount": 38
+                  }
+                }
               }
             }
           }
