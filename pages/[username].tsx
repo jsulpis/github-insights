@@ -1,11 +1,11 @@
 import "@fortawesome/fontawesome-free/js/fontawesome";
 import "@fortawesome/fontawesome-free/js/solid";
+import FadeTransition from "components/animation/FadeTransition/FadeTransition";
+import Spinner from "components/animation/Spinner/Spinner";
 import ContributionsChart from "components/charts/Contributions/ContributionsChart";
 import LanguagesCharts from "components/charts/Languages/LanguagesCharts";
-import FadeTransition from "components/FadeTransition/FadeTransition";
-import Page from "components/Page";
-import SearchForm from "components/SearchForm/SearchForm";
-import Spinner from "components/Spinner/Spinner";
+import Page from "components/context/Page";
+import SearchForm from "components/form/SearchForm/SearchForm";
 import UserProfile from "components/UserProfile/UserProfile";
 import apiGet from "lib/apiGet";
 import { ContributionsPerMonth } from "models/ContributionsPerMonth";
