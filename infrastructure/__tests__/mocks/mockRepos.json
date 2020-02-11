@@ -1,7 +1,7 @@
 {
   "data": {
     "user": {
-      "repositories": {
+      "repositoriesContributedTo": {
         "edges": [
           {
             "node": {
