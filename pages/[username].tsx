@@ -6,7 +6,7 @@ import ContributionsChart from "components/charts/Contributions/ContributionsCha
 import LanguagesCharts from "components/charts/Languages/LanguagesCharts";
 import Page from "components/context/Page";
 import SearchForm from "components/form/SearchForm/SearchForm";
-import UserProfile from "components/UserProfile/UserProfile";
+import UserProfile from "components/main/UserProfile/UserProfile";
 import apiGet from "lib/apiGet";
 import { ContributionsPerMonth } from "models/ContributionsPerMonth";
 import { ContributionsPerRepo } from "models/ContributionsPerRepo";
@@ -16,6 +16,7 @@ import User from "models/User";
 import { withRouter } from "next/router";
 import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
 import React from "react";
+import RepositoriesCharts from "../components/charts/Repositories/RepositoriesCharts";
 
 interface UserPageState {
   user: User;
@@ -72,6 +73,7 @@ class UserPage extends React.Component<any, UserPageState> {
               contributionsPerRepo={contributionsPerRepo}
             />
             <LanguagesCharts languages={languages} repos={repos} />
+            <RepositoriesCharts repos={repos} />
           </FadeTransition>
         )}
         {!isDataPresent && (

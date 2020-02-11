@@ -1,5 +1,5 @@
 import { render, wait } from "@testing-library/react";
-import UserProfile from "components/UserProfile/UserProfile";
+import UserProfile from "components/main/UserProfile/UserProfile";
 import Repository from "models/Repository";
 import User from "models/User";
 import React from "react";
