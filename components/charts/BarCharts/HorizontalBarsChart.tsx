@@ -5,10 +5,7 @@ import { shadeColor } from "../utils/colors.utils";
 
 function HorizontalBarChart(props: ChartProps) {
   const data = makeDataFromProps(props);
-  // don't render the chart in tests
-  return (
-    <>{process.browser && <HorizontalBar data={data} options={options} />}</>
-  );
+  return <HorizontalBar data={data} options={options} />;
 }
 
 const makeDataFromProps = (props: ChartProps) => {

@@ -5,8 +5,7 @@ import { shadeColor } from "../utils/colors.utils";
 
 function VerticalBarChart(props: ChartProps) {
   const data = makeDataFromProps(props);
-  // don't render the chart in tests
-  return <>{process.browser && <Bar data={data} options={options} />}</>;
+  return <Bar data={data} options={options} />;
 }
 
 const makeDataFromProps = (props: ChartProps) => {

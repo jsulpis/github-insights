@@ -2,6 +2,8 @@ import { render, wait } from "@testing-library/react";
 import { Language } from "../../../models/Language";
 import LanguagesCharts from "../Languages/LanguagesCharts";
 
+jest.mock("react-chartjs-2");
+
 describe("LanguagesCharts", () => {
   it("should display a message if more than 6 languages", async () => {
     const languages: Map<Language, number> = new Map([
