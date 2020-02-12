@@ -4,8 +4,7 @@ import { ChartProps } from "./chart.models";
 
 function LineChart(props: ChartProps) {
   const data = makeDataFromProps(props);
-  // don't render the chart in tests
-  return <>{process.browser && <Line data={data} options={options} />}</>;
+  return <Line data={data} options={options} />;
 }
 
 const chartColor = "rgb(123, 201, 111)";

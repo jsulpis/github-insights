@@ -4,6 +4,7 @@ import UserPage from "pages/[username]";
 import React from "react";
 
 jest.mock("lib/apiGet");
+jest.mock("react-chartjs-2");
 
 describe("User Page", () => {
   const USERNAME = "jsulpis";

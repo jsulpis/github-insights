@@ -14,14 +14,7 @@ export interface BubbleChartProps {
 }
 
 function BubbleChart(props: BubbleChartProps) {
-  // don't render the chart in tests
-  return (
-    <>
-      {process.browser && (
-        <Bubble data={makeDataFromProps(props)} options={options} />
-      )}
-    </>
-  );
+  return <Bubble data={makeDataFromProps(props)} options={options} />;
 }
 
 const makeDataFromProps = (props: BubbleChartProps) => {

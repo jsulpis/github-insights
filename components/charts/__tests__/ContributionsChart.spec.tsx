@@ -4,6 +4,8 @@ import { ContributionsPerRepo } from "models/ContributionsPerRepo";
 import React from "react";
 import ContributionsChart from "../Contributions/ContributionsChart";
 
+jest.mock("react-chartjs-2");
+
 describe("ContributionsChart", () => {
   it("displays the total number of contributions", async () => {
     const contributionsPerMonth: ContributionsPerMonth[] = [
