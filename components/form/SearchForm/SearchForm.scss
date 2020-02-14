@@ -37,7 +37,8 @@ $height: 3em;
 #username-input {
   height: inherit;
   font-size: inherit;
-  padding: 1em;
+  padding-left: 1em;
+  width: 230px;
   border-radius: $radius;
 
   &:focus {

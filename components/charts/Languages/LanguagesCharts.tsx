@@ -1,7 +1,7 @@
 import { Language } from "models/Language";
 import Repository from "models/Repository";
 import React from "react";
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import HorizontalBarChart from "../BarCharts/HorizontalBarsChart";
 import { ChartData } from "../chart.models";
 import "./LanguagesCharts.scss";
@@ -18,8 +18,10 @@ function LanguagesCharts(props: LanguagesChartsProps) {
 
   return (
     <Card className="card-user">
+      <CardHeader>
+        <CardTitle tag="h5">Languages</CardTitle>
+      </CardHeader>
       <CardBody>
-        <h4 className="chart-title">Languages</h4>
         <div className="languages-charts">
           {displayLanguagesCodeAmount && (
             <LanguagesByCodeAmountChart languages={languages} />

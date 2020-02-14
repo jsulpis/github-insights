@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import Repository from "../../../models/Repository";
 import BubbleChart from "../BubbleChart";
 import "./RepositoriesCharts.scss";
@@ -11,8 +11,10 @@ export interface RepositoriesChartsProps {
 function RepositoriesCharts(props: RepositoriesChartsProps) {
   return (
     <Card className="card-user">
+      <CardHeader>
+        <CardTitle tag="h5">Repositories</CardTitle>
+      </CardHeader>
       <CardBody>
-        <h4 className="chart-title">Repositories</h4>
         <div className="repositories-wrapper">
           <BubbleChart data={makeDataFromProps(props)} />
         </div>

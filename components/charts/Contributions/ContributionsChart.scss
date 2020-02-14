@@ -6,6 +6,7 @@
 .timeline-wrapper {
   height: 100px;
   width: 600px;
+  margin-bottom: 1.5em;
 }
 
 .contributions-wrapper {
@@ -17,12 +18,6 @@
   margin-bottom: 0;
 }
 
-.chart-title {
-  font-size: 1.2em;
-  font-weight: 600;
-  margin: 0.5em;
-}
-
 .chart-subsubtitle {
   font-size: 0.8em;
   font-weight: 600;
@@ -32,6 +27,5 @@
 .chart-subtitle {
   font-size: 0.9em;
   font-weight: 600;
-  margin-top: 1.5em;
   margin-bottom: 0.5em;
 }

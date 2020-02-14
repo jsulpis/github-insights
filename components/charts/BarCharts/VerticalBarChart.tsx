@@ -1,7 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { ChartProps } from "../chart.models";
-import { shadeColor } from "../utils/colors.utils";
 
 function VerticalBarChart(props: ChartProps) {
   const data = makeDataFromProps(props);
@@ -15,9 +14,7 @@ const makeDataFromProps = (props: ChartProps) => {
       datasets: [
         {
           label: props.unit,
-          backgroundColor: props.data.map(data =>
-            shadeColor(data.color, 20, 0.2)
-          ),
+          backgroundColor: props.data.map(data => data.color),
           borderWidth: 2,
           data: props.data.map(data => data.value)
         }
