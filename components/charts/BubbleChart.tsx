@@ -11,10 +11,17 @@ export interface BubbleChartPoint {
 
 export interface BubbleChartProps {
   data: BubbleChartPoint[];
+  xlabel: string;
+  ylabel: string;
 }
 
 function BubbleChart(props: BubbleChartProps) {
-  return <Bubble data={makeDataFromProps(props)} options={options} />;
+  return (
+    <Bubble
+      data={makeDataFromProps(props)}
+      options={makeOptionsFromProps(props)}
+    />
+  );
 }
 
 const makeDataFromProps = (props: BubbleChartProps) => {
@@ -27,7 +34,7 @@ const makeDataFromProps = (props: BubbleChartProps) => {
   };
 };
 
-const options = {
+const makeOptionsFromProps = (props: BubbleChartProps) => ({
   maintainAspectRatio: true,
   legend: {
     display: false
@@ -40,12 +47,17 @@ const options = {
           display: false
         },
         ticks: {
-          callback: value => value
+          autoSkip: false,
+          callback: (value, _, values) =>
+            values[0] > 300
+              ? (value * 10).toString()[0] === "1"
+                ? value
+                : null
+              : value
         },
         scaleLabel: {
           display: true,
-          labelString: "Commit count",
-          fontStyle: "bold"
+          labelString: props.ylabel
         }
       }
     ],
@@ -56,16 +68,21 @@ const options = {
           display: false
         },
         ticks: {
-          callback: value => value
+          autoSkip: false,
+          callback: (value, _, values) =>
+            values[values.length - 1] > 100
+              ? (value * 10).toString()[0] === "1"
+                ? value
+                : null
+              : value
         },
         scaleLabel: {
           display: true,
-          labelString: "Repo size (MB)",
-          fontStyle: "bold"
+          labelString: props.xlabel
         }
       }
     ]
   }
-};
+});
 
 export default BubbleChart;

@@ -1,5 +1,5 @@
 import httpPost from "lib/httpPost";
-import { ContributionsPerRepo } from "models/ContributionsPerRepo";
+import { ContributionsPerRepo } from "models/Contributions";
 import { Language } from "models/Language";
 import {
   ContributionPerRepo,

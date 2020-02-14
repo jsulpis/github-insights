@@ -1,8 +1,10 @@
-import { ContributionsPerMonth } from "models/ContributionsPerMonth";
-import { ContributionsPerRepo } from "models/ContributionsPerRepo";
+import {
+  ContributionsPerMonth,
+  ContributionsPerRepo
+} from "models/Contributions";
 import React from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
-import VerticalBarChart from "../BarCharts/VerticalBarChart";
+import { VerticalBarChart } from "../BarCharts/BarCharts";
 import LineChart from "../LineChart";
 import "./ContributionsChart.scss";
 

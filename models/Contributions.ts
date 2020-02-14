@@ -5,3 +5,8 @@ export interface ContributionsPerRepo {
   primaryLanguage: Language;
   contributions: number;
 }
+
+export interface ContributionsPerMonth {
+  month: string;
+  contributions: number;
+}

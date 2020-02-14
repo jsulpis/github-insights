@@ -7,4 +7,6 @@ export interface ChartData {
 export interface ChartProps {
   data: ChartData[];
   unit: string;
+  xlabel?: string;
+  ylabel?: string;
 }

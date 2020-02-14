@@ -1,6 +1,6 @@
+import Repository from "models/Repository";
 import React from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
-import Repository from "../../../models/Repository";
 import BubbleChart from "../BubbleChart";
 import "./RepositoriesCharts.scss";
 
@@ -16,7 +16,11 @@ function RepositoriesCharts(props: RepositoriesChartsProps) {
       </CardHeader>
       <CardBody>
         <div className="repositories-wrapper">
-          <BubbleChart data={makeDataFromProps(props)} />
+          <BubbleChart
+            data={makeDataFromProps(props)}
+            xlabel="Repo size (MB)"
+            ylabel="Commit count"
+          />
         </div>
       </CardBody>
     </Card>
