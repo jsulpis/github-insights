@@ -12,10 +12,11 @@ const Page = (props: PageProps) => (
     {props.children}
     <style global jsx>
       {`
+        @import "node_modules/paper-dashboard-react/src/assets/scss/paper-dashboard/variables";
+
         body {
           text-align: center;
-          font-family: Segoe UI, Helvetica, Arial, sans-serif;
-          background-color: #fafafa;
+          background-color: $default-body-bg;
         }
         .page {
           display: flex;

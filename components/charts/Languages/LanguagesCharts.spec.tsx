@@ -1,6 +1,6 @@
 import { render, wait } from "@testing-library/react";
 import { Language } from "../../../models/Language";
-import LanguagesCharts from "../Languages/LanguagesCharts";
+import LanguagesCharts from "./LanguagesCharts";
 
 jest.mock("react-chartjs-2");
 
@@ -15,35 +15,11 @@ describe("LanguagesCharts", () => {
       [{ name: "CSS", color: "" }, 10],
       [{ name: "Typescript", color: "" }, 51]
     ]);
-    const { container } = render(
+    const { findByText } = render(
       <LanguagesCharts languages={languages} repos={[]} />
     );
 
-    await wait(() => {
-      expect(container.querySelector(".code-languages").textContent).toBe(
-        "6 most used languages, by amount of code"
-      );
-    });
-  });
-
-  it("should display a generic message if 6 languages or less", async () => {
-    const languages: Map<Language, number> = new Map([
-      [{ name: "Javascript", color: "" }, 100],
-      [{ name: "Python", color: "" }, 200],
-      [{ name: "Java", color: "" }, 300],
-      [{ name: "HTML", color: "" }, 99],
-      [{ name: "CSS", color: "" }, 10],
-      [{ name: "Typescript", color: "" }, 51]
-    ]);
-    const { container } = render(
-      <LanguagesCharts languages={languages} repos={[]} />
-    );
-
-    await wait(() => {
-      expect(container.querySelector(".code-languages").textContent).toBe(
-        "By amount of code"
-      );
-    });
+    expect(await findByText("(6 most used languages only)")).toBeTruthy();
   });
 
   it("should display a message if more than 6 repo languages", async () => {
@@ -58,19 +34,15 @@ describe("LanguagesCharts", () => {
       { primaryLanguage: { name: "shell", color: "" } }
     ];
 
-    const { container } = render(
+    const { findByText } = render(
       // @ts-ignore
       <LanguagesCharts languages={languages} repos={repos} />
     );
 
-    await wait(() => {
-      expect(container.querySelector(".repo-languages").textContent).toBe(
-        "6 most used languages, by number of repos"
-      );
-    });
+    expect(await findByText("(6 most used languages only)")).toBeTruthy();
   });
 
-  it("should display a generic message if 6 repo languages or less", async () => {
+  it("should not display a message if 6 languages or less", async () => {
     const languages: Map<Language, number> = new Map([]);
     const repos = [
       { primaryLanguage: { name: "java", color: "" } },
@@ -87,9 +59,7 @@ describe("LanguagesCharts", () => {
     );
 
     await wait(() => {
-      expect(container.querySelector(".repo-languages").textContent).toBe(
-        "By number of repos"
-      );
+      expect(container.querySelector(".languages-subtitle")).toBeFalsy();
     });
   });
 });

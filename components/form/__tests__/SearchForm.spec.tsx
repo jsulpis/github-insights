@@ -13,7 +13,7 @@ describe("SearchForm", () => {
         container
           .querySelector("#username-input")
           .attributes.getNamedItem("placeholder").value
-      ).toBe("Enter a username");
+      ).toBe("Enter a GitHub username");
 
       (container.querySelector("#username-input") as HTMLInputElement).value =
         "some username";

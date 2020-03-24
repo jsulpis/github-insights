@@ -1,8 +1,10 @@
-import { ContributionsPerMonth } from "models/ContributionsPerMonth";
-import { ContributionsPerRepo } from "models/ContributionsPerRepo";
+import {
+  ContributionsPerMonth,
+  ContributionsPerRepo
+} from "models/Contributions";
 import React from "react";
-import { Card, CardBody } from "reactstrap";
-import VerticalBarChart from "../BarCharts/VerticalBarChart";
+import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
+import { VerticalBarChart } from "../BarCharts/BarCharts";
 import LineChart from "../LineChart";
 import "./ContributionsChart.scss";
 
@@ -38,9 +40,10 @@ function ContributionsChart(props: ContributionsChartProps) {
 
   return (
     <Card className="card-user">
+      <CardHeader>
+        <CardTitle tag="h5">Activity</CardTitle>
+      </CardHeader>
       <CardBody>
-        <h4 className="chart-title">Activity</h4>
-
         <h5 className="chart-subtitle">
           {totalContributions} contributions in the last year
         </h5>

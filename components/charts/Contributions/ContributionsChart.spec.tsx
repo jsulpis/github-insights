@@ -1,8 +1,10 @@
-import { render, wait } from "@testing-library/react";
-import { ContributionsPerMonth } from "models/ContributionsPerMonth";
-import { ContributionsPerRepo } from "models/ContributionsPerRepo";
+import { render } from "@testing-library/react";
+import {
+  ContributionsPerMonth,
+  ContributionsPerRepo
+} from "models/Contributions";
 import React from "react";
-import ContributionsChart from "../Contributions/ContributionsChart";
+import ContributionsChart from "./ContributionsChart";
 
 jest.mock("react-chartjs-2");
 
@@ -31,17 +33,13 @@ describe("ContributionsChart", () => {
         contributions: 48
       }
     ];
-    const { container } = render(
+    const { findByText } = render(
       <ContributionsChart
         contributionsPerMonth={contributionsPerMonth}
         contributionsPerRepo={contributionsPerRepo}
       />
     );
 
-    await wait(() => {
-      expect(container.querySelector("h5").textContent).toBe(
-        "27 contributions in the last year"
-      );
-    });
+    expect(await findByText("27 contributions in the last year")).toBeTruthy();
   });
 });

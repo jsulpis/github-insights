@@ -53,7 +53,7 @@ function UserProfile(props: UserProfileProps) {
             {user.website}
           </a>
         </div>
-        <p className="description text-center">{user.bio}</p>
+        <p className="card-category description text-center">{user.bio}</p>
         {user.repos > 100 && (
           <p className="message-many-repos text-warning">
             <strong>Note:</strong> Only the latest 100 repos were used for the

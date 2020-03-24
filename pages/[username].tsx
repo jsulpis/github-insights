@@ -9,8 +9,10 @@ import Page from "components/context/Page";
 import SearchForm from "components/form/SearchForm/SearchForm";
 import UserProfile from "components/main/UserProfile/UserProfile";
 import apiGet from "lib/apiGet";
-import { ContributionsPerMonth } from "models/ContributionsPerMonth";
-import { ContributionsPerRepo } from "models/ContributionsPerRepo";
+import {
+  ContributionsPerMonth,
+  ContributionsPerRepo
+} from "models/Contributions";
 import { Language } from "models/Language";
 import Repository from "models/Repository";
 import User from "models/User";

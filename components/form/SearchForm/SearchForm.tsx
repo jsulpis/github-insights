@@ -20,7 +20,7 @@ function SearchForm(props: SearchFormProps) {
         <Input
           name="username"
           id="username-input"
-          placeholder="Enter a username"
+          placeholder="Enter a GitHub username"
         />
       </FormGroup>
       <button id="search-button" type="submit">

@@ -1,8 +1,8 @@
 import { Language } from "models/Language";
 import Repository from "models/Repository";
 import React from "react";
-import { Card, CardBody } from "reactstrap";
-import HorizontalBarChart from "../BarCharts/HorizontalBarsChart";
+import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
+import { HorizontalBarChart } from "../BarCharts/BarCharts";
 import { ChartData } from "../chart.models";
 import "./LanguagesCharts.scss";
 
@@ -13,18 +13,26 @@ interface LanguagesChartsProps {
 
 function LanguagesCharts(props: LanguagesChartsProps) {
   const { languages, repos } = props;
-  const displayLanguagesCodeAmount = !!languages && languages.size > 0;
-  const displayLanguagesByRepos = !!repos && repos.length > 0;
+
+  const reposPerLanguage = countReposPerLanguage(repos);
+  const languagesByNumberOfRepos: ChartData[] = makeChartDataFromLanguages(
+    reposPerLanguage
+  );
+
+  const moreThanSixLanguages = languages.size > 6 || reposPerLanguage.size > 6;
 
   return (
     <Card className="card-user">
+      <CardHeader>
+        <CardTitle tag="h5">Languages</CardTitle>
+        {moreThanSixLanguages && (
+          <p className="languages-subtitle">(6 most used languages only)</p>
+        )}
+      </CardHeader>
       <CardBody>
-        <h4 className="chart-title">Languages</h4>
         <div className="languages-charts">
-          {displayLanguagesCodeAmount && (
-            <LanguagesByCodeAmountChart languages={languages} />
-          )}
-          {displayLanguagesByRepos && <LanguagesByReposChart repos={repos} />}
+          <LanguagesByCodeAmountChart languages={languages} />
+          <LanguagesByReposChart data={languagesByNumberOfRepos.slice(0, 6)} />
         </div>
       </CardBody>
     </Card>
@@ -34,42 +42,32 @@ function LanguagesCharts(props: LanguagesChartsProps) {
 function LanguagesByCodeAmountChart(props: {
   languages: Map<Language, number>;
 }) {
+  const languages = props.languages;
+  for (const [key, value] of languages) {
+    languages.set(key, value / 1000);
+  }
   const languagesByAmountOfCode: ChartData[] = makeChartDataFromLanguages(
-    props.languages
+    languages
   );
 
-  const codeLanguagesMessage =
-    props.languages.size > 6
-      ? "6 most used languages, by amount of code"
-      : "By amount of code";
-
   return (
-    <div>
-      <h5 className="chart-subtitle code-languages">{codeLanguagesMessage}</h5>
+    <div className="languages-chart">
       <HorizontalBarChart
         data={languagesByAmountOfCode.slice(0, 6)}
         unit="Bytes of code"
+        xlabel="Amount of code (MB)"
       />
     </div>
   );
 }
 
-function LanguagesByReposChart(props: { repos: Repository[] }) {
-  const languagesByNumberOfRepos: ChartData[] = makeChartDataFromLanguages(
-    countReposPerLanguage(props.repos)
-  );
-
-  const repoLanguagesMessage =
-    languagesByNumberOfRepos.length > 6
-      ? "6 most used languages, by number of repos"
-      : "By number of repos";
-
+function LanguagesByReposChart(props: { data: ChartData[] }) {
   return (
-    <div>
-      <h5 className="chart-subtitle repo-languages">{repoLanguagesMessage}</h5>
+    <div className="languages-chart">
       <HorizontalBarChart
-        data={languagesByNumberOfRepos.slice(0, 6)}
+        data={props.data}
         unit="Repos"
+        xlabel="Number of repos"
       />
     </div>
   );

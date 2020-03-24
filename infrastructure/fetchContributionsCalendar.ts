@@ -1,5 +1,5 @@
+import { ContributionsPerMonth } from "models/Contributions";
 import httpPost from "../lib/httpPost";
-import { ContributionsPerMonth } from "../models/ContributionsPerMonth";
 import {
   GraphQLContributionCalendarResponse,
   Week
