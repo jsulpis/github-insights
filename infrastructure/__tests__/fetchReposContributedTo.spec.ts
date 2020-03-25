@@ -1,6 +1,6 @@
-import Repository from "models/Repository";
+import { RepositoryContributedTo } from "models/Repository";
 import httpPost from "../../lib/httpPost";
-import fetchRepos from "../fetchRepos";
+import fetchReposContributedTo from "../fetchReposContributedTo";
 
 jest.mock("lib/httpPost");
 
@@ -9,31 +9,25 @@ describe("Repo api", () => {
     // Given
     const username = "jsulpis";
     (httpPost as jest.Mock).mockImplementation(() =>
-      Promise.resolve(require("./mocks/mockRepos.json"))
+      Promise.resolve(require("./mocks/mockReposContributedTo.json"))
     );
 
     // When
-    const repos = await fetchRepos(username);
+    const repos = await fetchReposContributedTo(username);
 
     // Then
-    const expectedReposList: Repository[] = [
-      {
-        name: "android-modules",
-        updateDate: new Date("2018-10-25T12:18:19Z"),
-        diskUsage: 279,
-        forkCount: 0,
-        starCount: 0,
-        primaryLanguage: { name: "Java", color: "#b07219" },
-        commitCount: 20
-      },
+    const expectedReposList: RepositoryContributedTo[] = [
       {
         name: "blender-addons",
-        updateDate: new Date("2019-06-10T15:26:14Z"),
         diskUsage: 1076,
-        forkCount: 1,
-        starCount: 2,
         primaryLanguage: { name: "Python", color: "#3572A5" },
         commitCount: 38
+      },
+      {
+        name: "password-generator",
+        diskUsage: 2087,
+        primaryLanguage: { name: "TypeScript", color: "#2b7489" },
+        commitCount: 22
       }
     ];
 

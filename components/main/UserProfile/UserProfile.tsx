@@ -1,4 +1,4 @@
-import Repository from "models/Repository";
+import { RepositoryOwned } from "models/Repository";
 import User from "models/User";
 import React from "react";
 import { Card, CardBody, CardFooter } from "reactstrap";
@@ -6,7 +6,7 @@ import "./UserProfile.scss";
 
 interface UserProfileProps {
   user: User;
-  repos: Repository[];
+  repos: RepositoryOwned[];
 }
 
 function UserProfile(props: UserProfileProps) {

@@ -105,7 +105,7 @@ class UserPage extends React.Component<any, UserPageState> {
 
   private fetchAllData(username) {
     apiGet<User>("/" + username).then(user => this.setState({ user }));
-    apiGet<Repository[]>("/" + username + "/repos").then(repos =>
+    apiGet<Repository[]>("/" + username + "/repos-contributed").then(repos =>
       this.setState({ repos })
     );
     apiGet<ContributionsPerMonth[]>("/" + username + "/timeline").then(

@@ -1,0 +1,44 @@
+{
+  "data": {
+    "user": {
+      "repositoriesContributedTo": {
+        "edges": [
+          {
+            "node": {
+              "name": "blender-addons",
+              "diskUsage": 1076,
+              "primaryLanguage": {
+                "name": "Python",
+                "color": "#3572A5"
+              },
+              "defaultBranchRef": {
+                "target": {
+                  "history": {
+                    "totalCount": 38
+                  }
+                }
+              }
+            }
+          },
+          {
+            "node": {
+              "name": "password-generator",
+              "diskUsage": 2087,
+              "primaryLanguage": {
+                "name": "TypeScript",
+                "color": "#2b7489"
+              },
+              "defaultBranchRef": {
+                "target": {
+                  "history": {
+                    "totalCount": 22
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
