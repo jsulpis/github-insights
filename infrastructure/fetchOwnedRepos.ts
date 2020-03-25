@@ -14,7 +14,7 @@ export default function fetchOwnedRepos(
   const body = {
     query: `query {
               user(login:"${username}") {
-                repositories(first: 100, ownerAffiliations: [OWNER], privacy: PUBLIC) {
+                repositories(first: 100, ownerAffiliations: [OWNER], orderBy: {field: PUSHED_AT, direction: DESC}, privacy: PUBLIC) {
                   edges {
                     node {
                       name,

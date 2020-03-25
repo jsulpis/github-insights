@@ -30,7 +30,7 @@ describe("User Page", () => {
     render(<UserPage router={mockRouter} />);
 
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME);
-    expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/repos");
+    expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/repos-owned");
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/timeline");
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/languages");
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/contributions");
