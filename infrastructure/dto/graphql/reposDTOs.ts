@@ -17,7 +17,8 @@ export interface StargazersDTO {
 }
 
 export interface RepositoryNode {
-  name: string;
+  name?: string;
+  nameWithOwner?: string;
   isFork: boolean;
   forkCount?: number;
   stargazers?: StargazersDTO;

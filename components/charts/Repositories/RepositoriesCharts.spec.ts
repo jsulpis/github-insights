@@ -8,7 +8,7 @@ describe("RepositoriesCharts", () => {
     const props: RepositoriesChartsProps = {
       repos: [
         {
-          name: "Repo1",
+          nameWithOwner: "owner/Repo1",
           commitCount: 12,
           diskUsage: 100,
           primaryLanguage: {
@@ -17,7 +17,7 @@ describe("RepositoriesCharts", () => {
           }
         },
         {
-          name: "Repo2",
+          nameWithOwner: "owner/Repo2",
           commitCount: 21,
           diskUsage: 200,
           primaryLanguage: null
@@ -27,18 +27,18 @@ describe("RepositoriesCharts", () => {
 
     expect(makeDataFromProps(props)).toEqual([
       {
-        name: "Repo1",
+        name: "owner/Repo1",
         color: "red",
         x: 0.1,
         y: 12,
-        r: 5
+        r: 10
       },
       {
-        name: "Repo2",
+        name: "owner/Repo2",
         color: "rgba(0,0,0,0.3)",
         x: 0.2,
         y: 21,
-        r: 6
+        r: 15
       }
     ]);
   });

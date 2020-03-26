@@ -16,7 +16,7 @@ export default function fetchReposContributedTo(
               user(login:"${username}") {
                 repositoriesContributedTo(first: 30, orderBy: {field: PUSHED_AT, direction: DESC}, includeUserRepositories: true, contributionTypes:[COMMIT, PULL_REQUEST, PULL_REQUEST_REVIEW, REPOSITORY]) {
                   nodes {
-                    name,
+                    nameWithOwner,
                     diskUsage,
                     primaryLanguage {
                       name,
@@ -47,7 +47,7 @@ function toRepositories(
 ): RepositoryContributedTo[] {
   return repositoryEdges.map(repoNode => {
     return {
-      name: repoNode.name,
+      nameWithOwner: repoNode.nameWithOwner,
       diskUsage: repoNode.diskUsage,
       primaryLanguage: repoNode.primaryLanguage,
       commitCount: repoNode.defaultBranchRef

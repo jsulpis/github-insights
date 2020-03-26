@@ -26,6 +26,9 @@ const Page = (props: PageProps) => (
           min-height: 85vh;
           padding: 2rem 0;
         }
+        .page .card-body {
+          min-height: initial;
+        }
       `}
     </style>
   </div>

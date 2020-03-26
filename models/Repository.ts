@@ -1,23 +1,16 @@
 import { Language } from "./Language";
 
-export default class Repository {
-  constructor(
-    public name: string,
-    public diskUsage: number,
-    public forkCount: number,
-    public starCount: number,
-    public primaryLanguage: Language,
-    public languages: Array<Language & { amountOfCodeInBytes: number }>,
-    public commitCount: number
-  ) {}
+export interface RepositoryOwned {
+  name: string;
+  forkCount: number;
+  starCount: number;
+  primaryLanguage: Language;
+  languages: Array<Language & { amountOfCodeInBytes: number }>;
 }
 
-export type RepositoryOwned = Pick<
-  Repository,
-  "name" | "forkCount" | "starCount" | "primaryLanguage" | "languages"
->;
-
-export type RepositoryContributedTo = Pick<
-  Repository,
-  "name" | "diskUsage" | "primaryLanguage" | "commitCount"
->;
+export interface RepositoryContributedTo {
+  nameWithOwner: string;
+  diskUsage: number;
+  commitCount: number;
+  primaryLanguage: Language;
+}
