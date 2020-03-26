@@ -17,10 +17,11 @@ export interface StargazersDTO {
 }
 
 export interface RepositoryNode {
-  name?: string;
+  name: string;
+  isFork: boolean;
   forkCount?: number;
   stargazers?: StargazersDTO;
-  primaryLanguage?: LanguageDTO;
+  primaryLanguage: LanguageDTO;
   languages?: Languages;
   diskUsage?: number;
   defaultBranchRef?: {

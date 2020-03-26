@@ -17,6 +17,7 @@ export default function fetchReposOwned(
                 repositories(first: 100, ownerAffiliations: [OWNER], orderBy: {field: PUSHED_AT, direction: DESC}, privacy: PUBLIC) {
                   nodes {
                     name,
+                    isFork,
                     forkCount,
                     stargazers {
                       totalCount
@@ -45,18 +46,20 @@ export default function fetchReposOwned(
   );
 }
 
-function toRepositories(repositoryEdges: RepositoryNode[]): RepositoryOwned[] {
-  return repositoryEdges.map(repoNode => {
-    return {
-      name: repoNode.name,
-      primaryLanguage: repoNode.primaryLanguage,
-      languages: repoNode.languages.edges.map(languageEdge => ({
-        name: languageEdge.node.name,
-        color: languageEdge.node.color,
-        amountOfCodeInBytes: languageEdge.size
-      })),
-      starCount: repoNode.stargazers ? repoNode.stargazers.totalCount : null,
-      forkCount: repoNode.forkCount
-    };
-  });
+function toRepositories(repositories: RepositoryNode[]): RepositoryOwned[] {
+  return repositories
+    .filter(repo => !repo.isFork)
+    .map(repoNode => {
+      return {
+        name: repoNode.name,
+        primaryLanguage: repoNode.primaryLanguage,
+        languages: repoNode.languages.edges.map(languageEdge => ({
+          name: languageEdge.node.name,
+          color: languageEdge.node.color,
+          amountOfCodeInBytes: languageEdge.size
+        })),
+        starCount: repoNode.stargazers ? repoNode.stargazers.totalCount : null,
+        forkCount: repoNode.forkCount
+      };
+    });
 }

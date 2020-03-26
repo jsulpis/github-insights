@@ -5,6 +5,7 @@
         "nodes": [
           {
             "name": "blender-addons",
+            "isFork": false,
             "forkCount": 1,
             "stargazers": {
               "totalCount": 2
@@ -27,6 +28,30 @@
           },
           {
             "name": "android-modules",
+            "isFork": false,
+            "forkCount": 0,
+            "stargazers": {
+              "totalCount": 0
+            },
+            "primaryLanguage": {
+              "name": "Java",
+              "color": "#b07219"
+            },
+            "languages": {
+              "edges": [
+                {
+                  "size": 62834,
+                  "node": {
+                    "name": "Java",
+                    "color": "#b07219"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "forked-repo",
+            "isFork": true,
             "forkCount": 0,
             "stargazers": {
               "totalCount": 0
