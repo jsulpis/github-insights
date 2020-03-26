@@ -44,7 +44,7 @@ function LanguagesByCodeAmountChart(props: {
 }) {
   const languages = props.languages;
   for (const [key, value] of languages) {
-    languages.set(key, value / 1000);
+    languages.set(key, value / 1000000);
   }
   const languagesByAmountOfCode: ChartData[] = makeChartDataFromLanguages(
     languages

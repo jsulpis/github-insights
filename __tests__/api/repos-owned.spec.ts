@@ -1,9 +1,9 @@
 import MockNextApiResponse from "__tests__/api/MockNextApiResponse";
-import fetchOwnedRepos from "infrastructure/fetchOwnedRepos";
+import fetchReposOwned from "infrastructure/fetchReposOwned";
 import { RepositoryOwned } from "models/Repository";
 import reposApi from "pages/api/[username]/repos-owned";
 
-jest.mock("infrastructure/fetchOwnedRepos");
+jest.mock("infrastructure/fetchReposOwned");
 
 describe("Repos api", () => {
   it("should return repositories", async () => {
@@ -22,7 +22,7 @@ describe("Repos api", () => {
         primaryLanguage: { name: "Java", color: "#b07219" }
       }
     ];
-    (fetchOwnedRepos as jest.Mock).mockImplementation(() =>
+    (fetchReposOwned as jest.Mock).mockImplementation(() =>
       Promise.resolve(MOCK_REPOS)
     );
 
@@ -33,13 +33,13 @@ describe("Repos api", () => {
     await reposApi({ query: { username: "titi" } }, res);
 
     // Then
-    expect(fetchOwnedRepos).toHaveBeenCalledWith("titi");
+    expect(fetchReposOwned).toHaveBeenCalledWith("titi");
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual(MOCK_REPOS);
   });
 
   it("should forward errors", async () => {
-    (fetchOwnedRepos as jest.Mock).mockImplementation(() =>
+    (fetchReposOwned as jest.Mock).mockImplementation(() =>
       Promise.reject({ status: 403, message: "Forbidden" })
     );
 
@@ -50,7 +50,7 @@ describe("Repos api", () => {
     await reposApi({ query: { username: "toto" } }, res);
 
     // Then
-    expect(fetchOwnedRepos).toHaveBeenCalledWith("toto");
+    expect(fetchReposOwned).toHaveBeenCalledWith("toto");
     expect(res.statusCode).toBe(403);
     expect(res.body).toEqual("Forbidden");
   });

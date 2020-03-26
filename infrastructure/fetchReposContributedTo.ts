@@ -2,7 +2,7 @@ import { RepositoryContributedTo } from "models/Repository";
 import httpPost from "../lib/httpPost";
 import {
   GraphQLRepositoriesContributedToResponse,
-  RepositoryEdge
+  RepositoryNode
 } from "./dto/graphql/reposDTOs";
 
 export default function fetchReposContributedTo(
@@ -15,20 +15,18 @@ export default function fetchReposContributedTo(
     query: `query {
               user(login:"${username}") {
                 repositoriesContributedTo(first: 100, includeUserRepositories: true, contributionTypes:[COMMIT, PULL_REQUEST, PULL_REQUEST_REVIEW, REPOSITORY]) {
-                  edges {
-                    node {
+                  nodes {
+                    name,
+                    diskUsage,
+                    primaryLanguage {
                       name,
-                      diskUsage,
-                      primaryLanguage {
-                        name,
-                        color
-                      },
-                      defaultBranchRef {
-                        target {
-                          ... on Commit {
-                            history(first: 0) {
-                              totalCount
-                            }
+                      color
+                    },
+                    defaultBranchRef {
+                      target {
+                        ... on Commit {
+                          history(first: 0) {
+                            totalCount
                           }
                         }
                       }
@@ -40,15 +38,14 @@ export default function fetchReposContributedTo(
   };
   return httpPost("https://api.github.com/graphql", body, headers).then(
     (res: GraphQLRepositoriesContributedToResponse) =>
-      toRepositories(res.data.user.repositoriesContributedTo.edges)
+      toRepositories(res.data.user.repositoriesContributedTo.nodes)
   );
 }
 
 function toRepositories(
-  repositoryEdges: RepositoryEdge[]
+  repositoryEdges: RepositoryNode[]
 ): RepositoryContributedTo[] {
-  return repositoryEdges.map(repoEdge => {
-    const repoNode = repoEdge.node;
+  return repositoryEdges.map(repoNode => {
     return {
       name: repoNode.name,
       diskUsage: repoNode.diskUsage,

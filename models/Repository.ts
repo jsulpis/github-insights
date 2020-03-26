@@ -7,13 +7,14 @@ export default class Repository {
     public forkCount: number,
     public starCount: number,
     public primaryLanguage: Language,
+    public languages: Array<Language & { amountOfCodeInMb: number }>,
     public commitCount: number
   ) {}
 }
 
 export type RepositoryOwned = Pick<
   Repository,
-  "name" | "forkCount" | "starCount" | "primaryLanguage"
+  "name" | "forkCount" | "starCount" | "primaryLanguage" | "languages"
 >;
 
 export type RepositoryContributedTo = Pick<

@@ -1,0 +1,54 @@
+{
+  "data": {
+    "user": {
+      "repositories": {
+        "nodes": [
+          {
+            "name": "blender-addons",
+            "forkCount": 1,
+            "stargazers": {
+              "totalCount": 2
+            },
+            "primaryLanguage": {
+              "name": "Python",
+              "color": "#3572A5"
+            },
+            "languages": {
+              "edges": [
+                {
+                  "size": 37479,
+                  "node": {
+                    "name": "Python",
+                    "color": "#3572A5"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "android-modules",
+            "forkCount": 0,
+            "stargazers": {
+              "totalCount": 0
+            },
+            "primaryLanguage": {
+              "name": "Java",
+              "color": "#b07219"
+            },
+            "languages": {
+              "edges": [
+                {
+                  "size": 62834,
+                  "node": {
+                    "name": "Java",
+                    "color": "#b07219"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

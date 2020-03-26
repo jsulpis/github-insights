@@ -2,10 +2,10 @@ import { RepositoryOwned } from "models/Repository";
 import httpPost from "../lib/httpPost";
 import {
   GraphQLOwnedRepositoriesResponse,
-  RepositoryEdge
+  RepositoryNode
 } from "./dto/graphql/reposDTOs";
 
-export default function fetchOwnedRepos(
+export default function fetchReposOwned(
   username: string
 ): Promise<RepositoryOwned[]> {
   const headers = {
@@ -15,16 +15,23 @@ export default function fetchOwnedRepos(
     query: `query {
               user(login:"${username}") {
                 repositories(first: 100, ownerAffiliations: [OWNER], orderBy: {field: PUSHED_AT, direction: DESC}, privacy: PUBLIC) {
-                  edges {
-                    node {
+                  nodes {
+                    name,
+                    forkCount,
+                    stargazers {
+                      totalCount
+                    },
+                    primaryLanguage {
                       name,
-                      forkCount,
-                      stargazers {
-                        totalCount
-                      },
-                      primaryLanguage {
-                        name,
-                        color
+                      color
+                    },
+                    languages(first:100) {
+                      edges {
+                        size,
+                        node {
+                          name,
+                          color
+                        }
                       }
                     }
                   }
@@ -34,16 +41,20 @@ export default function fetchOwnedRepos(
   };
   return httpPost("https://api.github.com/graphql", body, headers).then(
     (res: GraphQLOwnedRepositoriesResponse) =>
-      toRepositories(res.data.user.repositories.edges)
+      toRepositories(res.data.user.repositories.nodes)
   );
 }
 
-function toRepositories(repositoryEdges: RepositoryEdge[]): RepositoryOwned[] {
-  return repositoryEdges.map(repoEdge => {
-    const repoNode = repoEdge.node;
+function toRepositories(repositoryEdges: RepositoryNode[]): RepositoryOwned[] {
+  return repositoryEdges.map(repoNode => {
     return {
       name: repoNode.name,
       primaryLanguage: repoNode.primaryLanguage,
+      languages: repoNode.languages.edges.map(languageEdge => ({
+        name: languageEdge.node.name,
+        color: languageEdge.node.color,
+        amountOfCodeInMb: languageEdge.size
+      })),
       starCount: repoNode.stargazers ? repoNode.stargazers.totalCount : null,
       forkCount: repoNode.forkCount
     };

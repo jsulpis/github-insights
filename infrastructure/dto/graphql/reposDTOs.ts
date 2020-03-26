@@ -1,10 +1,27 @@
-import { Language } from "models/Language";
+export interface Languages {
+  edges: LanguageEdge[];
+}
+
+export interface LanguageEdge {
+  size: number;
+  node: LanguageDTO;
+}
+
+export interface LanguageDTO {
+  name: string;
+  color: string;
+}
+
+export interface StargazersDTO {
+  totalCount: number;
+}
 
 export interface RepositoryNode {
-  name: string;
-  primaryLanguage: Language;
+  name?: string;
   forkCount?: number;
-  stargazers?: { totalCount: number };
+  stargazers?: StargazersDTO;
+  primaryLanguage?: LanguageDTO;
+  languages?: Languages;
   diskUsage?: number;
   defaultBranchRef?: {
     target: {
@@ -15,15 +32,11 @@ export interface RepositoryNode {
   };
 }
 
-export interface RepositoryEdge {
-  node: RepositoryNode;
-}
-
 export interface GraphQLRepositoriesContributedToResponse {
   data: {
     user: {
       repositoriesContributedTo: {
-        edges: RepositoryEdge[];
+        nodes: RepositoryNode[];
       };
     };
   };
@@ -33,7 +46,7 @@ export interface GraphQLOwnedRepositoriesResponse {
   data: {
     user: {
       repositories: {
-        edges: RepositoryEdge[];
+        nodes: RepositoryNode[];
       };
     };
   };
