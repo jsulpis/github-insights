@@ -13,7 +13,6 @@ import {
   ContributionsPerMonth,
   ContributionsPerRepo
 } from "models/Contributions";
-import { Language } from "models/Language";
 import Repository from "models/Repository";
 import User from "models/User";
 import { withRouter } from "next/router";
@@ -25,15 +24,13 @@ interface UserPageState {
   repos: Repository[];
   contributionsPerMonth: ContributionsPerMonth[];
   contributionsPerRepo: ContributionsPerRepo[];
-  languages: Map<Language, number>;
 }
 
 const defaultState = {
   user: null,
   repos: null,
   contributionsPerMonth: null,
-  contributionsPerRepo: null,
-  languages: null
+  contributionsPerRepo: null
 };
 
 class UserPage extends React.Component<any, UserPageState> {
@@ -47,14 +44,9 @@ class UserPage extends React.Component<any, UserPageState> {
     const repos = this.state.repos;
     const contributionsPerMonth = this.state.contributionsPerMonth;
     const contributionsPerRepo = this.state.contributionsPerRepo;
-    const languages = this.state.languages;
     const userFullName = !!user ? user.name : "";
     const isDataPresent =
-      !!user &&
-      !!repos &&
-      !!contributionsPerMonth &&
-      !!contributionsPerRepo &&
-      !!languages;
+      !!user && !!repos && !!contributionsPerMonth && !!contributionsPerRepo;
 
     return (
       <Page
@@ -74,7 +66,7 @@ class UserPage extends React.Component<any, UserPageState> {
               contributionsPerMonth={contributionsPerMonth}
               contributionsPerRepo={contributionsPerRepo}
             />
-            <LanguagesCharts languages={languages} repos={repos} />
+            <LanguagesCharts repos={repos} />
             <RepositoriesCharts repos={repos} />
           </FadeTransition>
         )}
@@ -113,9 +105,6 @@ class UserPage extends React.Component<any, UserPageState> {
     );
     apiGet<ContributionsPerRepo[]>("/" + username + "/contributions").then(
       contributionsPerRepo => this.setState({ contributionsPerRepo })
-    );
-    apiGet("/" + username + "/languages").then((languages: any) =>
-      this.setState({ languages: new Map(languages) })
     );
   }
 }

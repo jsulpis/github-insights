@@ -53,7 +53,7 @@ function toRepositories(repositoryEdges: RepositoryNode[]): RepositoryOwned[] {
       languages: repoNode.languages.edges.map(languageEdge => ({
         name: languageEdge.node.name,
         color: languageEdge.node.color,
-        amountOfCodeInMb: languageEdge.size
+        amountOfCodeInBytes: languageEdge.size
       })),
       starCount: repoNode.stargazers ? repoNode.stargazers.totalCount : null,
       forkCount: repoNode.forkCount

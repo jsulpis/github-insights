@@ -7,7 +7,7 @@ export default class Repository {
     public forkCount: number,
     public starCount: number,
     public primaryLanguage: Language,
-    public languages: Array<Language & { amountOfCodeInMb: number }>,
+    public languages: Array<Language & { amountOfCodeInBytes: number }>,
     public commitCount: number
   ) {}
 }

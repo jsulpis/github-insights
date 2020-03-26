@@ -26,7 +26,7 @@ describe("Repo api", () => {
           {
             name: "Python",
             color: "#3572A5",
-            amountOfCodeInMb: 37479
+            amountOfCodeInBytes: 37479
           }
         ]
       },
@@ -39,7 +39,7 @@ describe("Repo api", () => {
           {
             name: "Java",
             color: "#b07219",
-            amountOfCodeInMb: 62834
+            amountOfCodeInBytes: 62834
           }
         ]
       }
