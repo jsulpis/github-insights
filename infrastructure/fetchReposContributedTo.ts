@@ -14,7 +14,7 @@ export default function fetchReposContributedTo(
   const body = {
     query: `query {
               user(login:"${username}") {
-                repositoriesContributedTo(first: 100, includeUserRepositories: true, contributionTypes:[COMMIT, PULL_REQUEST, PULL_REQUEST_REVIEW, REPOSITORY]) {
+                repositoriesContributedTo(first: 30, orderBy: {field: PUSHED_AT, direction: DESC}, includeUserRepositories: true, contributionTypes:[COMMIT, PULL_REQUEST, PULL_REQUEST_REVIEW, REPOSITORY]) {
                   nodes {
                     name,
                     diskUsage,
