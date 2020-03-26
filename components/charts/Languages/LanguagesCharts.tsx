@@ -92,7 +92,9 @@ function countReposPerLanguage(repos: Repository[]): Map<Language, number> {
   for (const repo of repos) {
     const repoLanguage = JSON.stringify({
       name: repo.primaryLanguage ? repo.primaryLanguage.name : "None",
-      color: repo.primaryLanguage ? repo.primaryLanguage.color : ""
+      color: repo.primaryLanguage
+        ? repo.primaryLanguage.color
+        : "rgba(0,0,0,0.3)"
     }); // workaround to use string keys instead of objects
     const currentLanguageSize = languagesMap.get(repoLanguage) || 0;
     languagesMap.set(repoLanguage, currentLanguageSize + 1);

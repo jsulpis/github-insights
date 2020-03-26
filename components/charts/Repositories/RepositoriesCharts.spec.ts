@@ -11,9 +11,6 @@ describe("RepositoriesCharts", () => {
           name: "Repo1",
           commitCount: 12,
           diskUsage: 100,
-          forkCount: 4,
-          starCount: 6,
-          updateDate: new Date(),
           primaryLanguage: {
             name: "HTML",
             color: "red"
@@ -23,9 +20,6 @@ describe("RepositoriesCharts", () => {
           name: "Repo2",
           commitCount: 21,
           diskUsage: 200,
-          forkCount: 5,
-          starCount: 7,
-          updateDate: new Date(),
           primaryLanguage: null
         }
       ]
@@ -41,7 +35,7 @@ describe("RepositoriesCharts", () => {
       },
       {
         name: "Repo2",
-        color: "rgba(0,0,0,0.2)",
+        color: "rgba(0,0,0,0.3)",
         x: 0.2,
         y: 21,
         r: 6

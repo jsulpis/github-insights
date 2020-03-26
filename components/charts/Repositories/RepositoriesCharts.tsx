@@ -33,7 +33,7 @@ export function makeDataFromProps(props: RepositoriesChartsProps) {
     x: repo.diskUsage / 1000,
     y: repo.commitCount,
     r: Math.min(Math.max(Math.ceil(Math.log(repo.diskUsage)), 5), 30),
-    color: repo.primaryLanguage ? repo.primaryLanguage.color : "rgba(0,0,0,0.2)"
+    color: repo.primaryLanguage ? repo.primaryLanguage.color : "rgba(0,0,0,0.3)"
   }));
 }
 
