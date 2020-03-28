@@ -4,7 +4,7 @@ import { HorizontalBarChart } from "../BarCharts/BarCharts";
 import { ChartData } from "../chart.models";
 import { makeChartDataFromLanguages } from "./LanguagesCharts";
 
-export default function LanguagesByCodeAmountChart(props: {
+export default function LanguagesByAmountOfCodeChart(props: {
   languages: Map<Language, number>;
 }) {
   const languages = props.languages;

@@ -3,7 +3,7 @@ import { RepositoryOwned } from "models/Repository";
 import React from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import { ChartData } from "../chart.models";
-import LanguagesByCodeAmountChart from "./LanguagesByAmountOfCodeChart";
+import LanguagesByAmountOfCodeChart from "./LanguagesByAmountOfCodeChart";
 import LanguagesByReposChart from "./LanguagesByReposChart";
 import "./LanguagesCharts.scss";
 
@@ -28,7 +28,7 @@ function LanguagesCharts(props: LanguagesChartsProps) {
       </CardHeader>
       <CardBody>
         <div className="languages-charts">
-          <LanguagesByCodeAmountChart languages={languagesMap} />
+          <LanguagesByAmountOfCodeChart languages={languagesMap} />
           <LanguagesByReposChart repos={repos} />
         </div>
       </CardBody>

@@ -1,7 +1,7 @@
 import { RepositoryContributedTo } from "models/Repository";
 import React from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
-import BubbleChart from "../BubbleChart";
+import BubbleChart from "../BubbleChart/BubbleChart";
 import "./RepositoriesCharts.scss";
 
 export interface RepositoriesChartsProps {
