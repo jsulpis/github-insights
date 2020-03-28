@@ -4,7 +4,7 @@
       "repositoriesContributedTo": {
         "nodes": [
           {
-            "name": "blender-addons",
+            "nameWithOwner": "jsulpis/blender-addons",
             "diskUsage": 1076,
             "primaryLanguage": {
               "name": "Python",
@@ -19,7 +19,7 @@
             }
           },
           {
-            "name": "password-generator",
+            "nameWithOwner": "jsulpis/password-generator",
             "diskUsage": 2087,
             "primaryLanguage": {
               "name": "TypeScript",

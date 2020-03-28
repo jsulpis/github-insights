@@ -18,13 +18,13 @@ describe("Repo api", () => {
     // Then
     const expectedReposList: RepositoryContributedTo[] = [
       {
-        name: "blender-addons",
+        nameWithOwner: "jsulpis/blender-addons",
         diskUsage: 1076,
         primaryLanguage: { name: "Python", color: "#3572A5" },
         commitCount: 38
       },
       {
-        name: "password-generator",
+        nameWithOwner: "jsulpis/password-generator",
         diskUsage: 2087,
         primaryLanguage: { name: "TypeScript", color: "#2b7489" },
         commitCount: 22
