@@ -1,5 +1,9 @@
 import React from "react";
 import { Bubble } from "react-chartjs-2";
+import {
+  bubbleChartXAxesFilter,
+  bubbleChartYAxesFilter
+} from "./BubbleChartAxesFilters";
 
 export interface BubbleChartPoint {
   name: string;
@@ -48,12 +52,7 @@ const makeOptionsFromProps = (props: BubbleChartProps) => ({
         },
         ticks: {
           autoSkip: false,
-          callback: (value, _, values) =>
-            values[0] > 300
-              ? (value * 10).toString()[0] === "1"
-                ? value
-                : null
-              : value
+          callback: bubbleChartYAxesFilter
         },
         scaleLabel: {
           display: true,
@@ -69,12 +68,7 @@ const makeOptionsFromProps = (props: BubbleChartProps) => ({
         },
         ticks: {
           autoSkip: false,
-          callback: (value, _, values) =>
-            values[values.length - 1] > 100
-              ? (value * 10).toString()[0] === "1"
-                ? value
-                : null
-              : value
+          callback: bubbleChartXAxesFilter
         },
         scaleLabel: {
           display: true,

@@ -13,8 +13,7 @@ import {
   ContributionsPerMonth,
   ContributionsPerRepo
 } from "models/Contributions";
-import { Language } from "models/Language";
-import Repository from "models/Repository";
+import { RepositoryContributedTo, RepositoryOwned } from "models/Repository";
 import User from "models/User";
 import { withRouter } from "next/router";
 import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
@@ -22,18 +21,18 @@ import React from "react";
 
 interface UserPageState {
   user: User;
-  repos: Repository[];
+  reposOwned: RepositoryOwned[];
+  reposContributedTo: RepositoryContributedTo[];
   contributionsPerMonth: ContributionsPerMonth[];
   contributionsPerRepo: ContributionsPerRepo[];
-  languages: Map<Language, number>;
 }
 
-const defaultState = {
+const defaultState: UserPageState = {
   user: null,
-  repos: null,
-  contributionsPerMonth: null,
-  contributionsPerRepo: null,
-  languages: null
+  reposOwned: null,
+  reposContributedTo: [],
+  contributionsPerMonth: [],
+  contributionsPerRepo: []
 };
 
 class UserPage extends React.Component<any, UserPageState> {
@@ -44,17 +43,12 @@ class UserPage extends React.Component<any, UserPageState> {
 
   public render() {
     const user = this.state.user;
-    const repos = this.state.repos;
+    const reposOwned = this.state.reposOwned;
+    const reposContributedTo = this.state.reposContributedTo;
     const contributionsPerMonth = this.state.contributionsPerMonth;
     const contributionsPerRepo = this.state.contributionsPerRepo;
-    const languages = this.state.languages;
     const userFullName = !!user ? user.name : "";
-    const isDataPresent =
-      !!user &&
-      !!repos &&
-      !!contributionsPerMonth &&
-      !!contributionsPerRepo &&
-      !!languages;
+    const isDataPresent = !!user && !!reposOwned;
 
     return (
       <Page
@@ -69,13 +63,13 @@ class UserPage extends React.Component<any, UserPageState> {
                 this.props.router.push("/[username]", "/" + username);
               }}
             />
-            <UserProfile user={user} repos={repos} />
+            <UserProfile user={user} repos={reposOwned} />
             <ContributionsChart
               contributionsPerMonth={contributionsPerMonth}
               contributionsPerRepo={contributionsPerRepo}
             />
-            <LanguagesCharts languages={languages} repos={repos} />
-            <RepositoriesCharts repos={repos} />
+            <LanguagesCharts repos={reposOwned} />
+            <RepositoriesCharts repos={reposContributedTo} />
           </FadeTransition>
         )}
         {!isDataPresent && (
@@ -105,17 +99,17 @@ class UserPage extends React.Component<any, UserPageState> {
 
   private fetchAllData(username) {
     apiGet<User>("/" + username).then(user => this.setState({ user }));
-    apiGet<Repository[]>("/" + username + "/repos").then(repos =>
-      this.setState({ repos })
+    apiGet<RepositoryOwned[]>("/" + username + "/repos-owned").then(
+      reposOwned => this.setState({ reposOwned })
     );
+    apiGet<RepositoryContributedTo[]>(
+      "/" + username + "/repos-contributed"
+    ).then(reposContributedTo => this.setState({ reposContributedTo }));
     apiGet<ContributionsPerMonth[]>("/" + username + "/timeline").then(
       contributionsPerMonth => this.setState({ contributionsPerMonth })
     );
     apiGet<ContributionsPerRepo[]>("/" + username + "/contributions").then(
       contributionsPerRepo => this.setState({ contributionsPerRepo })
-    );
-    apiGet("/" + username + "/languages").then((languages: any) =>
-      this.setState({ languages: new Map(languages) })
     );
   }
 }

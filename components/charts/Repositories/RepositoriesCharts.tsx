@@ -1,11 +1,11 @@
-import Repository from "models/Repository";
+import { RepositoryContributedTo } from "models/Repository";
 import React from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
-import BubbleChart from "../BubbleChart";
+import BubbleChart from "../BubbleChart/BubbleChart";
 import "./RepositoriesCharts.scss";
 
 export interface RepositoriesChartsProps {
-  repos: Repository[];
+  repos: RepositoryContributedTo[];
 }
 
 function RepositoriesCharts(props: RepositoriesChartsProps) {
@@ -28,12 +28,29 @@ function RepositoriesCharts(props: RepositoriesChartsProps) {
 }
 
 export function makeDataFromProps(props: RepositoriesChartsProps) {
+  const isSmallScreen = !!window ? window.innerWidth <= 600 : false;
+  const minRadius = 5;
+  const maxRadius = isSmallScreen ? minRadius : 15;
+  let minSize = 0;
+  let maxSize = props.repos[0] ? props.repos[0].diskUsage : 0;
+  props.repos.forEach(repo => {
+    if (repo.diskUsage > maxSize) {
+      maxSize = repo.diskUsage;
+    }
+    if (repo.diskUsage < minSize) {
+      minSize = repo.diskUsage;
+    }
+  });
   return props.repos.map(repo => ({
-    name: repo.name,
+    name: repo.nameWithOwner,
     x: repo.diskUsage / 1000,
     y: repo.commitCount,
-    r: Math.min(Math.max(Math.ceil(Math.log(repo.diskUsage)), 5), 30),
-    color: repo.primaryLanguage ? repo.primaryLanguage.color : "rgba(0,0,0,0.2)"
+    r: Math.ceil(
+      minRadius +
+        ((repo.diskUsage - minSize) / (maxSize - minSize)) *
+          (maxRadius - minRadius)
+    ),
+    color: repo.primaryLanguage ? repo.primaryLanguage.color : "rgba(0,0,0,0.3)"
   }));
 }
 

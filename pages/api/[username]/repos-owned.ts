@@ -1,10 +1,10 @@
-import fetchContributionsCalendar from "infrastructure/fetchContributionsCalendar";
+import fetchReposOwned from "infrastructure/fetchReposOwned";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   const username = req.query.username as string;
 
-  return fetchContributionsCalendar(username)
-    .then(contributions => res.status(200).json(contributions))
+  return fetchReposOwned(username)
+    .then(repos => res.status(200).json(repos))
     .catch(err => res.status(err.status).json(err.message));
 };

@@ -1,4 +1,4 @@
-import Repository from "models/Repository";
+import { RepositoryOwned } from "models/Repository";
 import User from "models/User";
 import React from "react";
 import { Card, CardBody, CardFooter } from "reactstrap";
@@ -6,7 +6,7 @@ import "./UserProfile.scss";
 
 interface UserProfileProps {
   user: User;
-  repos: Repository[];
+  repos: RepositoryOwned[];
 }
 
 function UserProfile(props: UserProfileProps) {
@@ -53,7 +53,7 @@ function UserProfile(props: UserProfileProps) {
             {user.website}
           </a>
         </div>
-        <p className="card-category description text-center">{user.bio}</p>
+        <p className="card-category text-center">{user.bio}</p>
         {user.repos > 100 && (
           <p className="message-many-repos text-warning">
             <strong>Note:</strong> Only the latest 100 repos were used for the
