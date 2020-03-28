@@ -10,13 +10,13 @@ describe("Repos api", () => {
     // Given
     const MOCK_REPOS: RepositoryContributedTo[] = [
       {
-        name: "android-modules",
+        nameWithOwner: "jsulpis/android-modules",
         diskUsage: 279,
         primaryLanguage: { name: "Java", color: "#b07219" },
         commitCount: 20
       },
       {
-        name: "blender-addons",
+        nameWithOwner: "jsulpis/blender-addons",
         diskUsage: 1076,
         primaryLanguage: { name: "Python", color: "#3572A5" },
         commitCount: 38

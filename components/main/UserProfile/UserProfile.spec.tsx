@@ -1,6 +1,6 @@
 import { render, wait } from "@testing-library/react";
 import UserProfile from "components/main/UserProfile/UserProfile";
-import Repository from "models/Repository";
+import { RepositoryOwned } from "models/Repository";
 import User from "models/User";
 import React from "react";
 
@@ -25,33 +25,45 @@ describe("UserProfile", () => {
     repos: 15
   };
 
-  const MOCK_REPOS: Repository[] = [
+  const MOCK_REPOS: RepositoryOwned[] = [
     {
       name: "android-modules",
-      updateDate: new Date("2018-10-25T12:18:19Z"),
-      diskUsage: 279,
       forkCount: 3,
       starCount: 1,
       primaryLanguage: { name: "Java", color: "#b07219" },
-      commitCount: 1
+      languages: [
+        {
+          name: "Java",
+          color: "#b07219",
+          amountOfCodeInBytes: 100
+        }
+      ]
     },
     {
       name: "blender-addons",
-      updateDate: new Date("2019-06-10T15:26:14Z"),
-      diskUsage: 1076,
       forkCount: 1,
       starCount: 2,
       primaryLanguage: { name: "Python", color: "#3572A5" },
-      commitCount: 2
+      languages: [
+        {
+          name: "Python",
+          color: "#3572A5",
+          amountOfCodeInBytes: 250
+        }
+      ]
     },
     {
       name: "blender-addons",
-      updateDate: new Date("2019-06-10T15:26:14Z"),
-      diskUsage: 1076,
       forkCount: 1,
       starCount: 2,
       primaryLanguage: { name: "Python", color: "#3572A5" },
-      commitCount: 3
+      languages: [
+        {
+          name: "Python",
+          color: "#3572A5",
+          amountOfCodeInBytes: 250
+        }
+      ]
     }
   ];
 
@@ -68,7 +80,9 @@ describe("UserProfile", () => {
       expect(getAttributeValueByClass(container, ".username", "href")).toBe(
         MOCK_USER.profileUrl
       );
-      expect(getContentByClass(container, ".description")).toBe(MOCK_USER.bio);
+      expect(getContentByClass(container, ".card-category")).toBe(
+        MOCK_USER.bio
+      );
       expect(getAttributeValueByClass(container, ".avatar", "src")).toBe(
         MOCK_USER.avatarUrl
       );
