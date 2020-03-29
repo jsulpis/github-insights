@@ -5,6 +5,7 @@ import Spinner from "components/animation/Spinner/Spinner";
 import ContributionsChart from "components/charts/Contributions/ContributionsChart";
 import LanguagesCharts from "components/charts/Languages/LanguagesCharts";
 import RepositoriesCharts from "components/charts/Repositories/RepositoriesCharts";
+import Footer from "components/main/Footer/Footer";
 import Page from "components/context/Page";
 import SearchForm from "components/form/SearchForm/SearchForm";
 import UserProfile from "components/main/UserProfile/UserProfile";
@@ -70,6 +71,7 @@ class UserPage extends React.Component<any, UserPageState> {
             />
             <LanguagesCharts repos={reposOwned} />
             <RepositoriesCharts repos={reposContributedTo} />
+            <Footer />
           </FadeTransition>
         )}
         {!isDataPresent && (
