@@ -1,13 +1,11 @@
-import "@fortawesome/fontawesome-free/js/fontawesome";
-import "@fortawesome/fontawesome-free/js/solid";
 import FadeTransition from "components/animation/FadeTransition/FadeTransition";
 import Spinner from "components/animation/Spinner/Spinner";
 import ContributionsChart from "components/charts/Contributions/ContributionsChart";
 import LanguagesCharts from "components/charts/Languages/LanguagesCharts";
 import RepositoriesCharts from "components/charts/Repositories/RepositoriesCharts";
-import Footer from "components/main/Footer/Footer";
 import Page from "components/context/Page";
 import SearchForm from "components/form/SearchForm/SearchForm";
+import Footer from "components/main/Footer/Footer";
 import UserProfile from "components/main/UserProfile/UserProfile";
 import apiGet from "lib/apiGet";
 import {
@@ -17,7 +15,6 @@ import {
 import { RepositoryContributedTo, RepositoryOwned } from "models/Repository";
 import User from "models/User";
 import { withRouter } from "next/router";
-import "paper-dashboard-react/src/assets/scss/paper-dashboard.scss";
 import React from "react";
 
 interface UserPageState {

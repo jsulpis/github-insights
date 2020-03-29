@@ -29,6 +29,12 @@ const Page = (props: PageProps) => (
         .page .card-body {
           min-height: initial;
         }
+        a,
+        a:hover,
+        a:focus {
+          color: #102f6a;
+          font-weight: bold;
+        }
       `}
     </style>
   </div>

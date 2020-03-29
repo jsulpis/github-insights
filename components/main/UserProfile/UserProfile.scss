@@ -19,7 +19,8 @@
     margin-bottom: 0.5em;
   }
 
-  .company, .location {
+  .company,
+  .location {
     margin: 0;
   }
 
@@ -27,10 +28,8 @@
     margin-bottom: 1em;
   }
 
-  a, a:hover, a:focus {
+  a {
     display: block;
-    color: #102f6a;
-    font-weight: bold;
   }
 
   .figures {
@@ -44,10 +43,11 @@
         margin: 0.5em;
       }
 
-      > div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      svg {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        vertical-align: initial;
       }
     }
 
