@@ -1,3 +1,11 @@
+import {
+  faCode,
+  faCodeBranch,
+  faLanguage,
+  faStar,
+  faUsers
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RepositoryOwned } from "models/Repository";
 import User from "models/User";
 import React from "react";
@@ -66,35 +74,35 @@ function UserProfile(props: UserProfileProps) {
         <div className="figures">
           <div>
             <div>
-              <i className="fas fa-users" />
+              <FontAwesomeIcon icon={faUsers} />
               <span className="followers">{user.followers}</span>
             </div>
             <p>Followers</p>
           </div>
           <div>
             <div>
-              <i className="fas fa-language" />
+              <FontAwesomeIcon icon={faLanguage} />
               <span className="languages">{languages.length}</span>
             </div>
             <p>Main languages</p>
           </div>
           <div>
             <div>
-              <i className="fas fa-code" />
+              <FontAwesomeIcon icon={faCode} />
               <span className="repos">{user.repos}</span>
             </div>
             <p>Repos</p>
           </div>
           <div>
             <div>
-              <i className="fas fa-star" />
+              <FontAwesomeIcon icon={faStar} />
               <span className="stars">{totalStars}</span>
             </div>
             <p>Total Stars</p>
           </div>
           <div>
             <div>
-              <i className="fas fa-code-branch" />
+              <FontAwesomeIcon icon={faCodeBranch} />
               <span className="forks">{totalForks}</span>
             </div>
             <p>Total Forks</p>

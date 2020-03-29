@@ -1,6 +1,8 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import { PageTransition } from "next-page-transitions";
-import App, { Container } from "next/app";
+import App from "next/app";
 import Router from "next/router";
+import "paper-dashboard-react/src/assets/css/paper-dashboard.min.css";
 import React from "react";
 
 import * as gtag from "lib/gtag";
@@ -11,7 +13,7 @@ export default class extends App {
   public render() {
     const { Component, pageProps, router } = this.props;
     return (
-      <Container>
+      <>
         <PageTransition timeout={300} classNames="page-transition">
           <Component {...pageProps} key={router.route} />
         </PageTransition>
@@ -31,7 +33,7 @@ export default class extends App {
             transition: opacity 300ms;
           }
         `}</style>
-      </Container>
+      </>
     );
   }
 }
