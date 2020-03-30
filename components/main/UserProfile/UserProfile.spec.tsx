@@ -101,18 +101,6 @@ describe("UserProfile", () => {
     });
   });
 
-  it("displays a message when there are to many repos", async () => {
-    const userWithManyRepos = Object.assign({}, MOCK_USER);
-    userWithManyRepos.repos = 300;
-    const { container } = render(
-      <UserProfile user={userWithManyRepos} repos={MOCK_REPOS} />
-    );
-
-    await wait(() => {
-      expect(container.querySelector(".message-many-repos")).toBeTruthy();
-    });
-  });
-
   it("shows information about the repos", async () => {
     const { container } = render(
       <UserProfile user={MOCK_USER} repos={MOCK_REPOS} />

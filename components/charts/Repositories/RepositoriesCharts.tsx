@@ -13,6 +13,11 @@ function RepositoriesCharts(props: RepositoriesChartsProps) {
     <Card className="card-user">
       <CardHeader>
         <CardTitle tag="h5">Repositories</CardTitle>
+        <p className="card-description">
+          First 30 repositories that the user recently contributed to. The
+          contributions included are: commit, creation of pull request, creation
+          of repository.
+        </p>
       </CardHeader>
       <CardBody>
         <div className="repositories-wrapper">

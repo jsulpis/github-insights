@@ -1,4 +1,4 @@
-@import 'node_modules/paper-dashboard-react/src/assets/scss/paper-dashboard/variables';
+@import "node_modules/paper-dashboard-react/src/assets/scss/paper-dashboard/variables";
 
 $radius: 0.25em;
 $height: 3em;
@@ -10,14 +10,14 @@ $height: 3em;
     button#search-button {
       border-radius: 0 $radius $radius 0;
       border: none;
-      padding: 0 .9em;
+      padding: 0 0.9em;
       height: $height;
       width: $height;
       margin-left: -0.3em;
       background-color: $medium-gray;
       color: #66615b;
       align-self: baseline;
-      transition: background-color .1s ease-in-out;
+      transition: background-color 0.1s ease-in-out;
 
       &:hover {
         background-color: $table-line-color;
@@ -40,8 +40,4 @@ $height: 3em;
   padding-left: 1em;
   width: 16em;
   border-radius: $radius;
-
-  &:focus {
-    border-color: $medium-gray;
-  }
 }

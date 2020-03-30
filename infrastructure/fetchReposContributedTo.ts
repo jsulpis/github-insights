@@ -10,7 +10,7 @@ export default function fetchReposContributedTo(
 ): Promise<RepositoryContributedTo[]> {
   return graphql(`query {
     user(login:"${username}") {
-      repositoriesContributedTo(first: 30, orderBy: {field: PUSHED_AT, direction: DESC}, includeUserRepositories: true, contributionTypes:[COMMIT, PULL_REQUEST, PULL_REQUEST_REVIEW, REPOSITORY]) {
+      repositoriesContributedTo(first: 30, orderBy: {field: PUSHED_AT, direction: DESC}, includeUserRepositories: true, contributionTypes:[COMMIT, PULL_REQUEST, REPOSITORY]) {
         nodes {
           nameWithOwner,
           diskUsage,

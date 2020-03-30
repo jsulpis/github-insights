@@ -1,0 +1,25 @@
+@import "node_modules/paper-dashboard-react/src/assets/scss/paper-dashboard/variables";
+
+.info-tooltip {
+  background-color: $card-black-color;
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
+  color: white;
+  font-family: $font-family-sans-serif;
+  padding: 12px;
+  max-width: 250px;
+}
+
+.tooltip .info-tooltip-arrow.arrow::before {
+  border-bottom-color: $card-black-color;
+}
+
+.info-icon {
+  border-radius: 50%;
+  border: 1px solid $card-black-color;
+  color: $card-black-color;
+  padding: 2px;
+  height: 12px;
+  width: 12px;
+  margin-left: 5px;
+  vertical-align: initial;
+}

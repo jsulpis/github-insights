@@ -10,6 +10,7 @@ import { RepositoryOwned } from "models/Repository";
 import User from "models/User";
 import React from "react";
 import { Card, CardBody, CardFooter } from "reactstrap";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import "./UserProfile.scss";
 
 interface UserProfileProps {
@@ -62,12 +63,6 @@ function UserProfile(props: UserProfileProps) {
           </a>
         </div>
         <p className="card-category text-center">{user.bio}</p>
-        {user.repos > 100 && (
-          <p className="message-many-repos text-warning">
-            <strong>Note:</strong> Only the latest 100 repos were used for the
-            following stats.
-          </p>
-        )}
       </CardBody>
       <CardFooter>
         <hr />
@@ -85,13 +80,17 @@ function UserProfile(props: UserProfileProps) {
               <span className="languages">{languages.length}</span>
             </div>
             <p>Main languages</p>
+            <InfoTooltip>
+              Number of distinct primary languages in the 100 latest public
+              repositories owned by the user, excluding forked repositories.
+            </InfoTooltip>
           </div>
           <div>
             <div>
               <FontAwesomeIcon icon={faCode} />
               <span className="repos">{user.repos}</span>
             </div>
-            <p>Repos</p>
+            <p>Public Repos</p>
           </div>
           <div>
             <div>
@@ -99,6 +98,10 @@ function UserProfile(props: UserProfileProps) {
               <span className="stars">{totalStars}</span>
             </div>
             <p>Total Stars</p>
+            <InfoTooltip>
+              Total number of stars in the 100 latest public repositories owned
+              by the user, excluding forked repositories.
+            </InfoTooltip>
           </div>
           <div>
             <div>
@@ -106,6 +109,10 @@ function UserProfile(props: UserProfileProps) {
               <span className="forks">{totalForks}</span>
             </div>
             <p>Total Forks</p>
+            <InfoTooltip>
+              Total number of forks in the 100 latest public repositories owned
+              by the user, excluding forked repositories.
+            </InfoTooltip>
           </div>
         </div>
       </CardFooter>

@@ -43,7 +43,7 @@
         margin: 0.5em;
       }
 
-      svg {
+      svg:not(.info-icon) {
         display: inline-block;
         width: 1em;
         height: 1em;
@@ -59,6 +59,7 @@
 
     p {
       margin: 0;
+      display: inline;
     }
   }
 }
