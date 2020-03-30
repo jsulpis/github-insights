@@ -16,11 +16,13 @@ import "./UserProfile.scss";
 interface UserProfileProps {
   user: User;
   repos: RepositoryOwned[];
+  backgroundPictureSeed?: string;
 }
 
 function UserProfile(props: UserProfileProps) {
-  const user = props.user;
-  const repos = props.repos;
+  const { user, repos } = props;
+  const backgroundPictureSeed =
+    props.backgroundPictureSeed || new Date().getMilliseconds.toString();
   const totalStars = repos.reduce(
     (acc, current) => acc + (current.starCount || 0),
     0
@@ -43,7 +45,10 @@ function UserProfile(props: UserProfileProps) {
   return (
     <Card className="card-user">
       <div className="image">
-        <img alt="background" src="https://picsum.photos/900" />
+        <img
+          alt="background"
+          src={`https://picsum.photos/seed/${backgroundPictureSeed}/800/130`}
+        />
       </div>
       <CardBody>
         <div className="author">
