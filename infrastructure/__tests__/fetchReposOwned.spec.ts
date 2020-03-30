@@ -1,14 +1,14 @@
 import { RepositoryOwned } from "models/Repository";
-import httpPost from "../../lib/httpPost";
+import graphql from "../../lib/graphql";
 import fetchReposOwned from "../fetchReposOwned";
 
-jest.mock("lib/httpPost");
+jest.mock("lib/graphql");
 
 describe("Repo api", () => {
   it("should return a list of repositories", async () => {
     // Given
     const username = "jsulpis";
-    (httpPost as jest.Mock).mockImplementation(() =>
+    (graphql as jest.Mock).mockImplementation(() =>
       Promise.resolve(require("./mocks/mockReposOwned.json"))
     );
 
@@ -45,12 +45,7 @@ describe("Repo api", () => {
       }
     ];
 
-    expect(httpPost).toHaveBeenCalledWith(
-      "https://api.github.com/graphql",
-      expect.anything(),
-      { Authorization: expect.stringContaining("bearer ") }
-    );
-
+    expect(graphql).toHaveBeenCalled();
     expect(repos).toEqual(expectedReposList);
   });
 });

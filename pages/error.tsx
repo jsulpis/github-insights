@@ -3,11 +3,12 @@ import HomeSearchForm from "components/form/HomeSearchForm/HomeSearchForm";
 import Router from "next/router";
 import React from "react";
 
-function ErrorPage() {
+function ServerErrorPage() {
   return (
-    <Page title={"GitHub stats"} description={`404 Page`}>
-      <p className="mt-3 mb-1 h4">404</p>
-      <p className="">This user does not appear to exist !</p>
+    <Page title={"GitHub stats"} description={`Error Page`}>
+      <p style={{ fontWeight: "bold", color: "red" }}>
+        Server error. Please try again later.
+      </p>
       <HomeSearchForm
         searchUser={username => Router.push("/[username]", "/" + username)}
       />
@@ -15,4 +16,4 @@ function ErrorPage() {
   );
 }
 
-export default ErrorPage;
+export default ServerErrorPage;

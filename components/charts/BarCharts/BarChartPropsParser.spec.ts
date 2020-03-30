@@ -45,6 +45,9 @@ describe("BarChartPropsParser", () => {
             gridLines: {
               display: false
             },
+            ticks: {
+              beginAtZero: true
+            },
             scaleLabel: {
               display: false,
               labelString: undefined

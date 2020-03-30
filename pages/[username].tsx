@@ -8,11 +8,9 @@ import SearchForm from "components/form/SearchForm/SearchForm";
 import Footer from "components/main/Footer/Footer";
 import UserProfile from "components/main/UserProfile/UserProfile";
 import apiGet from "lib/apiGet";
-import {
-  ContributionsPerMonth,
-  ContributionsPerRepo
-} from "models/Contributions";
+import { ContributionsPerRepo } from "models/Contributions";
 import { RepositoryContributedTo, RepositoryOwned } from "models/Repository";
+import TimelineData from "models/TimelineData";
 import User from "models/User";
 import { withRouter } from "next/router";
 import React from "react";
@@ -21,7 +19,7 @@ interface UserPageState {
   user: User;
   reposOwned: RepositoryOwned[];
   reposContributedTo: RepositoryContributedTo[];
-  contributionsPerMonth: ContributionsPerMonth[];
+  timelineData: TimelineData;
   contributionsPerRepo: ContributionsPerRepo[];
 }
 
@@ -29,7 +27,10 @@ const defaultState: UserPageState = {
   user: null,
   reposOwned: null,
   reposContributedTo: [],
-  contributionsPerMonth: [],
+  timelineData: {
+    totalContributions: 0,
+    contributionsPerMonth: []
+  },
   contributionsPerRepo: []
 };
 
@@ -40,10 +41,8 @@ class UserPage extends React.Component<any, UserPageState> {
   }
 
   public render() {
-    const user = this.state.user;
-    const reposOwned = this.state.reposOwned;
-    const reposContributedTo = this.state.reposContributedTo;
-    const contributionsPerMonth = this.state.contributionsPerMonth;
+    const { user, reposOwned, reposContributedTo, timelineData } = this.state;
+
     const contributionsPerRepo = this.state.contributionsPerRepo;
     const userFullName = !!user ? user.name : "";
     const isDataPresent = !!user && !!reposOwned;
@@ -53,7 +52,7 @@ class UserPage extends React.Component<any, UserPageState> {
         title={"GitHub stats of " + userFullName}
         description={`Some stats about ${userFullName}'s GitHub profile`}
       >
-        {isDataPresent && (
+        {isDataPresent ? (
           <FadeTransition>
             <SearchForm
               searchUser={username => {
@@ -63,15 +62,14 @@ class UserPage extends React.Component<any, UserPageState> {
             />
             <UserProfile user={user} repos={reposOwned} />
             <ContributionsChart
-              contributionsPerMonth={contributionsPerMonth}
+              timelineData={timelineData}
               contributionsPerRepo={contributionsPerRepo}
             />
             <LanguagesCharts repos={reposOwned} />
             <RepositoriesCharts repos={reposContributedTo} />
             <Footer />
           </FadeTransition>
-        )}
-        {!isDataPresent && (
+        ) : (
           <FadeTransition>
             <p className="h5">Fetching your data...</p>
             <Spinner />
@@ -97,19 +95,27 @@ class UserPage extends React.Component<any, UserPageState> {
   }
 
   private fetchAllData(username) {
-    apiGet<User>("/" + username).then(user => this.setState({ user }));
-    apiGet<RepositoryOwned[]>("/" + username + "/repos-owned").then(
-      reposOwned => this.setState({ reposOwned })
-    );
-    apiGet<RepositoryContributedTo[]>(
-      "/" + username + "/repos-contributed"
-    ).then(reposContributedTo => this.setState({ reposContributedTo }));
-    apiGet<ContributionsPerMonth[]>("/" + username + "/timeline").then(
-      contributionsPerMonth => this.setState({ contributionsPerMonth })
-    );
-    apiGet<ContributionsPerRepo[]>("/" + username + "/contributions").then(
-      contributionsPerRepo => this.setState({ contributionsPerRepo })
-    );
+    Promise.all([
+      apiGet<User>("/" + username).then(user => this.setState({ user })),
+      apiGet<RepositoryOwned[]>("/" + username + "/repos-owned").then(
+        reposOwned => this.setState({ reposOwned })
+      ),
+      apiGet<RepositoryContributedTo[]>(
+        "/" + username + "/repos-contributed"
+      ).then(reposContributedTo => this.setState({ reposContributedTo })),
+      apiGet<TimelineData>("/" + username + "/timeline").then(timelineData =>
+        this.setState({ timelineData })
+      ),
+      apiGet<ContributionsPerRepo[]>("/" + username + "/contributions").then(
+        contributionsPerRepo => this.setState({ contributionsPerRepo })
+      )
+    ]).catch(e => {
+      if (e.status === 404) {
+        this.props.router.push("/404");
+      } else {
+        this.props.router.push("/error");
+      }
+    });
   }
 }
 

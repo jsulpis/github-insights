@@ -1,4 +1,4 @@
-import httpPost from "lib/httpPost";
+import graphql from "lib/graphql";
 import { ContributionsPerRepo } from "models/Contributions";
 import { Language } from "models/Language";
 import {
@@ -9,36 +9,28 @@ import {
 export default function fetchContributionsPerRepo(
   username: string
 ): Promise<ContributionsPerRepo[]> {
-  const headers = {
-    Authorization: `bearer ${process.env.GITHUB_API_TOKEN}`
-  };
-  const body = {
-    query: `query {
-            user(login: "${username}") {
-              contributionsCollection {
-                commitContributionsByRepository {
-                  contributions {
-                    totalCount
-                  },
-                  repository {
-                    name,
-                    primaryLanguage {
-                      name,
-                      color
-                    }
-                  }
-                }
-              }
+  return graphql(`query {
+    user(login: "${username}") {
+      contributionsCollection {
+        commitContributionsByRepository {
+          contributions {
+            totalCount
+          },
+          repository {
+            name,
+            primaryLanguage {
+              name,
+              color
             }
-          }`
-  };
-  return httpPost("https://api.github.com/graphql", body, headers).then(
-    (res: GraphQLContributionsPerRepoResponse) => {
-      return formatResonse(
-        res.data.user.contributionsCollection.commitContributionsByRepository
-      );
+          }
+        }
+      }
     }
-  );
+  }`).then((res: GraphQLContributionsPerRepoResponse) => {
+    return formatResonse(
+      res.data.user.contributionsCollection.commitContributionsByRepository
+    );
+  });
 }
 
 const formatResonse = (

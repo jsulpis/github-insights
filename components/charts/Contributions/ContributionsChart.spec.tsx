@@ -1,8 +1,8 @@
 import { render } from "@testing-library/react";
 import { ContributionsPerRepo } from "models/Contributions";
+import TimelineData from "models/TimelineData";
 import React from "react";
 import ContributionsChart from "./ContributionsChart";
-import TimelineData from "models/TimelineData";
 
 jest.mock("react-chartjs-2");
 

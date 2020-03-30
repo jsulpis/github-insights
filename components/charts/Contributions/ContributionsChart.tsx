@@ -1,10 +1,10 @@
 import { ContributionsPerRepo } from "models/Contributions";
+import TimelineData from "models/TimelineData";
 import React from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import { VerticalBarChart } from "../BarCharts/BarCharts";
 import LineChart from "../LineChart";
 import "./ContributionsChart.scss";
-import TimelineData from "models/TimelineData";
 
 interface ContributionsChartProps {
   timelineData: TimelineData;

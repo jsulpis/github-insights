@@ -1,5 +1,5 @@
+import graphql from "lib/graphql";
 import { RepositoryOwned } from "models/Repository";
-import httpPost from "../lib/httpPost";
 import {
   GraphQLOwnedRepositoriesResponse,
   RepositoryNode
@@ -8,41 +8,34 @@ import {
 export default function fetchReposOwned(
   username: string
 ): Promise<RepositoryOwned[]> {
-  const headers = {
-    Authorization: `bearer ${process.env.GITHUB_API_TOKEN}`
-  };
-  const body = {
-    query: `query {
-              user(login:"${username}") {
-                repositories(first: 100, ownerAffiliations: [OWNER], orderBy: {field: PUSHED_AT, direction: DESC}, privacy: PUBLIC) {
-                  nodes {
-                    name,
-                    isFork,
-                    forkCount,
-                    stargazers {
-                      totalCount
-                    },
-                    primaryLanguage {
-                      name,
-                      color
-                    },
-                    languages(first:100) {
-                      edges {
-                        size,
-                        node {
-                          name,
-                          color
-                        }
-                      }
-                    }
-                  }
-                }
+  return graphql(`query {
+    user(login:"${username}") {
+      repositories(first: 100, ownerAffiliations: [OWNER], orderBy: {field: PUSHED_AT, direction: DESC}, privacy: PUBLIC) {
+        nodes {
+          name,
+          isFork,
+          forkCount,
+          stargazers {
+            totalCount
+          },
+          primaryLanguage {
+            name,
+            color
+          },
+          languages(first:100) {
+            edges {
+              size,
+              node {
+                name,
+                color
               }
-            }`
-  };
-  return httpPost("https://api.github.com/graphql", body, headers).then(
-    (res: GraphQLOwnedRepositoriesResponse) =>
-      toRepositories(res.data.user.repositories.nodes)
+            }
+          }
+        }
+      }
+    }
+  }`).then((res: GraphQLOwnedRepositoriesResponse) =>
+    toRepositories(res.data.user.repositories.nodes)
   );
 }
 

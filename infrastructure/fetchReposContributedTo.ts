@@ -1,5 +1,5 @@
+import graphql from "lib/graphql";
 import { RepositoryContributedTo } from "models/Repository";
-import httpPost from "../lib/httpPost";
 import {
   GraphQLRepositoriesContributedToResponse,
   RepositoryNode
@@ -8,37 +8,30 @@ import {
 export default function fetchReposContributedTo(
   username: string
 ): Promise<RepositoryContributedTo[]> {
-  const headers = {
-    Authorization: `bearer ${process.env.GITHUB_API_TOKEN}`
-  };
-  const body = {
-    query: `query {
-              user(login:"${username}") {
-                repositoriesContributedTo(first: 30, orderBy: {field: PUSHED_AT, direction: DESC}, includeUserRepositories: true, contributionTypes:[COMMIT, PULL_REQUEST, PULL_REQUEST_REVIEW, REPOSITORY]) {
-                  nodes {
-                    nameWithOwner,
-                    diskUsage,
-                    primaryLanguage {
-                      name,
-                      color
-                    },
-                    defaultBranchRef {
-                      target {
-                        ... on Commit {
-                          history(first: 0) {
-                            totalCount
-                          }
-                        }
-                      }
-                    }
-                  }
+  return graphql(`query {
+    user(login:"${username}") {
+      repositoriesContributedTo(first: 30, orderBy: {field: PUSHED_AT, direction: DESC}, includeUserRepositories: true, contributionTypes:[COMMIT, PULL_REQUEST, PULL_REQUEST_REVIEW, REPOSITORY]) {
+        nodes {
+          nameWithOwner,
+          diskUsage,
+          primaryLanguage {
+            name,
+            color
+          },
+          defaultBranchRef {
+            target {
+              ... on Commit {
+                history(first: 0) {
+                  totalCount
                 }
               }
-            }`
-  };
-  return httpPost("https://api.github.com/graphql", body, headers).then(
-    (res: GraphQLRepositoriesContributedToResponse) =>
-      toRepositories(res.data.user.repositoriesContributedTo.nodes)
+            }
+          }
+        }
+      }
+    }
+  }`).then((res: GraphQLRepositoriesContributedToResponse) =>
+    toRepositories(res.data.user.repositoriesContributedTo.nodes)
   );
 }
 

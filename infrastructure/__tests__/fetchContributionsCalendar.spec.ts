@@ -1,9 +1,9 @@
-import httpPost from "lib/httpPost";
+import graphql from "lib/graphql";
 import { ContributionsPerMonth } from "models/Contributions";
-import fetchContributionsCalendar from "../fetchContributionsCalendar";
 import TimelineData from "models/TimelineData";
+import fetchContributionsCalendar from "../fetchContributionsCalendar";
 
-jest.mock("lib/httpPost");
+jest.mock("lib/graphql");
 
 fdescribe("fetchContributionsCalendar", () => {
   afterEach(() => {
@@ -12,7 +12,7 @@ fdescribe("fetchContributionsCalendar", () => {
 
   it("should return contributions for a user", async () => {
     // Given
-    (httpPost as jest.Mock).mockImplementation(() =>
+    (graphql as jest.Mock).mockImplementation(() =>
       Promise.resolve(require("./mocks/mockContributionsCalendar.json"))
     );
 
@@ -40,11 +40,7 @@ fdescribe("fetchContributionsCalendar", () => {
       contributionsPerMonth: expectedContributions
     };
 
-    expect(httpPost).toHaveBeenCalledWith(
-      "https://api.github.com/graphql",
-      expect.anything(),
-      { Authorization: expect.stringContaining("bearer ") }
-    );
+    expect(graphql).toHaveBeenCalled();
     expect(timelineData).toEqual(expectedOutput);
   });
 });
