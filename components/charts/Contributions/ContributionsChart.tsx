@@ -1,20 +1,18 @@
-import {
-  ContributionsPerMonth,
-  ContributionsPerRepo
-} from "models/Contributions";
+import { ContributionsPerRepo } from "models/Contributions";
 import React from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import { VerticalBarChart } from "../BarCharts/BarCharts";
 import LineChart from "../LineChart";
 import "./ContributionsChart.scss";
+import TimelineData from "models/TimelineData";
 
 interface ContributionsChartProps {
-  contributionsPerMonth: ContributionsPerMonth[];
+  timelineData: TimelineData;
   contributionsPerRepo: ContributionsPerRepo[];
 }
 
 function ContributionsChart(props: ContributionsChartProps) {
-  const timelineData = props.contributionsPerMonth
+  const timelineData = props.timelineData.contributionsPerMonth
     .map(contrib => {
       return {
         label: contrib.month,
@@ -33,10 +31,7 @@ function ContributionsChart(props: ContributionsChartProps) {
     };
   });
 
-  const totalContributions = props.contributionsPerMonth.reduce(
-    (acc, current) => acc + current.contributions,
-    0
-  );
+  const totalContributions = props.timelineData.totalContributions;
 
   return (
     <Card className="card-user">

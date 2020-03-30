@@ -8,6 +8,7 @@ export interface Week {
 }
 
 export interface ContributionCalendar {
+  totalContributions: number;
   weeks: Week[];
 }
 

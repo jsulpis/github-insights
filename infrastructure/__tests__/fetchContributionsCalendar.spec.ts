@@ -1,10 +1,11 @@
 import httpPost from "lib/httpPost";
-import { ContributionsPerMonth } from "models/ContributionsPerMonth";
+import { ContributionsPerMonth } from "models/Contributions";
 import fetchContributionsCalendar from "../fetchContributionsCalendar";
+import TimelineData from "models/TimelineData";
 
 jest.mock("lib/httpPost");
 
-describe("fetchContributionsCalendar", () => {
+fdescribe("fetchContributionsCalendar", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -16,7 +17,7 @@ describe("fetchContributionsCalendar", () => {
     );
 
     // When
-    const contributions = await fetchContributionsCalendar("jsulpis");
+    const timelineData = await fetchContributionsCalendar("jsulpis");
 
     // Then
     const expectedContributions: ContributionsPerMonth[] = [
@@ -34,12 +35,16 @@ describe("fetchContributionsCalendar", () => {
       { month: "Nov", contributions: 4 },
       { month: "Dec", contributions: 7 }
     ];
+    const expectedOutput: TimelineData = {
+      totalContributions: 251,
+      contributionsPerMonth: expectedContributions
+    };
 
     expect(httpPost).toHaveBeenCalledWith(
       "https://api.github.com/graphql",
       expect.anything(),
       { Authorization: expect.stringContaining("bearer ") }
     );
-    expect(contributions).toEqual(expectedContributions);
+    expect(timelineData).toEqual(expectedOutput);
   });
 });
