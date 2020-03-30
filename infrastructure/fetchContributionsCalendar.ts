@@ -1,5 +1,6 @@
+import graphql from "lib/graphql";
 import { ContributionsPerMonth } from "models/Contributions";
-import httpPost from "../lib/httpPost";
+import TimelineData from "models/TimelineData";
 import {
   GraphQLContributionCalendarResponse,
   Week
@@ -7,33 +8,28 @@ import {
 
 export default function fetchContributionsCalendar(
   username: string
-): Promise<ContributionsPerMonth[]> {
-  const headers = {
-    Authorization: `bearer ${process.env.GITHUB_API_TOKEN}`
-  };
-  const body = {
-    query: `query {
-            user(login: "${username}") {
-              contributionsCollection {
-                contributionCalendar {
-                  weeks {
-                    contributionDays {
-                      contributionCount
-                      date
-                    }
-                  }
-                }
-              }
+): Promise<TimelineData> {
+  return graphql(`query {
+    user(login: "${username}") {
+      contributionsCollection {
+        contributionCalendar {
+          totalContributions
+          weeks {
+            contributionDays {
+              contributionCount
+              date
             }
-          }`
-  };
-  return httpPost("https://api.github.com/graphql", body, headers).then(
-    (res: GraphQLContributionCalendarResponse) => {
-      return countContributionsPerMonth(
-        res.data.user.contributionsCollection.contributionCalendar.weeks
-      );
+          }
+        }
+      }
     }
-  );
+  }`).then((res: GraphQLContributionCalendarResponse) => {
+    const calendar = res.data.user.contributionsCollection.contributionCalendar;
+    return {
+      totalContributions: calendar.totalContributions,
+      contributionsPerMonth: countContributionsPerMonth(calendar.weeks)
+    };
+  });
 }
 
 const countContributionsPerMonth = (weeks: Week[]): ContributionsPerMonth[] => {

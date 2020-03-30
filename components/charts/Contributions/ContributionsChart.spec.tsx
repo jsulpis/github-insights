@@ -1,8 +1,6 @@
 import { render } from "@testing-library/react";
-import {
-  ContributionsPerMonth,
-  ContributionsPerRepo
-} from "models/Contributions";
+import { ContributionsPerRepo } from "models/Contributions";
+import TimelineData from "models/TimelineData";
 import React from "react";
 import ContributionsChart from "./ContributionsChart";
 
@@ -10,11 +8,14 @@ jest.mock("react-chartjs-2");
 
 describe("ContributionsChart", () => {
   it("displays the total number of contributions", async () => {
-    const contributionsPerMonth: ContributionsPerMonth[] = [
-      { month: "Jan", contributions: 12 },
-      { month: "Feb", contributions: 10 },
-      { month: "Mar", contributions: 5 }
-    ];
+    const timelineData: TimelineData = {
+      totalContributions: 27,
+      contributionsPerMonth: [
+        { month: "Jan", contributions: 12 },
+        { month: "Feb", contributions: 10 },
+        { month: "Mar", contributions: 5 }
+      ]
+    };
     const contributionsPerRepo: ContributionsPerRepo[] = [
       {
         repoName: "personal-website",
@@ -35,7 +36,7 @@ describe("ContributionsChart", () => {
     ];
     const { findByText } = render(
       <ContributionsChart
-        contributionsPerMonth={contributionsPerMonth}
+        timelineData={timelineData}
         contributionsPerRepo={contributionsPerRepo}
       />
     );

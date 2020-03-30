@@ -11,12 +11,19 @@ describe("User Page", () => {
 
   beforeEach(() => {
     (apiGet as jest.Mock).mockImplementation((path: string) => {
-      if (path.includes("/")) {
+      if (path.includes("/" + USERNAME + "/timeline")) {
+        return Promise.resolve({
+          totalContributions: 0,
+          contributionsPerMonth: []
+        });
+      } else if (path.includes("/" + USERNAME + "/")) {
         return Promise.resolve([]);
       } else if (path.includes("/" + USERNAME)) {
         return Promise.resolve({});
       } else {
-        return Promise.reject();
+        return Promise.reject({
+          status: 404
+        });
       }
     });
   });
@@ -31,32 +38,22 @@ describe("User Page", () => {
 
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME);
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/repos-owned");
+    expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/repos-contributed");
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/timeline");
     expect(apiGet).toHaveBeenCalledWith("/" + USERNAME + "/contributions");
   });
 
-  it("should display a spinner when loading", () => {
-    let mockRouter = { query: {} };
-    const { container, rerender } = render(<UserPage router={mockRouter} />);
+  it("should redirect to the 404 page if user not found", async () => {
+    const mockRouter = { query: { username: "hyrtgerf" }, push: jest.fn() };
+    render(<UserPage router={mockRouter} />);
 
-    mockRouter = { query: { username: "wrong" } };
-    rerender(<UserPage router={mockRouter} />);
-
-    expect(container.querySelector(".spinner")).toBeTruthy();
+    await wait(() => {
+      expect(mockRouter.push).toHaveBeenCalledWith("/404");
+    });
   });
 
   it("should have a search input and redirect to the user page", async () => {
     // Given
-    (apiGet as jest.Mock).mockImplementation((path: string) => {
-      if (path.includes("/")) {
-        return Promise.resolve([]);
-      } else if (path.includes("/" + USERNAME)) {
-        return Promise.resolve({});
-      } else {
-        return Promise.reject();
-      }
-    });
-
     const mockRouter = { query: { username: USERNAME }, push: jest.fn() };
     const { container } = render(<UserPage router={mockRouter} />);
 

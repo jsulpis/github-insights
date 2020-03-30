@@ -26,6 +26,9 @@ export default class BarChartPropsParser {
           gridLines: {
             display: false
           },
+          ticks: {
+            beginAtZero: true
+          },
           scaleLabel: {
             display: !!props.ylabel,
             labelString: props.ylabel

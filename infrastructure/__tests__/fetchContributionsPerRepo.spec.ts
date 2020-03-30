@@ -1,8 +1,8 @@
-import httpPost from "lib/httpPost";
+import graphql from "lib/graphql";
 import { ContributionsPerRepo } from "models/ContributionsPerRepo";
 import fetchContributionsPerRepo from "../fetchContributionsPerRepo";
 
-jest.mock("lib/httpPost");
+jest.mock("lib/graphql");
 
 describe("fetchContributionsPerRepo", () => {
   afterEach(() => {
@@ -11,7 +11,7 @@ describe("fetchContributionsPerRepo", () => {
 
   it("should return contributions for a user", async () => {
     // Given
-    (httpPost as jest.Mock).mockImplementation(() =>
+    (graphql as jest.Mock).mockImplementation(() =>
       Promise.resolve(require("./mocks/mockContributionsPerRepo.json"))
     );
 
@@ -43,11 +43,7 @@ describe("fetchContributionsPerRepo", () => {
       }
     ];
 
-    expect(httpPost).toHaveBeenCalledWith(
-      "https://api.github.com/graphql",
-      expect.anything(),
-      { Authorization: expect.stringContaining("bearer ") }
-    );
+    expect(graphql).toHaveBeenCalled();
     expect(contributions).toEqual(expectedContributions);
   });
 });

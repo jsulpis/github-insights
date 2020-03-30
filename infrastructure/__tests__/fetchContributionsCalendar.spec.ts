@@ -1,22 +1,23 @@
-import httpPost from "lib/httpPost";
-import { ContributionsPerMonth } from "models/ContributionsPerMonth";
+import graphql from "lib/graphql";
+import { ContributionsPerMonth } from "models/Contributions";
+import TimelineData from "models/TimelineData";
 import fetchContributionsCalendar from "../fetchContributionsCalendar";
 
-jest.mock("lib/httpPost");
+jest.mock("lib/graphql");
 
-describe("fetchContributionsCalendar", () => {
+fdescribe("fetchContributionsCalendar", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it("should return contributions for a user", async () => {
     // Given
-    (httpPost as jest.Mock).mockImplementation(() =>
+    (graphql as jest.Mock).mockImplementation(() =>
       Promise.resolve(require("./mocks/mockContributionsCalendar.json"))
     );
 
     // When
-    const contributions = await fetchContributionsCalendar("jsulpis");
+    const timelineData = await fetchContributionsCalendar("jsulpis");
 
     // Then
     const expectedContributions: ContributionsPerMonth[] = [
@@ -34,12 +35,12 @@ describe("fetchContributionsCalendar", () => {
       { month: "Nov", contributions: 4 },
       { month: "Dec", contributions: 7 }
     ];
+    const expectedOutput: TimelineData = {
+      totalContributions: 251,
+      contributionsPerMonth: expectedContributions
+    };
 
-    expect(httpPost).toHaveBeenCalledWith(
-      "https://api.github.com/graphql",
-      expect.anything(),
-      { Authorization: expect.stringContaining("bearer ") }
-    );
-    expect(contributions).toEqual(expectedContributions);
+    expect(graphql).toHaveBeenCalled();
+    expect(timelineData).toEqual(expectedOutput);
   });
 });
