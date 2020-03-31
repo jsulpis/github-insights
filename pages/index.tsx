@@ -5,10 +5,7 @@ import React from "react";
 
 function HomePage() {
   return (
-    <Page
-      title={"GitHub stats"}
-      description={`Some stats about a GitHub profile`}
-    >
+    <Page>
       <HomeSearchForm
         searchUser={username => Router.push("/[username]", "/" + username)}
       />

@@ -1,5 +1,9 @@
 {
-  "name": "next-starter-project",
+  "name": "github-insights",
+  "description": "Insights into a GitHub account",
+  "repository": "github:jsulpis/github-insights",
+  "license": "MIT",
+  "author": "Julien Sulpis",
   "scripts": {
     "dev": "next",
     "build": "next build",

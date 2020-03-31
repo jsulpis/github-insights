@@ -5,7 +5,7 @@ import React from "react";
 
 function Error() {
   return (
-    <Page title={"GitHub stats"} description={`Error Page`}>
+    <Page description={`Error Page`}>
       <p style={{ fontWeight: "bold", color: "red" }}>
         Server error. Please try again later.
       </p>
