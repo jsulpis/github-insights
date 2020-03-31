@@ -26,7 +26,7 @@ interface UserPageState {
 const defaultState: UserPageState = {
   user: null,
   reposOwned: null,
-  reposContributedTo: [],
+  reposContributedTo: null,
   timelineData: {
     totalContributions: 0,
     contributionsPerMonth: []
@@ -78,7 +78,7 @@ class UserPage extends React.Component<any, UserPageState> {
           </FadeTransition>
         ) : (
           <>
-            <p className="h5">Fetching your data...</p>
+            <p className="h5">Hold on a second, I'm fetching your data...</p>
             <Spinner />
           </>
         )}

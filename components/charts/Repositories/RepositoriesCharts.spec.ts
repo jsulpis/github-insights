@@ -1,31 +1,27 @@
-import {
-  makeDataFromProps,
-  RepositoriesChartsProps
-} from "./RepositoriesCharts";
+import { RepositoryContributedTo } from "models/Repository";
+import { makeChartDataFromRepos } from "./RepositoriesCharts";
 
 describe("RepositoriesCharts", () => {
   it("should construct its data from the props", () => {
-    const props: RepositoriesChartsProps = {
-      repos: [
-        {
-          nameWithOwner: "owner/Repo1",
-          commitCount: 12,
-          diskUsage: 100,
-          primaryLanguage: {
-            name: "HTML",
-            color: "red"
-          }
-        },
-        {
-          nameWithOwner: "owner/Repo2",
-          commitCount: 21,
-          diskUsage: 200,
-          primaryLanguage: null
+    const repos: RepositoryContributedTo[] = [
+      {
+        nameWithOwner: "owner/Repo1",
+        commitCount: 12,
+        diskUsage: 100,
+        primaryLanguage: {
+          name: "HTML",
+          color: "red"
         }
-      ]
-    };
+      },
+      {
+        nameWithOwner: "owner/Repo2",
+        commitCount: 21,
+        diskUsage: 200,
+        primaryLanguage: null
+      }
+    ];
 
-    expect(makeDataFromProps(props)).toEqual([
+    expect(makeChartDataFromRepos(repos)).toEqual([
       {
         name: "owner/Repo1",
         color: "red",

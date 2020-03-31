@@ -80,7 +80,7 @@ describe("UserProfile", () => {
       expect(getAttributeValueByClass(container, ".username", "href")).toBe(
         MOCK_USER.profileUrl
       );
-      expect(getContentByClass(container, ".card-category")).toBe(
+      expect(getContentByClass(container, ".card-description")).toBe(
         MOCK_USER.bio
       );
       expect(getAttributeValueByClass(container, ".avatar", "src")).toBe(

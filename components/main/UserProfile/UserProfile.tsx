@@ -67,7 +67,7 @@ function UserProfile(props: UserProfileProps) {
             {user.website}
           </a>
         </div>
-        <p className="card-category text-center">{user.bio}</p>
+        <p className="card-description text-center">{user.bio}</p>
       </CardBody>
       <CardFooter>
         <hr />

@@ -19,7 +19,7 @@ export default function LanguagesByAmountOfCodeChart(props: {
     <div className="languages-chart">
       <HorizontalBarChart
         data={languagesByAmountOfCode.slice(0, 6)}
-        unit="Bytes of code"
+        unit="Megabytes of code"
         xlabel="Amount of code (MB)"
       />
     </div>

@@ -27,7 +27,7 @@ function LanguagesCharts(props: LanguagesChartsProps) {
           user, excluding forked repositories.
         </p>
         {moreThanSixLanguages && (
-          <p className="card-description">
+          <p className="card-description too-many-languages">
             <em>(6 most used languages only)</em>
           </p>
         )}

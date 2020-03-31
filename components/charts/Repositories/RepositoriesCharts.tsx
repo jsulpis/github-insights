@@ -1,3 +1,4 @@
+import Spinner from "components/animation/Spinner/Spinner";
 import { RepositoryContributedTo } from "models/Repository";
 import React from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
@@ -12,7 +13,7 @@ function RepositoriesCharts(props: RepositoriesChartsProps) {
   return (
     <Card className="card-user">
       <CardHeader>
-        <CardTitle tag="h5">Repositories</CardTitle>
+        <CardTitle tag="h5">Top Repositories</CardTitle>
         <p className="card-description">
           First 30 repositories that the user recently contributed to. The
           contributions included are: commit, creation of pull request, creation
@@ -22,23 +23,24 @@ function RepositoriesCharts(props: RepositoriesChartsProps) {
       <CardBody>
         <div className="repositories-wrapper">
           <BubbleChart
-            data={makeDataFromProps(props)}
-            xlabel="Repo size (MB)"
+            data={makeChartDataFromRepos(props.repos || [])}
+            xlabel="Repository size (MB)"
             ylabel="Commit count"
           />
+          {!props.repos && <Spinner />}
         </div>
       </CardBody>
     </Card>
   );
 }
 
-export function makeDataFromProps(props: RepositoriesChartsProps) {
+export function makeChartDataFromRepos(repos: RepositoryContributedTo[]) {
   const isSmallScreen = !!window ? window.innerWidth <= 600 : false;
   const minRadius = 5;
   const maxRadius = isSmallScreen ? minRadius : 15;
   let minSize = 0;
-  let maxSize = props.repos[0] ? props.repos[0].diskUsage : 0;
-  props.repos.forEach(repo => {
+  let maxSize = repos[0] ? repos[0].diskUsage : 0;
+  repos.forEach(repo => {
     if (repo.diskUsage > maxSize) {
       maxSize = repo.diskUsage;
     }
@@ -46,7 +48,7 @@ export function makeDataFromProps(props: RepositoriesChartsProps) {
       minSize = repo.diskUsage;
     }
   });
-  return props.repos.map(repo => ({
+  return repos.map(repo => ({
     name: repo.nameWithOwner,
     x: repo.diskUsage / 1000,
     y: repo.commitCount,

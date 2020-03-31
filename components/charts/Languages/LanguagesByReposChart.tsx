@@ -17,8 +17,8 @@ export default function LanguagesByReposChart(props: {
     <div className="languages-chart">
       <HorizontalBarChart
         data={languagesByNumberOfRepos.slice(0, 6)}
-        unit="Repos"
-        xlabel="Number of repos"
+        unit="Repositories"
+        xlabel="Number of repositories"
       />
     </div>
   );
