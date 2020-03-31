@@ -47,6 +47,7 @@ function UserProfile(props: UserProfileProps) {
       <div className="image">
         <img
           alt="background"
+          className="background-image"
           src={`https://picsum.photos/seed/${backgroundPictureSeed}/800/130`}
         />
       </div>
