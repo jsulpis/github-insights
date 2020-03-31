@@ -3,7 +3,7 @@ import HomeSearchForm from "components/form/HomeSearchForm/HomeSearchForm";
 import Router from "next/router";
 import React from "react";
 
-function ServerErrorPage() {
+function Error() {
   return (
     <Page title={"GitHub stats"} description={`Error Page`}>
       <p style={{ fontWeight: "bold", color: "red" }}>
@@ -16,4 +16,4 @@ function ServerErrorPage() {
   );
 }
 
-export default ServerErrorPage;
+export default Error;

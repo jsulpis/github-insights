@@ -80,7 +80,7 @@ describe("UserProfile", () => {
       expect(getAttributeValueByClass(container, ".username", "href")).toBe(
         MOCK_USER.profileUrl
       );
-      expect(getContentByClass(container, ".card-category")).toBe(
+      expect(getContentByClass(container, ".card-description")).toBe(
         MOCK_USER.bio
       );
       expect(getAttributeValueByClass(container, ".avatar", "src")).toBe(
@@ -98,18 +98,6 @@ describe("UserProfile", () => {
         `${MOCK_USER.followers}`
       );
       expect(container.querySelector(".message-many-repos")).not.toBeTruthy();
-    });
-  });
-
-  it("displays a message when there are to many repos", async () => {
-    const userWithManyRepos = Object.assign({}, MOCK_USER);
-    userWithManyRepos.repos = 300;
-    const { container } = render(
-      <UserProfile user={userWithManyRepos} repos={MOCK_REPOS} />
-    );
-
-    await wait(() => {
-      expect(container.querySelector(".message-many-repos")).toBeTruthy();
     });
   });
 

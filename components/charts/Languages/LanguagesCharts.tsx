@@ -22,8 +22,14 @@ function LanguagesCharts(props: LanguagesChartsProps) {
     <Card className="card-user">
       <CardHeader>
         <CardTitle tag="h5">Languages</CardTitle>
+        <p className="card-description mb-1">
+          Data extracted from the 100 latest public repositories owned by the
+          user, excluding forked repositories.
+        </p>
         {moreThanSixLanguages && (
-          <p className="languages-subtitle">(6 most used languages only)</p>
+          <p className="card-description too-many-languages">
+            <em>(6 most used languages only)</em>
+          </p>
         )}
       </CardHeader>
       <CardBody>

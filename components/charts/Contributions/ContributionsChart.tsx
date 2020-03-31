@@ -36,21 +36,25 @@ function ContributionsChart(props: ContributionsChartProps) {
   return (
     <Card className="card-user">
       <CardHeader>
-        <CardTitle tag="h5">Activity</CardTitle>
+        <CardTitle tag="h5" className="mb-0">
+          Activity
+        </CardTitle>
       </CardHeader>
-      <CardBody>
-        <h5 className="chart-subtitle">
+      <CardBody className="card-description">
+        <p className="chart-subtitle">
           {totalContributions} contributions in the last year
-        </h5>
+        </p>
         <div className="timeline-wrapper">
           <LineChart data={timelineData} unit="Contributions" />
         </div>
 
-        <h5 className="chart-subtitle contributions-subtitle">
+        <p className="chart-subtitle contributions-subtitle">
           Commits per repository in the last year
-        </h5>
+        </p>
         {contributionsPerRepoData.length > 10 && (
-          <p className="chart-subsubtitle">(10 most active repositories)</p>
+          <p className="chart-subsubtitle">
+            <em>(10 most active repositories)</em>
+          </p>
         )}
         <div className="contributions-wrapper">
           <VerticalBarChart

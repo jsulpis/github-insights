@@ -12,7 +12,7 @@ export default function fetchContributionsPerRepo(
   return graphql(`query {
     user(login: "${username}") {
       contributionsCollection {
-        commitContributionsByRepository {
+        commitContributionsByRepository(maxRepositories: 11) {
           contributions {
             totalCount
           },

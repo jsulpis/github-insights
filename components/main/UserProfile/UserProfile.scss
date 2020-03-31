@@ -2,6 +2,11 @@
   margin: 1rem auto 0.5rem auto;
   width: 800px;
 
+  .image img.background-image {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
   @media only screen and (max-width: 768px) {
     width: 90%;
     margin-left: auto;
@@ -43,7 +48,7 @@
         margin: 0.5em;
       }
 
-      svg {
+      svg:not(.info-icon) {
         display: inline-block;
         width: 1em;
         height: 1em;
@@ -59,6 +64,7 @@
 
     p {
       margin: 0;
+      display: inline;
     }
   }
 }

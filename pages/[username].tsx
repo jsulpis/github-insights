@@ -26,7 +26,7 @@ interface UserPageState {
 const defaultState: UserPageState = {
   user: null,
   reposOwned: null,
-  reposContributedTo: [],
+  reposContributedTo: null,
   timelineData: {
     totalContributions: 0,
     contributionsPerMonth: []
@@ -43,6 +43,9 @@ class UserPage extends React.Component<any, UserPageState> {
   public render() {
     const { user, reposOwned, reposContributedTo, timelineData } = this.state;
 
+    const backgroundPictureSeed = user
+      ? user.name + new Date().getMinutes().toString()
+      : null;
     const contributionsPerRepo = this.state.contributionsPerRepo;
     const userFullName = !!user ? user.name : "";
     const isDataPresent = !!user && !!reposOwned;
@@ -60,7 +63,11 @@ class UserPage extends React.Component<any, UserPageState> {
                 this.props.router.push("/[username]", "/" + username);
               }}
             />
-            <UserProfile user={user} repos={reposOwned} />
+            <UserProfile
+              user={user}
+              repos={reposOwned}
+              backgroundPictureSeed={backgroundPictureSeed}
+            />
             <ContributionsChart
               timelineData={timelineData}
               contributionsPerRepo={contributionsPerRepo}
@@ -70,10 +77,18 @@ class UserPage extends React.Component<any, UserPageState> {
             <Footer />
           </FadeTransition>
         ) : (
-          <FadeTransition>
-            <p className="h5">Fetching your data...</p>
+          <>
+            <p className="h5">Hold on a second, I'm fetching your data...</p>
             <Spinner />
-          </FadeTransition>
+          </>
+        )}
+        {backgroundPictureSeed && (
+          // Prefetch the background image
+          <img
+            alt="background"
+            style={{ display: "none" }}
+            src={`https://picsum.photos/seed/${backgroundPictureSeed}/800/130`}
+          />
         )}
       </Page>
     );

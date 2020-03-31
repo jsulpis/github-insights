@@ -29,6 +29,13 @@ const Page = (props: PageProps) => (
         .page .card-body {
           min-height: initial;
         }
+        @media only screen and (min-width: 768px) {
+          .card-description {
+            width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
         a,
         a:hover,
         a:focus {
