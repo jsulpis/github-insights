@@ -2,7 +2,7 @@ import Head, { HeadProps } from "components/context/Head";
 import React, { ReactNode } from "react";
 
 export interface PageProps extends HeadProps {
-  title: string;
+  title?: string;
   children: ReactNode;
 }
 

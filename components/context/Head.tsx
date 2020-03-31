@@ -1,36 +1,34 @@
 import NextHead from "next/head";
 import React from "react";
 
-const defaultDescription = "";
-const defaultOGURL = "";
-const defaultOGImage = "";
+const defaultTitle = "GitHub Insights";
+const defaultDescription = "Insights into a GitHub account.";
+const defaultOGURL = "https://github-insights.now.sh";
+const defaultOGImage = defaultOGURL + "/static/screenshot.png";
 
 export interface HeadProps {
   description?: string;
   ogImage?: string;
-  title: string;
+  title?: string;
   url?: string;
 }
 
 const Head = (props: HeadProps) => (
   <NextHead>
     <meta charSet="UTF-8" />
-    <title>{props.title || ""}</title>
+    <title>{props.title || defaultTitle}</title>
     <meta
       name="description"
       content={props.description || defaultDescription}
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" sizes="192x192" href="/static/touch-icon.png" />
-    <link rel="apple-touch-icon" href="/static/touch-icon.png" />
-    <link rel="mask-icon" href="/static/favicon-mask.svg" color="#49B882" />
-    <link rel="icon" href="/staticicon.ico" />
+    <link rel="icon" href="/static/favicon.ico" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat:400,600"
     />
     <meta property="og:url" content={props.url || defaultOGURL} />
-    <meta property="og:title" content={props.title || ""} />
+    <meta property="og:title" content={props.title || defaultTitle} />
     <meta
       property="og:description"
       content={props.description || defaultDescription}
@@ -39,8 +37,8 @@ const Head = (props: HeadProps) => (
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={props.ogImage || defaultOGImage} />
     <meta property="og:image" content={props.ogImage || defaultOGImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="680" />
   </NextHead>
 );
 

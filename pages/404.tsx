@@ -5,7 +5,7 @@ import React from "react";
 
 function NotFoundPage() {
   return (
-    <Page title={"GitHub stats"} description={`404 Page`}>
+    <Page description={`404 Page`}>
       <p className="mt-3 mb-1 h4">404</p>
       <p className="">This user does not appear to exist !</p>
       <HomeSearchForm

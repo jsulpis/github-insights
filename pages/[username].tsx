@@ -47,14 +47,10 @@ class UserPage extends React.Component<any, UserPageState> {
       ? user.name + new Date().getMinutes().toString()
       : null;
     const contributionsPerRepo = this.state.contributionsPerRepo;
-    const userFullName = !!user ? user.name : "";
     const isDataPresent = !!user && !!reposOwned;
 
     return (
-      <Page
-        title={"GitHub stats of " + userFullName}
-        description={`Some stats about ${userFullName}'s GitHub profile`}
-      >
+      <Page>
         {isDataPresent ? (
           <FadeTransition>
             <SearchForm
