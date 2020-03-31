@@ -3,7 +3,7 @@ import HomeSearchForm from "components/form/HomeSearchForm/HomeSearchForm";
 import Router from "next/router";
 import React from "react";
 
-function ErrorPage() {
+function NotFoundPage() {
   return (
     <Page title={"GitHub stats"} description={`404 Page`}>
       <p className="mt-3 mb-1 h4">404</p>
@@ -15,4 +15,4 @@ function ErrorPage() {
   );
 }
 
-export default ErrorPage;
+export default NotFoundPage;
