@@ -1,22 +1,24 @@
 {
   "name": "github-insights",
-  "description": "Insights into a GitHub account",
+  "description": "Insights into a GitHub profile",
   "repository": "github:jsulpis/github-insights",
   "license": "MIT",
   "author": "Julien Sulpis",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "export": "next export",
-    "start": "next start",
-    "lint": "tslint -p .",
-    "lint:fix": "tslint --fix -p .",
+    "dev": "next src",
+    "build": "npm run clean && next build src",
+    "build:now": "npm run build && cp -r src/.next .next && cp -r src/public public",
+    "export": "next export src",
+    "start": "next start src",
+    "clean": "rm -rf .next src/.next public src/out",
+    "lint": "prettier --check .",
+    "lint:fix": "prettier --write .",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "analyze": "BUNDLE_ANALYZE=both next build",
-    "analyze:server": "BUNDLE_ANALYZE=server next build",
-    "analyze:browser": "BUNDLE_ANALYZE=browser next build"
+    "analyze": "BUNDLE_ANALYZE=both npm run build",
+    "analyze:server": "BUNDLE_ANALYZE=server npm run build",
+    "analyze:browser": "BUNDLE_ANALYZE=browser npm run build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
@@ -46,27 +48,17 @@
     "husky": "^3.0.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
-    "lint-staged": "^9.2.3",
     "next-fonts": "^0.19.0",
     "node-sass": "^4.13.1",
-    "now": "^16.1.2",
-    "prettier": "^1.18.2",
+    "prettier": "^2.0.4",
+    "pretty-quick": "^2.0.1",
     "reactstrap": "^8.1.1",
     "styled-jsx-plugin-sass": "^1.0.0",
-    "tslint": "^5.19.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.5.3"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "pretty-quick --staged"
     }
-  },
-  "lint-staged": {
-    "{components,infrastructure,lib,models,pages}/**/*.{js,jsx,ts,tsx,json}": [
-      "tslint --fix",
-      "git add"
-    ]
   }
 }

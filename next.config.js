@@ -1,12 +1,15 @@
-require('dotenv').config();
+require("dotenv").config();
 const webpack = require("webpack");
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
 const withSass = require("@zeit/next-sass");
-const withCSS = require('@zeit/next-css');
-const withFonts = require('next-fonts');
+const withCSS = require("@zeit/next-css");
+const withFonts = require("next-fonts");
 const path = require("path");
 
 const nextConfig = {
+  env: {
+    GA_TRACKING_ID: "UA-124217907-5"
+  },
   analyzeServer: ["server", "both"].includes(process.env.BUNDLE_ANALYZE),
   analyzeBrowser: ["browser", "both"].includes(process.env.BUNDLE_ANALYZE),
   bundleAnalyzerConfig: {
@@ -19,24 +22,19 @@ const nextConfig = {
       reportFilename: "bundles/client.html"
     }
   },
-  exportPathMap: function() {
+  exportPathMap: function () {
     return {
       "/": { page: "/" }
     };
   },
   webpack: config => {
-    config.resolve.modules = [
-      path.resolve("./node_modules"),
-      path.resolve(".")
-    ];
+    config.resolve.modules = [path.resolve("./node_modules"), path.resolve("src")];
     config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
     // Fixes npm packages that depend on `fs` module
     config.node = {
       fs: "empty"
     };
-    config.plugins.push(
-      new webpack.EnvironmentPlugin(process.env)
-    );
+    config.plugins.push(new webpack.EnvironmentPlugin(process.env));
 
     return config;
   }

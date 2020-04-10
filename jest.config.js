@@ -1,18 +1,17 @@
 module.exports = {
   testRegex: "(\\.|/)(test|spec)\\.(jsx?|js?|tsx?|ts?)$",
   transform: { "^.+\\.tsx?$": "babel-jest" },
-  testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
-  moduleDirectories: ["node_modules", "."],
+  testPathIgnorePatterns: ["src/.next/", "node_modules/"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
+  moduleDirectories: ["node_modules", "src"],
   collectCoverageFrom: [
-    "components/**",
-    "infrastructure/**",
-    "pages/**",
-    "!pages/_app.tsx",
-    "!pages/_document.tsx",
-    "!**/__tests__/**" // skip json files
+    "src/components/**",
+    "src/lambdas/**",
+    "src/pages/**",
+    "!src/pages/_app.tsx",
+    "!src/pages/_document.tsx"
   ],
-  moduleNameMapper:{
+  moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy"
   }
 };
