@@ -14,7 +14,7 @@ describe("SearchForm", () => {
           .value
       ).toBe("Enter a GitHub username");
 
-      (container.querySelector("#username-input") as HTMLInputElement).value =
+      container.querySelector<HTMLInputElement>("#username-input").value =
         "some username";
 
       container.querySelector("button").click();
