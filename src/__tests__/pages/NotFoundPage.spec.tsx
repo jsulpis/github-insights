@@ -5,7 +5,7 @@ import React from "react";
 
 jest.mock("next/router");
 
-describe("Error Page", () => {
+describe("404 Page", () => {
   it("should have an error message", async () => {
     const { findByText } = render(<NotFoundPage />);
     const message = await findByText("This user does not appear to exist !");
