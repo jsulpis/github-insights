@@ -41,13 +41,12 @@ function UserProfile(props: UserProfileProps) {
 
   return (
     <Card className="card-user">
-      <div className="image">
-        <img
-          alt="background"
-          className="background-image"
-          src={`https://picsum.photos/seed/${backgroundPictureSeed}/800/130`}
-        />
-      </div>
+      <div
+        className="image"
+        style={{
+          backgroundImage: `url('https://picsum.photos/seed/${backgroundPictureSeed}/800/130')`
+        }}
+      ></div>
       <CardBody>
         <div className="author">
           <img

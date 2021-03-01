@@ -1,10 +1,10 @@
 .card-user {
   margin: 1rem auto 0.5rem auto;
   width: 800px;
+  overflow: hidden;
 
-  .image img.background-image {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+  .image {
+    background-position: center;
   }
 
   @media only screen and (max-width: 768px) {
