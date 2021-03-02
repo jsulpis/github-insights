@@ -15,7 +15,7 @@
 	</a>
 </p>
 
-<a align="center" href="https://github-insights.now.sh">
+<a align="center" href="https://github-insights.vercel.app">
   <img class="repo-preview" src="https://raw.githubusercontent.com/jsulpis/github-insights/master/preview.png" alt="Screenshot image"/>
 </a>
 
