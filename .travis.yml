@@ -8,6 +8,13 @@ addons:
   sonarcloud:
     organization: "jsulpis-github"
     token: $SONAR_TOKEN
+  apt:
+    packages:
+      - openjdk-11-jre
+# SonarCloud requires java >=11 but the node_js image has java 8
+
+before_script:
+  - export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 cache: npm
 
