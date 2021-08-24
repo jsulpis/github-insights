@@ -10,7 +10,7 @@ function Footer() {
         <Row>
           <div className="credits m-auto">
             <div className="copyright">
-              &copy; {new Date().getFullYear()}, made with{" "}
+              &copy; 2019-{new Date().getFullYear()}, made with{" "}
               <FontAwesomeIcon
                 icon={faHeart}
                 style={{ height: "10px", verticalAlign: "initial" }}
@@ -21,7 +21,8 @@ function Footer() {
         </Row>
         <Row>
           <div className="copyright m-auto">
-            Code available on <a href="https://github.com/jsulpis/github-stats">GitHub</a>
+            Code available on{" "}
+            <a href="https://github.com/jsulpis/github-insights">GitHub</a>
           </div>
         </Row>
         <Row>
