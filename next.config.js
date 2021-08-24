@@ -7,9 +7,6 @@ const withFonts = require("next-fonts");
 const path = require("path");
 
 const nextConfig = {
-  env: {
-    GA_TRACKING_ID: "UA-124217907-5"
-  },
   analyzeServer: ["server", "both"].includes(process.env.BUNDLE_ANALYZE),
   analyzeBrowser: ["browser", "both"].includes(process.env.BUNDLE_ANALYZE),
   bundleAnalyzerConfig: {
