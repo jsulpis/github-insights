@@ -1,13 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { PageTransition } from "next-page-transitions";
 import App from "next/app";
-import Router from "next/router";
 import "paper-dashboard-react/src/assets/css/paper-dashboard.min.css";
 import React from "react";
-
-import * as gtag from "lib/gtag";
-
-Router.events.on("routeChangeComplete", url => gtag.pageview(url));
 
 export default class extends App {
   public render() {
