@@ -7,9 +7,8 @@ import { makeChartDataFromLanguages } from "./LanguagesCharts";
 
 export default function LanguagesByReposChart(props: { repos: RepositoryOwned[] }) {
   const reposPerLanguage = countReposPerLanguage(props.repos);
-  const languagesByNumberOfRepos: ChartData[] = makeChartDataFromLanguages(
-    reposPerLanguage
-  );
+  const languagesByNumberOfRepos: ChartData[] =
+    makeChartDataFromLanguages(reposPerLanguage);
 
   return (
     <div className="languages-chart">
