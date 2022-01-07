@@ -6,7 +6,7 @@ import RepositoriesCharts from "components/charts/Repositories/RepositoriesChart
 import { Page } from "components/context/Page";
 import { SearchForm } from "components/form/SearchForm/SearchForm";
 import Footer from "components/main/Footer/Footer";
-import UserProfile from "components/main/UserProfile/UserProfile";
+import { UserProfile } from "components/main/UserProfile/UserProfile";
 import apiGet from "lib/apiGet";
 import { ContributionsPerRepo } from "models/Contributions";
 import { RepositoryContributedTo, RepositoryOwned } from "models/Repository";

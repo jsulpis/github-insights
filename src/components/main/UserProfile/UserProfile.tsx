@@ -8,10 +8,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RepositoryOwned } from "models/Repository";
 import User from "models/User";
-import React from "react";
+import { FC } from "react";
 import { Card, CardBody, CardFooter } from "reactstrap";
-import InfoTooltip from "../InfoTooltip/InfoTooltip";
-// import "./UserProfile.scss";
+import { InfoTooltip } from "../InfoTooltip/InfoTooltip";
+import styles from "./UserProfile.module.scss";
 
 interface UserProfileProps {
   user: User;
@@ -19,10 +19,11 @@ interface UserProfileProps {
   backgroundPictureSeed?: string;
 }
 
-function UserProfile(props: UserProfileProps) {
-  const { user, repos } = props;
-  const backgroundPictureSeed =
-    props.backgroundPictureSeed || new Date().getMilliseconds.toString();
+export const UserProfile: FC<UserProfileProps> = ({
+  user,
+  repos,
+  backgroundPictureSeed = new Date().getMilliseconds.toString()
+}) => {
   const totalStars = repos.reduce((acc, current) => acc + (current.starCount || 0), 0);
   const totalForks = repos.reduce((acc, current) => acc + current.forkCount, 0);
   const languages = repos
@@ -40,9 +41,9 @@ function UserProfile(props: UserProfileProps) {
   }
 
   return (
-    <Card className="card-user">
+    <Card className={"card-user " + styles.profile}>
       <div
-        className="image"
+        className={"image " + styles.image}
         style={{
           backgroundImage: `url('https://picsum.photos/seed/${backgroundPictureSeed}/800/130')`
         }}
@@ -54,13 +55,13 @@ function UserProfile(props: UserProfileProps) {
             className="avatar border-gray"
             src={user.avatarUrl}
           />
-          <h1 className="fullname">{user.name}</h1>
-          <a className="username" href={user.profileUrl}>
+          <h1 className={styles.fullname}>{user.name}</h1>
+          <a className={styles.username} href={user.profileUrl}>
             @{user.username}
           </a>
-          <p className="company">{user.company}</p>
-          <p className="location">{user.location}</p>
-          <a className="website" href={userWebsite}>
+          <p className={styles.company}>{user.company}</p>
+          <p className={styles.location}>{user.location}</p>
+          <a className={styles.website} href={userWebsite}>
             {user.website}
           </a>
         </div>
@@ -68,18 +69,18 @@ function UserProfile(props: UserProfileProps) {
       </CardBody>
       <CardFooter>
         <hr />
-        <div className="figures">
+        <div className={styles.figures}>
           <div>
             <div>
               <FontAwesomeIcon icon={faUsers} />
-              <span className="followers">{user.followers}</span>
+              <span className={styles.followers}>{user.followers}</span>
             </div>
             <p>Followers</p>
           </div>
           <div>
             <div>
               <FontAwesomeIcon icon={faLanguage} />
-              <span className="languages">{languages.length}</span>
+              <span className={styles.languages}>{languages.length}</span>
             </div>
             <p>Main languages</p>
             <InfoTooltip>
@@ -90,14 +91,14 @@ function UserProfile(props: UserProfileProps) {
           <div>
             <div>
               <FontAwesomeIcon icon={faCode} />
-              <span className="repos">{user.repos}</span>
+              <span className={styles.repos}>{user.repos}</span>
             </div>
             <p>Public Repos</p>
           </div>
           <div>
             <div>
               <FontAwesomeIcon icon={faStar} />
-              <span className="stars">{totalStars}</span>
+              <span className={styles.stars}>{totalStars}</span>
             </div>
             <p>Total Stars</p>
             <InfoTooltip>
@@ -108,7 +109,7 @@ function UserProfile(props: UserProfileProps) {
           <div>
             <div>
               <FontAwesomeIcon icon={faCodeBranch} />
-              <span className="forks">{totalForks}</span>
+              <span className={styles.forks}>{totalForks}</span>
             </div>
             <p>Total Forks</p>
             <InfoTooltip>
@@ -120,6 +121,4 @@ function UserProfile(props: UserProfileProps) {
       </CardFooter>
     </Card>
   );
-}
-
-export default UserProfile;
+};
