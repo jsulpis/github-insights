@@ -2,7 +2,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Form, FormGroup, Input } from "reactstrap";
-import "./SearchForm.scss";
+// import "./SearchForm.scss";
 
 export interface SearchFormProps {
   searchUser: (user: string) => any;

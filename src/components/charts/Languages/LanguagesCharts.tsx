@@ -5,7 +5,7 @@ import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import { ChartData } from "../chart.models";
 import LanguagesByAmountOfCodeChart from "./LanguagesByAmountOfCodeChart";
 import LanguagesByReposChart from "./LanguagesByReposChart";
-import "./LanguagesCharts.scss";
+// import "./LanguagesCharts.scss";
 
 interface LanguagesChartsProps {
   repos: RepositoryOwned[];

@@ -1,4 +1,4 @@
-import { render, wait } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import UserProfile from "components/main/UserProfile/UserProfile";
 import { RepositoryOwned } from "models/Repository";
 import User from "models/User";
@@ -70,7 +70,7 @@ describe("UserProfile", () => {
   it("shows information about the user", async () => {
     const { container } = render(<UserProfile user={MOCK_USER} repos={MOCK_REPOS} />);
 
-    await wait(() => {
+    await waitFor(() => {
       expect(getContentByClass(container, ".fullname")).toBe(MOCK_USER.name);
       expect(getContentByClass(container, ".username")).toBe("@" + MOCK_USER.username);
       expect(getAttributeValueByClass(container, ".username", "href")).toBe(
@@ -94,7 +94,7 @@ describe("UserProfile", () => {
   it("shows information about the repos", async () => {
     const { container } = render(<UserProfile user={MOCK_USER} repos={MOCK_REPOS} />);
 
-    await wait(() => {
+    await waitFor(() => {
       expect(getContentByClass(container, ".repos")).toBe(`${MOCK_USER.repos}`);
       expect(getContentByClass(container, ".stars")).toBe(`5`);
       expect(getContentByClass(container, ".forks")).toBe(`5`);

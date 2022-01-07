@@ -1,6 +1,6 @@
 import React from "react";
 import SearchForm, { SearchFormProps } from "../SearchForm/SearchForm";
-import "./HomeSearchForm.scss";
+// import "./HomeSearchForm.scss";
 
 function HomeSearchForm(props: SearchFormProps) {
   return (

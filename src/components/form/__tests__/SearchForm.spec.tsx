@@ -1,4 +1,4 @@
-import { render, wait } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 
@@ -8,7 +8,7 @@ describe("SearchForm", () => {
 
     const { container } = render(<SearchForm searchUser={callback} />);
 
-    await wait(() => {
+    await waitFor(() => {
       expect(
         container.querySelector("#username-input").attributes.getNamedItem("placeholder")
           .value

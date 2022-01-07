@@ -1,4 +1,4 @@
-import { render, wait } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import apiGet from "lib/apiGet";
 import UserPage from "pages/[username]";
 import React from "react";
@@ -47,7 +47,7 @@ describe("User Page", () => {
     const mockRouter = { query: { username: "hyrtgerf" }, push: jest.fn() };
     render(<UserPage router={mockRouter} />);
 
-    await wait(() => {
+    await waitFor(() => {
       expect(mockRouter.push).toHaveBeenCalledWith("/404");
     });
   });
@@ -57,7 +57,7 @@ describe("User Page", () => {
     const mockRouter = { query: { username: USERNAME }, push: jest.fn() };
     const { container } = render(<UserPage router={mockRouter} />);
 
-    await wait(() => {
+    await waitFor(() => {
       const inputElement = container.querySelector("input");
       expect(inputElement).toBeTruthy();
 
