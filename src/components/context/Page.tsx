@@ -12,7 +12,7 @@ const Page = (props: PageProps) => (
     {props.children}
     <style global jsx>
       {`
-        @import "node_modules/paper-dashboard-react/src/assets/scss/paper-dashboard/variables";
+        @import "paper-dashboard-react/src/assets/scss/paper-dashboard/variables";
 
         body {
           text-align: center;

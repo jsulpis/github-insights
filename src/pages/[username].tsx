@@ -111,15 +111,15 @@ class UserPage extends React.Component<any, UserPageState> {
       apiGet<RepositoryOwned[]>("/" + username + "/repos-owned").then(reposOwned =>
         this.setState({ reposOwned })
       ),
-      apiGet<RepositoryContributedTo[]>(
-        "/" + username + "/repos-contributed"
-      ).then(reposContributedTo => this.setState({ reposContributedTo })),
+      apiGet<RepositoryContributedTo[]>("/" + username + "/repos-contributed").then(
+        reposContributedTo => this.setState({ reposContributedTo })
+      ),
       apiGet<TimelineData>("/" + username + "/timeline").then(timelineData =>
         this.setState({ timelineData })
       ),
-      apiGet<ContributionsPerRepo[]>(
-        "/" + username + "/contributions"
-      ).then(contributionsPerRepo => this.setState({ contributionsPerRepo }))
+      apiGet<ContributionsPerRepo[]>("/" + username + "/contributions").then(
+        contributionsPerRepo => this.setState({ contributionsPerRepo })
+      )
     ]).catch(e => {
       if (e.status === 404) {
         this.props.router.push("/404");

@@ -1,4 +1,4 @@
-import { render, wait } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { RepositoryOwned } from "models/Repository";
 import LanguagesCharts from "./LanguagesCharts";
 
@@ -26,7 +26,7 @@ describe("LanguagesCharts", () => {
 
     const { container } = render(<LanguagesCharts repos={repos} />);
 
-    await wait(() => {
+    await waitFor(() => {
       expect(container.querySelector(".languages-subtitle")).toBeFalsy();
     });
   });

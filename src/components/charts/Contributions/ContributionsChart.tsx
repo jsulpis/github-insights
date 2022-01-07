@@ -4,7 +4,7 @@ import React from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import { VerticalBarChart } from "../BarCharts/BarCharts";
 import LineChart from "../LineChart";
-import "./ContributionsChart.scss";
+// import "./ContributionsChart.scss";
 
 interface ContributionsChartProps {
   timelineData: TimelineData;

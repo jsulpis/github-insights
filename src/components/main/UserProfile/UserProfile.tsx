@@ -11,7 +11,7 @@ import User from "models/User";
 import React from "react";
 import { Card, CardBody, CardFooter } from "reactstrap";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import "./UserProfile.scss";
+// import "./UserProfile.scss";
 
 interface UserProfileProps {
   user: User;

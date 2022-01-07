@@ -1,5 +1,5 @@
 import React from "react";
-import "./FadeTransition.scss";
+// import "./FadeTransition.scss";
 
 class FadeTransition extends React.Component {
   public componentDidMount(): void {

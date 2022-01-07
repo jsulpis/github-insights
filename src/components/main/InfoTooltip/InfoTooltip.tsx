@@ -2,7 +2,7 @@ import { faInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { UncontrolledTooltip } from "reactstrap";
-import "./InfoTooltip.scss";
+// import "./InfoTooltip.scss";
 
 export default function InfoTooltip(props) {
   const randomId = Math.random()
