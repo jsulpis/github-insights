@@ -1,25 +1,25 @@
-import { faInfo } from "@fortawesome/free-solid-svg-icons";
+import { FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import { faInfo } from "@fortawesome/free-solid-svg-icons";
 import { UncontrolledTooltip } from "reactstrap";
-// import "./InfoTooltip.scss";
+import styles from "./InfoTooltip.module.scss";
 
-export default function InfoTooltip(props) {
+export const InfoTooltip: FC = ({ children }) => {
   const randomId = Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, "")
-    .substr(2, 10);
+    .slice(2, 10);
   return (
     <>
-      <FontAwesomeIcon icon={faInfo} className="info-icon" id={randomId} />
+      <FontAwesomeIcon icon={faInfo} className={styles.icon} id={randomId} />
       <UncontrolledTooltip
         placement="bottom"
         target={randomId}
-        innerClassName="info-tooltip"
-        arrowClassName="info-tooltip-arrow"
+        innerClassName={styles.info}
+        arrowClassName={styles.arrow}
       >
-        {props.children}
+        {children}
       </UncontrolledTooltip>
     </>
   );
-}
+};
