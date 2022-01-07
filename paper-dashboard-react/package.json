@@ -1,0 +1,9 @@
+{
+  "name": "paper-dashboard-react",
+  "description": "a few files taken from the original package. See readme.md",
+  "version": "1.1.0",
+  "dependencies": {
+    "react-chartjs-2": "2.7.6",
+    "chart.js": "2.9.3"
+  }
+}
