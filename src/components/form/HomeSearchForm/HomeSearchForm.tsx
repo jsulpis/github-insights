@@ -1,13 +1,9 @@
-import React from "react";
-import SearchForm, { SearchFormProps } from "../SearchForm/SearchForm";
-// import "./HomeSearchForm.scss";
+import { FC } from "react";
+import { SearchForm, SearchFormProps } from "../SearchForm/SearchForm";
+import styles from "./HomeSearchForm.module.scss";
 
-function HomeSearchForm(props: SearchFormProps) {
-  return (
-    <div className="home-search-form">
-      <SearchForm searchUser={props.searchUser} />
-    </div>
-  );
-}
-
-export default HomeSearchForm;
+export const HomeSearchForm: FC<SearchFormProps> = props => (
+  <div className={styles.container}>
+    <SearchForm {...props} />
+  </div>
+);

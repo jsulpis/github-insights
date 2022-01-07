@@ -1,10 +1,10 @@
-import FadeTransition from "components/animation/FadeTransition/FadeTransition";
-import Spinner from "components/animation/Spinner/Spinner";
+import { FadeTransition } from "components/animation/FadeTransition/FadeTransition";
+import { Spinner } from "components/animation/Spinner/Spinner";
 import ContributionsChart from "components/charts/Contributions/ContributionsChart";
 import LanguagesCharts from "components/charts/Languages/LanguagesCharts";
 import RepositoriesCharts from "components/charts/Repositories/RepositoriesCharts";
-import Page from "components/context/Page";
-import SearchForm from "components/form/SearchForm/SearchForm";
+import { Page } from "components/context/Page";
+import { SearchForm } from "components/form/SearchForm/SearchForm";
 import Footer from "components/main/Footer/Footer";
 import UserProfile from "components/main/UserProfile/UserProfile";
 import apiGet from "lib/apiGet";

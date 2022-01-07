@@ -1,13 +1,10 @@
-// import "./Spinner.scss";
+import { FC } from "react";
+import styles from "./Spinner.module.scss";
 
-function Spinner() {
-  return (
-    <div className="spinner">
-      <div className="bounce1" />
-      <div className="bounce2" />
-      <div className="bounce3" />
-    </div>
-  );
-}
-
-export default Spinner;
+export const Spinner: FC = () => (
+  <div className={styles.spinner}>
+    <div className={styles.bounce1} />
+    <div className={styles.bounce2} />
+    <div className={styles.bounce3} />
+  </div>
+);

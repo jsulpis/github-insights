@@ -1,5 +1,5 @@
 import NextHead from "next/head";
-import React from "react";
+import { FC } from "react";
 
 const defaultTitle = "GitHub Insights";
 const defaultDescription = "Insights into a GitHub account.";
@@ -13,27 +13,25 @@ export interface HeadProps {
   url?: string;
 }
 
-const Head = (props: HeadProps) => (
+export const Head: FC<HeadProps> = ({ description, ogImage, title, url }) => (
   <NextHead>
     <meta charSet="UTF-8" />
-    <title>{props.title || defaultTitle}</title>
-    <meta name="description" content={props.description || defaultDescription} />
+    <title>{title || defaultTitle}</title>
+    <meta name="description" content={description || defaultDescription} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/static/favicon.ico" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat:400,600"
     />
-    <meta property="og:url" content={props.url || defaultOGURL} />
-    <meta property="og:title" content={props.title || defaultTitle} />
-    <meta property="og:description" content={props.description || defaultDescription} />
-    <meta name="twitter:site" content={props.url || defaultOGURL} />
+    <meta property="og:url" content={url || defaultOGURL} />
+    <meta property="og:title" content={title || defaultTitle} />
+    <meta property="og:description" content={description || defaultDescription} />
+    <meta name="twitter:site" content={url || defaultOGURL} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={props.ogImage || defaultOGImage} />
-    <meta property="og:image" content={props.ogImage || defaultOGImage} />
+    <meta name="twitter:image" content={ogImage || defaultOGImage} />
+    <meta property="og:image" content={ogImage || defaultOGImage} />
     <meta property="og:image:width" content="1024" />
     <meta property="og:image:height" content="680" />
   </NextHead>
 );
-
-export default Head;

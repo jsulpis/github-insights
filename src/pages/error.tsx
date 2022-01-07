@@ -1,7 +1,6 @@
-import Page from "components/context/Page";
-import HomeSearchForm from "components/form/HomeSearchForm/HomeSearchForm";
+import { Page } from "components/context/Page";
+import { HomeSearchForm } from "components/form/HomeSearchForm/HomeSearchForm";
 import Router from "next/router";
-import React from "react";
 
 function Error() {
   return (
