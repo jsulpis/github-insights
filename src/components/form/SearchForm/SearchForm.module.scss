@@ -1,0 +1,24 @@
+$radius: 0.25em;
+$height: 3em;
+
+.form {
+  justify-content: center;
+
+  button {
+    font-size: 1em;
+    border-radius: 0 $radius $radius 0;
+    padding: 0 0.9em;
+    margin: 0 0 0 -0.3em;
+    height: $height;
+    width: $height;
+  }
+
+  input[type="text"] {
+    height: $height;
+    font-size: inherit;
+    padding-left: 1em;
+    width: 16em;
+    border-radius: $radius;
+    z-index: 1;
+  }
+}

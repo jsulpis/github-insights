@@ -1,4 +1,4 @@
-import Spinner from "components/animation/Spinner/Spinner";
+import { Spinner } from "components/animation/Spinner/Spinner";
 import { RepositoryContributedTo } from "models/Repository";
 import React from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";

@@ -1,0 +1,55 @@
+@import "~paper-dashboard-react/src/assets/scss/paper-dashboard/variables";
+
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~paper-dashboard-react/src/assets/css/paper-dashboard.min.css";
+@import "~@fortawesome/fontawesome-svg-core/styles.css";
+
+body {
+  text-align: center;
+  background-color: $default-body-bg;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 85vh;
+  padding: 2rem 0;
+
+  .card-body {
+    min-height: initial;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .card-description {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+a,
+a:hover,
+a:focus {
+  color: #102f6a;
+  font-weight: bold;
+}
+
+.page-transition {
+  &-enter {
+    opacity: 0;
+  }
+  &-active {
+    opacity: 1;
+    transition: opacity 1000ms;
+  }
+  &-exit {
+    opacity: 1;
+  }
+  &-exit-active {
+    opacity: 0;
+    transition: opacity 1000ms;
+  }
+}
