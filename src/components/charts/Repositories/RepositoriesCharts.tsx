@@ -1,37 +1,33 @@
 import { Spinner } from "components/animation/Spinner/Spinner";
 import { RepositoryContributedTo } from "models/Repository";
-import React from "react";
+import { FC } from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import BubbleChart from "../BubbleChart/BubbleChart";
-// import "./RepositoriesCharts.scss";
+import styles from "./RepositoriesCharts.module.scss";
 
-export interface RepositoriesChartsProps {
-  repos: RepositoryContributedTo[];
-}
-
-function RepositoriesCharts(props: RepositoriesChartsProps) {
-  return (
-    <Card className="card-user">
-      <CardHeader>
-        <CardTitle tag="h5">Top Repositories</CardTitle>
-        <p className="card-description">
-          First 30 repositories that the user recently contributed to. The contributions
-          included are: commit, creation of pull request, creation of repository.
-        </p>
-      </CardHeader>
-      <CardBody>
-        <div className="repositories-wrapper">
-          <BubbleChart
-            data={makeChartDataFromRepos(props.repos || [])}
-            xlabel="Repository size (MB)"
-            ylabel="Commit count"
-          />
-          {!props.repos && <Spinner />}
-        </div>
-      </CardBody>
-    </Card>
-  );
-}
+export const RepositoriesCharts: FC<{ repos: RepositoryContributedTo[] }> = ({
+  repos
+}) => (
+  <Card className="card-user">
+    <CardHeader>
+      <CardTitle tag="h5">Top Repositories</CardTitle>
+      <p className="card-description">
+        First 30 repositories that the user recently contributed to. The contributions
+        included are: commit, creation of pull request, creation of repository.
+      </p>
+    </CardHeader>
+    <CardBody>
+      <div className={styles.repositories}>
+        <BubbleChart
+          data={makeChartDataFromRepos(repos || [])}
+          xlabel="Repository size (MB)"
+          ylabel="Commit count"
+        />
+        {!repos && <Spinner className={styles.spinner} />}
+      </div>
+    </CardBody>
+  </Card>
+);
 
 export function makeChartDataFromRepos(repos: RepositoryContributedTo[]) {
   const isSmallScreen = !!window ? window.innerWidth <= 600 : false;
@@ -58,5 +54,3 @@ export function makeChartDataFromRepos(repos: RepositoryContributedTo[]) {
     color: repo.primaryLanguage ? repo.primaryLanguage.color : "rgba(0,0,0,0.3)"
   }));
 }
-
-export default RepositoriesCharts;
