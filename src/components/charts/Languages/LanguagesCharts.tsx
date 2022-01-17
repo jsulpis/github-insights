@@ -1,19 +1,13 @@
 import { Language } from "models/Language";
 import { RepositoryOwned } from "models/Repository";
-import React from "react";
+import { FC } from "react";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import { ChartData } from "../chart.models";
-import LanguagesByAmountOfCodeChart from "./LanguagesByAmountOfCodeChart";
-import LanguagesByReposChart from "./LanguagesByReposChart";
-// import "./LanguagesCharts.scss";
+import { LanguagesByAmountOfCodeChart } from "./LanguagesByAmountOfCodeChart";
+import { LanguagesByReposChart } from "./LanguagesByReposChart";
+import styles from "./LanguagesCharts.module.scss";
 
-interface LanguagesChartsProps {
-  repos: RepositoryOwned[];
-}
-
-function LanguagesCharts(props: LanguagesChartsProps) {
-  const { repos } = props;
-
+export const LanguagesCharts: FC<{ repos: RepositoryOwned[] }> = ({ repos }) => {
   const languagesMap = extractLanguageMapFromRepos(repos);
 
   const moreThanSixLanguages = languagesMap.size > 6;
@@ -27,20 +21,20 @@ function LanguagesCharts(props: LanguagesChartsProps) {
           excluding forked repositories.
         </p>
         {moreThanSixLanguages && (
-          <p className="card-description too-many-languages">
+          <p className={`card-description ${styles.info}`}>
             <em>(6 most used languages only)</em>
           </p>
         )}
       </CardHeader>
       <CardBody>
-        <div className="languages-charts">
+        <div className={styles.charts}>
           <LanguagesByAmountOfCodeChart languages={languagesMap} />
           <LanguagesByReposChart repos={repos} />
         </div>
       </CardBody>
     </Card>
   );
-}
+};
 
 function extractLanguageMapFromRepos(repos: RepositoryOwned[]) {
   const languagesMap = new Map<string, number>(); // I use string keys to fake shallow keys equality
@@ -76,5 +70,3 @@ export function makeChartDataFromLanguages(
     })
     .sort((lang1, lang2) => lang2.value - lang1.value);
 }
-
-export default LanguagesCharts;

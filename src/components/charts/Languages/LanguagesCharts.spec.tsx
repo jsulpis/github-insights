@@ -1,6 +1,6 @@
 import { render, waitFor } from "@testing-library/react";
 import { RepositoryOwned } from "models/Repository";
-import LanguagesCharts from "./LanguagesCharts";
+import { LanguagesCharts } from "./LanguagesCharts";
 
 jest.mock("react-chartjs-2");
 

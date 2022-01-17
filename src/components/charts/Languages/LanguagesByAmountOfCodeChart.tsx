@@ -1,20 +1,20 @@
 import { Language } from "models/Language";
-import React from "react";
+import { FC } from "react";
 import { HorizontalBarChart } from "../BarCharts/BarCharts";
 import { ChartData } from "../chart.models";
 import { makeChartDataFromLanguages } from "./LanguagesCharts";
+import styles from "./LanguagesCharts.module.scss";
 
-export default function LanguagesByAmountOfCodeChart(props: {
+export const LanguagesByAmountOfCodeChart: FC<{
   languages: Map<Language, number>;
-}) {
-  const languages = props.languages;
+}> = ({ languages }) => {
   for (const [key, value] of languages) {
     languages.set(key, value / 1000000);
   }
   const languagesByAmountOfCode: ChartData[] = makeChartDataFromLanguages(languages);
 
   return (
-    <div className="languages-chart">
+    <div className={styles.chart}>
       <HorizontalBarChart
         data={languagesByAmountOfCode.slice(0, 6)}
         unit="Megabytes of code"
@@ -22,4 +22,4 @@ export default function LanguagesByAmountOfCodeChart(props: {
       />
     </div>
   );
-}
+};
