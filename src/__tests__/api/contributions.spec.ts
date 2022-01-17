@@ -1,6 +1,6 @@
 import MockNextApiResponse from "__tests__/api/MockNextApiResponse";
 import fetchContributionsPerRepo from "lambdas/fetchContributionsPerRepo";
-import { ContributionsPerRepo } from "models/ContributionsPerRepo";
+import { ContributionsPerRepo } from "models/Contributions";
 import contributionsApi from "pages/api/[username]/contributions";
 
 jest.mock("lambdas/fetchContributionsPerRepo");

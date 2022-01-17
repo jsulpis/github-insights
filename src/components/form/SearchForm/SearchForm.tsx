@@ -4,11 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./SearchForm.module.scss";
 
-export interface SearchFormProps {
-  searchUser: (user: string) => any;
-}
-
-export const SearchForm: FC<SearchFormProps> = ({ searchUser }) => {
+export const SearchForm: FC<{ searchUser: (user: string) => any }> = ({ searchUser }) => {
   function handleSubmit(event) {
     event.preventDefault();
     searchUser(event.target.elements.username.value);
@@ -16,7 +12,13 @@ export const SearchForm: FC<SearchFormProps> = ({ searchUser }) => {
 
   return (
     <Form className={styles.form} inline onSubmit={handleSubmit}>
-      <Input name="username" required autoFocus placeholder="Enter a GitHub username" />
+      <Input
+        name="username"
+        required
+        aria-label="GitHub username"
+        autoFocus
+        placeholder="Enter a GitHub username"
+      />
       <Button>
         <FontAwesomeIcon icon={faSearch} />
       </Button>

@@ -50,22 +50,26 @@ export const UserProfile: FC<UserProfileProps> = ({
       ></div>
       <CardBody>
         <div className="author">
-          <img
-            alt="profile_picture"
-            className="avatar border-gray"
-            src={user.avatarUrl}
-          />
-          <h1 className={styles.fullname}>{user.name}</h1>
-          <a className={styles.username} href={user.profileUrl}>
+          <img alt="profile picture" className="avatar border-gray" src={user.avatarUrl} />
+          <h1 aria-label="full name" className={styles.fullname}>
+            {user.name}
+          </h1>
+          <a aria-label="github profile" className={styles.username} href={user.profileUrl}>
             @{user.username}
           </a>
-          <p className={styles.company}>{user.company}</p>
-          <p className={styles.location}>{user.location}</p>
-          <a className={styles.website} href={userWebsite}>
+          <p aria-label="company" className={styles.company}>
+            {user.company}
+          </p>
+          <p aria-label="location" className={styles.location}>
+            {user.location}
+          </p>
+          <a aria-label="website" className={styles.website} href={userWebsite}>
             {user.website}
           </a>
         </div>
-        <p className="card-description text-center">{user.bio}</p>
+        <p aria-label="description" className="card-description text-center">
+          {user.bio}
+        </p>
       </CardBody>
       <CardFooter>
         <hr />
@@ -73,48 +77,58 @@ export const UserProfile: FC<UserProfileProps> = ({
           <div>
             <div>
               <FontAwesomeIcon icon={faUsers} />
-              <span className={styles.followers}>{user.followers}</span>
+              <span aria-labelledby="followers" className={styles.followers}>
+                {user.followers}
+              </span>
             </div>
-            <p>Followers</p>
+            <p id="followers">Followers</p>
           </div>
           <div>
             <div>
               <FontAwesomeIcon icon={faLanguage} />
-              <span className={styles.languages}>{languages.length}</span>
+              <span aria-labelledby="languages" className={styles.languages}>
+                {languages.length}
+              </span>
             </div>
-            <p>Main languages</p>
+            <p id="languages">Main languages</p>
             <InfoTooltip>
-              Number of distinct primary languages in the 100 latest public repositories
-              owned by the user, excluding forked repositories.
+              Number of distinct primary languages in the 100 latest public repositories owned by
+              the user, excluding forked repositories.
             </InfoTooltip>
           </div>
           <div>
             <div>
               <FontAwesomeIcon icon={faCode} />
-              <span className={styles.repos}>{user.repos}</span>
+              <span aria-labelledby="public-repos" className={styles.repos}>
+                {user.repos}
+              </span>
             </div>
-            <p>Public Repos</p>
+            <p id="public-repos">Public Repos</p>
           </div>
           <div>
             <div>
               <FontAwesomeIcon icon={faStar} />
-              <span className={styles.stars}>{totalStars}</span>
+              <span aria-labelledby="total-stars" className={styles.stars}>
+                {totalStars}
+              </span>
             </div>
-            <p>Total Stars</p>
+            <p id="total-stars">Total Stars</p>
             <InfoTooltip>
-              Total number of stars in the 100 latest public repositories owned by the
-              user, excluding forked repositories.
+              Total number of stars in the 100 latest public repositories owned by the user,
+              excluding forked repositories.
             </InfoTooltip>
           </div>
           <div>
             <div>
               <FontAwesomeIcon icon={faCodeBranch} />
-              <span className={styles.forks}>{totalForks}</span>
+              <span aria-labelledby="total-forks" className={styles.forks}>
+                {totalForks}
+              </span>
             </div>
-            <p>Total Forks</p>
+            <p id="total-forks">Total Forks</p>
             <InfoTooltip>
-              Total number of forks in the 100 latest public repositories owned by the
-              user, excluding forked repositories.
+              Total number of forks in the 100 latest public repositories owned by the user,
+              excluding forked repositories.
             </InfoTooltip>
           </div>
         </div>

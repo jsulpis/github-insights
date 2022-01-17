@@ -1,7 +1,6 @@
 import { render, waitFor } from "@testing-library/react";
 import apiGet from "lib/apiGet";
 import UserPage from "pages/[username]";
-import React from "react";
 
 jest.mock("lib/apiGet");
 jest.mock("react-chartjs-2");
@@ -55,19 +54,19 @@ describe("User Page", () => {
   it("should have a search input and redirect to the user page", async () => {
     // Given
     const mockRouter = { query: { username: USERNAME }, push: jest.fn() };
-    const { container } = render(<UserPage router={mockRouter} />);
+    const { getByRole, findByRole } = render(<UserPage router={mockRouter} />);
 
-    await waitFor(() => {
-      const inputElement = container.querySelector("input");
-      expect(inputElement).toBeTruthy();
+    const inputElement = (await findByRole("textbox", {
+      name: "GitHub username"
+    })) as HTMLInputElement;
+    expect(inputElement).toBeVisible();
 
-      inputElement.value = "jsulpis";
+    inputElement.value = "jsulpis";
 
-      // When
-      (container.querySelector("button#search-button") as HTMLButtonElement).click();
+    // When
+    getByRole("button").click();
 
-      // Then
-      expect(mockRouter.push).toHaveBeenCalledWith("/[username]", "/jsulpis");
-    });
+    // Then
+    expect(mockRouter.push).toHaveBeenCalledWith("/[username]", "/jsulpis");
   });
 });

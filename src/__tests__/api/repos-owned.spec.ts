@@ -13,13 +13,15 @@ describe("Repos api", () => {
         name: "blender-addons",
         starCount: 2,
         forkCount: 1,
-        primaryLanguage: { name: "Python", color: "#3572A5" }
+        primaryLanguage: { name: "Python", color: "#3572A5" },
+        languages: []
       },
       {
         name: "android-modules",
         starCount: 0,
         forkCount: 0,
-        primaryLanguage: { name: "Java", color: "#b07219" }
+        primaryLanguage: { name: "Java", color: "#b07219" },
+        languages: []
       }
     ];
     (fetchReposOwned as jest.Mock).mockImplementation(() => Promise.resolve(MOCK_REPOS));

@@ -1,4 +1,4 @@
-import { render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { RepositoryOwned } from "models/Repository";
 import { LanguagesCharts } from "./LanguagesCharts";
 
@@ -13,22 +13,17 @@ describe("LanguagesCharts", () => {
       makeRepoWithLanguage(["Typescript"])
     ];
 
-    const { findByText } = render(<LanguagesCharts repos={repos} />);
+    const { getByText } = render(<LanguagesCharts repos={repos} />);
 
-    expect(await findByText("(6 most used languages only)")).toBeTruthy();
+    expect(getByText("(6 most used languages only)")).toBeVisible();
   });
 
   it("should not display a message if 6 languages or less", async () => {
-    const repos = [
-      makeRepoWithLanguage(["Python"]),
-      makeRepoWithLanguage(["Typescript"])
-    ];
+    const repos = [makeRepoWithLanguage(["Python"]), makeRepoWithLanguage(["Typescript"])];
 
-    const { container } = render(<LanguagesCharts repos={repos} />);
+    const { queryByText } = render(<LanguagesCharts repos={repos} />);
 
-    await waitFor(() => {
-      expect(container.querySelector(".languages-subtitle")).toBeFalsy();
-    });
+    expect(queryByText("(6 most used languages only)")).not.toBeInTheDocument();
   });
 });
 
