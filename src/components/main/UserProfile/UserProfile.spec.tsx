@@ -1,8 +1,7 @@
 import { render, waitFor } from "@testing-library/react";
-import UserProfile from "components/main/UserProfile/UserProfile";
+import { UserProfile } from "components/main/UserProfile/UserProfile";
 import { RepositoryOwned } from "models/Repository";
 import User from "models/User";
-import React from "react";
 
 jest.mock("lambdas/fetchUser");
 
@@ -68,42 +67,36 @@ describe("UserProfile", () => {
   ];
 
   it("shows information about the user", async () => {
-    const { container } = render(<UserProfile user={MOCK_USER} repos={MOCK_REPOS} />);
+    const { getByLabelText, getByRole } = render(
+      <UserProfile user={MOCK_USER} repos={MOCK_REPOS} />
+    );
 
-    await waitFor(() => {
-      expect(getContentByClass(container, ".fullname")).toBe(MOCK_USER.name);
-      expect(getContentByClass(container, ".username")).toBe("@" + MOCK_USER.username);
-      expect(getAttributeValueByClass(container, ".username", "href")).toBe(
-        MOCK_USER.profileUrl
-      );
-      expect(getContentByClass(container, ".card-description")).toBe(MOCK_USER.bio);
-      expect(getAttributeValueByClass(container, ".avatar", "src")).toBe(
-        MOCK_USER.avatarUrl
-      );
-      expect(getContentByClass(container, ".location")).toBe(MOCK_USER.location);
-      expect(getContentByClass(container, ".company")).toBe(MOCK_USER.company);
-      expect(getContentByClass(container, ".website")).toBe(MOCK_USER.website);
-      expect(getAttributeValueByClass(container, ".website", "href")).toBe(
-        "https://" + MOCK_USER.website
-      );
-      expect(getContentByClass(container, ".followers")).toBe(`${MOCK_USER.followers}`);
-      expect(container.querySelector(".message-many-repos")).not.toBeTruthy();
-    });
+    expect(getByLabelText("full name").textContent).toBe(MOCK_USER.name);
+    expect(getByRole("link", { name: "github profile" }).textContent).toBe(
+      "@" + MOCK_USER.username
+    );
+    expect(getByRole("link", { name: "github profile" }).getAttribute("href")).toBe(
+      MOCK_USER.profileUrl
+    );
+    expect(getByLabelText("company").textContent).toBe(MOCK_USER.company);
+    expect(getByLabelText("location").textContent).toBe(MOCK_USER.location);
+    expect(getByRole("link", { name: "website" }).textContent).toBe(MOCK_USER.website);
+    expect(getByRole("link", { name: "website" }).getAttribute("href")).toBe(
+      "https://" + MOCK_USER.website
+    );
+    expect(getByRole("img", { name: "profile picture" }).getAttribute("src")).toBe(
+      MOCK_USER.avatarUrl
+    );
+    expect(getByLabelText("description").textContent).toBe(MOCK_USER.bio);
+    expect(getByLabelText("Followers").textContent).toBe(`${MOCK_USER.followers}`);
   });
 
   it("shows information about the repos", async () => {
-    const { container } = render(<UserProfile user={MOCK_USER} repos={MOCK_REPOS} />);
+    const { getByLabelText } = render(<UserProfile user={MOCK_USER} repos={MOCK_REPOS} />);
 
-    await waitFor(() => {
-      expect(getContentByClass(container, ".repos")).toBe(`${MOCK_USER.repos}`);
-      expect(getContentByClass(container, ".stars")).toBe(`5`);
-      expect(getContentByClass(container, ".forks")).toBe(`5`);
-      expect(getContentByClass(container, ".languages")).toBe(`2`);
-    });
+    expect(getByLabelText("Public Repos").textContent).toBe(`${MOCK_USER.repos}`);
+    expect(getByLabelText("Total Stars").textContent).toBe("5");
+    expect(getByLabelText("Total Forks").textContent).toBe("5");
+    expect(getByLabelText("Main languages").textContent).toBe("2");
   });
-
-  const getContentByClass = (container, className) =>
-    container.querySelector(className).textContent;
-  const getAttributeValueByClass = (container, className, attribute) =>
-    container.querySelector(className).attributes.getNamedItem(attribute).value;
 });

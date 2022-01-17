@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react";
 import { ContributionsPerRepo } from "models/Contributions";
 import TimelineData from "models/TimelineData";
-import React from "react";
 import { ContributionsChart } from "./ContributionsChart";
 
 jest.mock("react-chartjs-2");
@@ -34,13 +33,10 @@ describe("ContributionsChart", () => {
         contributions: 48
       }
     ];
-    const { findByText } = render(
-      <ContributionsChart
-        timelineData={timelineData}
-        contributionsPerRepo={contributionsPerRepo}
-      />
+    const { getByText } = render(
+      <ContributionsChart timelineData={timelineData} contributionsPerRepo={contributionsPerRepo} />
     );
 
-    expect(await findByText("27 contributions in the last year")).toBeTruthy();
+    expect(getByText("27 contributions in the last year")).toBeVisible();
   });
 });

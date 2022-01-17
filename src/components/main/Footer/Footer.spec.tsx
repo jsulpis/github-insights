@@ -3,15 +3,15 @@ import Footer from "./Footer";
 
 describe("Footer", () => {
   it("should display credits", async () => {
-    const { findByText } = render(<Footer />);
+    const { getByRole } = render(<Footer />);
 
-    const codeAuthor = await findByText(/Julien Sulpis/);
-    expect(codeAuthor).toBeTruthy();
+    const codeAuthor = getByRole("link", { name: "Julien Sulpis" });
+    expect(codeAuthor).toBeVisible();
 
-    const themeName = await findByText(/Paper Dashboard React/);
-    expect(themeName).toBeTruthy();
+    const themeName = getByRole("link", { name: "Paper Dashboard React" });
+    expect(themeName).toBeVisible();
 
-    const templateAuthor = await findByText(/Creative Tim/);
-    expect(templateAuthor).toBeTruthy();
+    const templateAuthor = getByRole("link", { name: "Creative Tim" });
+    expect(templateAuthor).toBeVisible();
   });
 });

@@ -1,4 +1,3 @@
-import React from "react";
 import { Bar, HorizontalBar } from "react-chartjs-2";
 import { ChartProps } from "../chart.models";
 import BarChartPropsParser from "./BarChartPropsParser";
