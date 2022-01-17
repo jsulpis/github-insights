@@ -1,0 +1,13 @@
+.repositories {
+  width: 600px;
+  margin: auto;
+  max-width: 100%;
+  position: relative;
+}
+
+.spinner {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}

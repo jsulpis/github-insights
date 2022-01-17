@@ -1,6 +1,5 @@
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { Container, Row } from "reactstrap";
 
 function Footer() {
@@ -15,7 +14,7 @@ function Footer() {
                 icon={faHeart}
                 style={{ height: "10px", verticalAlign: "initial" }}
               />{" "}
-              by <a href="https://github.com/jsulpis">Julien Sulpis</a>
+              by <a href="https://twitter.com/jsulpis">Julien Sulpis</a>
             </div>
           </div>
         </Row>

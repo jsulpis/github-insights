@@ -1,32 +1,33 @@
-.timeline-wrapper,
-.contributions-wrapper {
+.timeline,
+.contributions {
   margin: auto;
   max-width: 100%;
 }
 
-.timeline-wrapper {
+.timeline {
   height: 100px;
   width: 600px;
   margin-bottom: 1.5em;
 }
 
-.contributions-wrapper {
+.contributions {
   height: 200px;
   width: 400px;
 }
 
-.chart-subtitle.contributions-subtitle {
-  margin-bottom: 0;
-}
-
-.chart-subsubtitle {
+.subsubtitle {
   font-size: 0.8em;
   font-weight: 600;
   margin-bottom: 0.5em;
 }
 
-.chart-subtitle {
+.subtitle {
   font-size: 0.9em;
   font-weight: 600;
   margin-bottom: 0.5em;
+}
+
+.contributionsSubtitle {
+  composes: subtitle;
+  margin-bottom: 0;
 }
