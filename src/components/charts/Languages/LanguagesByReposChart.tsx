@@ -1,18 +1,18 @@
 import { Language } from "models/Language";
 import { RepositoryOwned } from "models/Repository";
-import React from "react";
+import { FC } from "react";
 import { HorizontalBarChart } from "../BarCharts/BarCharts";
 import { ChartData } from "../chart.models";
 import { makeChartDataFromLanguages } from "./LanguagesCharts";
+import styles from "./LanguagesCharts.module.scss";
 
-export default function LanguagesByReposChart(props: { repos: RepositoryOwned[] }) {
-  const reposPerLanguage = countReposPerLanguage(props.repos);
-  const languagesByNumberOfRepos: ChartData[] = makeChartDataFromLanguages(
-    reposPerLanguage
-  );
+export const LanguagesByReposChart: FC<{ repos: RepositoryOwned[] }> = ({ repos }) => {
+  const reposPerLanguage = countReposPerLanguage(repos);
+  const languagesByNumberOfRepos: ChartData[] =
+    makeChartDataFromLanguages(reposPerLanguage);
 
   return (
-    <div className="languages-chart">
+    <div className={styles.chart}>
       <HorizontalBarChart
         data={languagesByNumberOfRepos.slice(0, 6)}
         unit="Repositories"
@@ -20,7 +20,7 @@ export default function LanguagesByReposChart(props: { repos: RepositoryOwned[] 
       />
     </div>
   );
-}
+};
 
 function countReposPerLanguage(repos: RepositoryOwned[]): Map<Language, number> {
   const languagesMap = new Map<string, number>(); // I use string keys to fake shallow keys equality
