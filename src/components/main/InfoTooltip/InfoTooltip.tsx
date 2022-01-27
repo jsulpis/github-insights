@@ -4,17 +4,13 @@ import { faInfo } from "@fortawesome/free-solid-svg-icons";
 import { UncontrolledTooltip } from "reactstrap";
 import styles from "./InfoTooltip.module.scss";
 
-export const InfoTooltip: FC = ({ children }) => {
-  const randomId = Math.random()
-    .toString(36)
-    .replace(/[^a-z]+/g, "")
-    .slice(2, 10);
+export const InfoTooltip: FC<{ id: string }> = ({ children, id }) => {
   return (
     <>
-      <FontAwesomeIcon icon={faInfo} className={styles.icon} id={randomId} />
+      <FontAwesomeIcon icon={faInfo} className={styles.icon} id={id} />
       <UncontrolledTooltip
         placement="bottom"
-        target={randomId}
+        target={id}
         innerClassName={styles.info}
         arrowClassName={styles.arrow}
       >

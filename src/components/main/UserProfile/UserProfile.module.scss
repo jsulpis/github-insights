@@ -5,7 +5,8 @@
 }
 
 .image {
-  background-position: center;
+  object-fit: cover;
+  border-radius: 0;
 }
 
 .fullname {

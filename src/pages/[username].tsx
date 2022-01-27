@@ -1,5 +1,4 @@
 import { FadeTransition } from "components/animation/FadeTransition/FadeTransition";
-import { Spinner } from "components/animation/Spinner/Spinner";
 import { ContributionsChart } from "components/charts/Contributions/ContributionsChart";
 import { LanguagesCharts } from "components/charts/Languages/LanguagesCharts";
 import { RepositoriesCharts } from "components/charts/Repositories/RepositoriesCharts";
@@ -13,9 +12,9 @@ import { RepositoryContributedTo, RepositoryOwned } from "models/Repository";
 import TimelineData from "models/TimelineData";
 import User from "models/User";
 import { useRouter } from "next/router";
-import { FC, useEffect, useState } from "react";
+import { GetServerSideProps, NextPage } from "next";
 
-interface UserPageState {
+interface UserPageProps {
   user?: User;
   reposOwned?: RepositoryOwned[];
   reposContributedTo?: RepositoryContributedTo[];
@@ -23,86 +22,74 @@ interface UserPageState {
   contributionsPerRepo?: ContributionsPerRepo[];
 }
 
-const UserPage: FC = () => {
+const UserPage: NextPage<UserPageProps> = ({
+  user,
+  reposOwned,
+  reposContributedTo,
+  timelineData,
+  contributionsPerRepo
+}) => {
   const router = useRouter();
-  const [state, setState] = useState<UserPageState>({});
   const username = router.query.username;
-
-  useEffect(() => {
-    if (!username) {
-      return;
-    }
-    Promise.all([
-      apiGet<User>("/" + username),
-      apiGet<RepositoryOwned[]>("/" + username + "/repos-owned"),
-      apiGet<RepositoryContributedTo[]>("/" + username + "/repos-contributed"),
-      apiGet<TimelineData>("/" + username + "/timeline"),
-      apiGet<ContributionsPerRepo[]>("/" + username + "/contributions")
-    ])
-      .then(([user, reposOwned, reposContributedTo, timelineData, contributionsPerRepo]) => {
-        setState({
-          user,
-          reposOwned,
-          reposContributedTo,
-          timelineData,
-          contributionsPerRepo
-        });
-      })
-      .catch(e => {
-        if (e.status === 404) {
-          router.push("/404");
-        } else {
-          router.push("/error");
-        }
-      });
-  }, [router, username]);
-
-  const { user, reposOwned, reposContributedTo, timelineData, contributionsPerRepo } = state;
-
-  const backgroundPictureSeed = user ? user.name + new Date().getMinutes().toString() : null;
-  const isDataPresent = !!user && !!reposOwned;
 
   function onNewUsernameSubmitted(newUsername) {
     if (newUsername !== username) {
-      setState({});
       router.push("/[username]", "/" + newUsername);
     }
   }
 
   return (
     <Page>
-      {isDataPresent ? (
-        <FadeTransition>
-          <SearchForm searchUser={onNewUsernameSubmitted} />
-          <UserProfile
-            user={user}
-            repos={reposOwned}
-            backgroundPictureSeed={backgroundPictureSeed}
-          />
-          <ContributionsChart
-            timelineData={timelineData}
-            contributionsPerRepo={contributionsPerRepo}
-          />
-          <LanguagesCharts repos={reposOwned} />
-          <RepositoriesCharts repos={reposContributedTo} />
-          <Footer />
-        </FadeTransition>
-      ) : (
-        <>
-          <p className="h5">Hold on a second, I'm fetching your data...</p>
-          <Spinner />
-        </>
-      )}
-      {backgroundPictureSeed && (
-        // Prefetch the background image
-        <img
-          alt="background"
-          style={{ display: "none" }}
-          src={`https://picsum.photos/seed/${backgroundPictureSeed}/800/130`}
+      <FadeTransition>
+        <SearchForm searchUser={onNewUsernameSubmitted} />
+        <UserProfile user={user} repos={reposOwned} />
+        <ContributionsChart
+          timelineData={timelineData}
+          contributionsPerRepo={contributionsPerRepo}
         />
-      )}
+        <LanguagesCharts repos={reposOwned} />
+        <RepositoriesCharts repos={reposContributedTo} />
+        <Footer />
+      </FadeTransition>
     </Page>
   );
 };
 
 export default UserPage;
+
+export const getServerSideProps: GetServerSideProps = async ({ params, res }) => {
+  const username = params.username;
+  res.setHeader(
+    "Cache-Control",
+    `public, max-age=${60 * 60 * 12}, stale-while-revalidate=${60 * 60 * 24}`
+  );
+
+  return Promise.all([
+    apiGet<User>("/" + username),
+    apiGet<RepositoryOwned[]>("/" + username + "/repos-owned"),
+    apiGet<RepositoryContributedTo[]>("/" + username + "/repos-contributed"),
+    apiGet<TimelineData>("/" + username + "/timeline"),
+    apiGet<ContributionsPerRepo[]>("/" + username + "/contributions")
+  ])
+    .then(([user, reposOwned, reposContributedTo, timelineData, contributionsPerRepo]) => {
+      return {
+        props: {
+          user,
+          reposOwned,
+          reposContributedTo,
+          timelineData,
+          contributionsPerRepo
+        }
+      };
+    })
+    .catch(e =>
+      e.status === 404
+        ? { notFound: true }
+        : {
+            redirect: {
+              destination: "/error",
+              permanent: false
+            }
+          }
+    );
+};

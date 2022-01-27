@@ -5,15 +5,13 @@ import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import BubbleChart from "../BubbleChart/BubbleChart";
 import styles from "./RepositoriesCharts.module.scss";
 
-export const RepositoriesCharts: FC<{ repos: RepositoryContributedTo[] }> = ({
-  repos
-}) => (
+export const RepositoriesCharts: FC<{ repos: RepositoryContributedTo[] }> = ({ repos }) => (
   <Card className="card-user">
     <CardHeader>
       <CardTitle tag="h5">Top Repositories</CardTitle>
       <p className="card-description">
-        First 30 repositories that the user recently contributed to. The contributions
-        included are: commit, creation of pull request, creation of repository.
+        First 30 repositories that the user recently contributed to. The contributions included are:
+        commit, creation of pull request, creation of repository.
       </p>
     </CardHeader>
     <CardBody>
@@ -30,7 +28,7 @@ export const RepositoriesCharts: FC<{ repos: RepositoryContributedTo[] }> = ({
 );
 
 export function makeChartDataFromRepos(repos: RepositoryContributedTo[]) {
-  const isSmallScreen = !!window ? window.innerWidth <= 600 : false;
+  const isSmallScreen = false; //!!window ? window.innerWidth <= 600 : false;
   const minRadius = 5;
   const maxRadius = isSmallScreen ? minRadius : 15;
   let minSize = 0;
@@ -48,8 +46,7 @@ export function makeChartDataFromRepos(repos: RepositoryContributedTo[]) {
     x: repo.diskUsage / 1000,
     y: repo.commitCount,
     r: Math.ceil(
-      minRadius +
-        ((repo.diskUsage - minSize) / (maxSize - minSize)) * (maxRadius - minRadius)
+      minRadius + ((repo.diskUsage - minSize) / (maxSize - minSize)) * (maxRadius - minRadius)
     ),
     color: repo.primaryLanguage ? repo.primaryLanguage.color : "rgba(0,0,0,0.3)"
   }));
