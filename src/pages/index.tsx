@@ -5,9 +5,7 @@ import Router from "next/router";
 function HomePage() {
   return (
     <Page>
-      <HomeSearchForm
-        searchUser={username => Router.push("/[username]", "/" + username)}
-      />
+      <HomeSearchForm searchUser={username => Router.push("/[username]", "/" + username)} />
     </Page>
   );
 }
