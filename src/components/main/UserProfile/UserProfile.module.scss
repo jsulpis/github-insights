@@ -36,6 +36,8 @@
   opacity: 0.8;
 
   > div {
+    flex-basis: 130px;
+
     @media only screen and (max-width: 768px) {
       margin: 0.5em;
     }

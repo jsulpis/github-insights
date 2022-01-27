@@ -27,7 +27,6 @@
     "dotenv": "^8.2.0",
     "isomorphic-unfetch": "^3.1.0",
     "next": "^11.1.2",
-    "next-page-transitions": "^1.0.0-canary.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
