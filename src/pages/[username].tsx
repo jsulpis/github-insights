@@ -1,4 +1,4 @@
-import { FadeTransition } from "components/animation/FadeTransition/FadeTransition";
+import { FadeIn } from "components/animation/FadeIn/FadeIn";
 import { ContributionsChart } from "components/charts/Contributions/ContributionsChart";
 import { LanguagesCharts } from "components/charts/Languages/LanguagesCharts";
 import { RepositoriesCharts } from "components/charts/Repositories/RepositoriesCharts";
@@ -40,7 +40,7 @@ const UserPage: NextPage<UserPageProps> = ({
 
   return (
     <Page>
-      <FadeTransition>
+      <FadeIn>
         <SearchForm searchUser={onNewUsernameSubmitted} />
         <UserProfile user={user} repos={reposOwned} />
         <ContributionsChart
@@ -50,7 +50,7 @@ const UserPage: NextPage<UserPageProps> = ({
         <LanguagesCharts repos={reposOwned} />
         <RepositoriesCharts repos={reposContributedTo} />
         <Footer />
-      </FadeTransition>
+      </FadeIn>
     </Page>
   );
 };

@@ -28,9 +28,8 @@ export const RepositoriesCharts: FC<{ repos: RepositoryContributedTo[] }> = ({ r
 );
 
 export function makeChartDataFromRepos(repos: RepositoryContributedTo[]) {
-  const isSmallScreen = false; //!!window ? window.innerWidth <= 600 : false;
   const minRadius = 5;
-  const maxRadius = isSmallScreen ? minRadius : 15;
+  const maxRadius = 15;
   let minSize = 0;
   let maxSize = repos[0] ? repos[0].diskUsage : 0;
   repos.forEach(repo => {

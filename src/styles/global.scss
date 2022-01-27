@@ -48,20 +48,3 @@ a:focus {
   color: #102f6a;
   font-weight: bold;
 }
-
-.page-transition {
-  &-enter {
-    opacity: 0;
-  }
-  &-active {
-    opacity: 1;
-    transition: opacity 1000ms;
-  }
-  &-exit {
-    opacity: 1;
-  }
-  &-exit-active {
-    opacity: 0;
-    transition: opacity 1000ms;
-  }
-}
