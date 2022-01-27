@@ -16,14 +16,10 @@ import styles from "./UserProfile.module.scss";
 interface UserProfileProps {
   user: User;
   repos: RepositoryOwned[];
-  backgroundPictureSeed?: string;
 }
 
-export const UserProfile: FC<UserProfileProps> = ({
-  user,
-  repos,
-  backgroundPictureSeed = new Date().getMilliseconds.toString()
-}) => {
+export const UserProfile: FC<UserProfileProps> = ({ user = {}, repos = [] }) => {
+  const backgroundPictureSeed = user.username + new Date().getMinutes().toString();
   const totalStars = repos.reduce((acc, current) => acc + (current.starCount || 0), 0);
   const totalForks = repos.reduce((acc, current) => acc + current.forkCount, 0);
   const languages = repos
@@ -42,12 +38,10 @@ export const UserProfile: FC<UserProfileProps> = ({
 
   return (
     <Card className={"card-user " + styles.profile}>
-      <div
+      <img
         className={"image " + styles.image}
-        style={{
-          backgroundImage: `url('https://picsum.photos/seed/${backgroundPictureSeed}/800/130')`
-        }}
-      ></div>
+        src={`https://picsum.photos/seed/${backgroundPictureSeed}/800/130`}
+      ></img>
       <CardBody>
         <div className="author">
           <img alt="profile picture" className="avatar border-gray" src={user.avatarUrl} />
@@ -91,7 +85,7 @@ export const UserProfile: FC<UserProfileProps> = ({
               </span>
             </div>
             <p id="languages">Main languages</p>
-            <InfoTooltip>
+            <InfoTooltip id="languages">
               Number of distinct primary languages in the 100 latest public repositories owned by
               the user, excluding forked repositories.
             </InfoTooltip>
@@ -113,7 +107,7 @@ export const UserProfile: FC<UserProfileProps> = ({
               </span>
             </div>
             <p id="total-stars">Total Stars</p>
-            <InfoTooltip>
+            <InfoTooltip id="stars">
               Total number of stars in the 100 latest public repositories owned by the user,
               excluding forked repositories.
             </InfoTooltip>
@@ -126,7 +120,7 @@ export const UserProfile: FC<UserProfileProps> = ({
               </span>
             </div>
             <p id="total-forks">Total Forks</p>
-            <InfoTooltip>
+            <InfoTooltip id="forks">
               Total number of forks in the 100 latest public repositories owned by the user,
               excluding forked repositories.
             </InfoTooltip>

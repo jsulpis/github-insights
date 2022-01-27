@@ -48,6 +48,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.1.0",
     "next-fonts": "^1.5.1",
+    "nextjs-progressbar": "0.0.13",
     "paper-dashboard-react": "file:paper-dashboard-react",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.1",

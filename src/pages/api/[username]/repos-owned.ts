@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const username = req.query.username as string;
 
-  fetchReposOwned(username)
+  return fetchReposOwned(username)
     .then(repos => {
       res.setHeader(
         "Cache-Control",

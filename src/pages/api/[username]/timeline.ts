@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const username = req.query.username as string;
 
-  fetchContributionsCalendar(username)
+  return fetchContributionsCalendar(username)
     .then(contributions => {
       res.setHeader(
         "Cache-Control",
