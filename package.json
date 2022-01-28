@@ -51,7 +51,7 @@
     "paper-dashboard-react": "file:paper-dashboard-react",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.1",
-    "reactstrap": "^8.9.0",
+    "reactstrap": "^8.10.1",
     "sass": "^1.39.0",
     "typescript": "^4.4.2"
   }
