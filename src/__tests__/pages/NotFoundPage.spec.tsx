@@ -2,7 +2,12 @@ import { render } from "@testing-library/react";
 import Router from "next/router";
 import NotFoundPage from "pages/404";
 
-jest.mock("next/router");
+jest.mock("next/router", () => ({
+  useRouter: () => ({
+    asPath: ""
+  }),
+  push: jest.fn()
+}));
 
 describe("404 Page", () => {
   it("should have an error message", async () => {

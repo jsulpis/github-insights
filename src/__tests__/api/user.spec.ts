@@ -11,8 +11,7 @@ describe("User api", () => {
       profileUrl: "https://api.github.com/users/jsulpis",
       username: "jsulpis",
       avatarUrl: "https://avatars2.githubusercontent.com/u/22420399?v=4",
-      bio:
-        "Full stack developer at @Zenika.\r\nPlaying with web technologies, computer graphics and electronics.",
+      bio: "Full stack developer at @Zenika.\r\nPlaying with web technologies, computer graphics and electronics.",
       company: "@Zenika",
       website: "www.juliensulpis.fr",
       location: "Lyon, France",
@@ -24,7 +23,7 @@ describe("User api", () => {
       gists: 2,
       gistsUrl: "https://api.github.com/users/jsulpis/gists{/gist_id}"
     };
-    (fetchUser as jest.Mock).mockImplementation(() => Promise.resolve(MOCK_USER));
+    (fetchUser as jest.Mock).mockResolvedValue(MOCK_USER);
 
     const res = new MockNextApiResponse();
 
@@ -39,9 +38,7 @@ describe("User api", () => {
   });
 
   it("should forward errors", async () => {
-    (fetchUser as jest.Mock).mockImplementation(() =>
-      Promise.reject({ status: 403, message: "Forbidden" })
-    );
+    (fetchUser as jest.Mock).mockRejectedValue({ status: 403, message: "Forbidden" });
 
     const res = new MockNextApiResponse();
 

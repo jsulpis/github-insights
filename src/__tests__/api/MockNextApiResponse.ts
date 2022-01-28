@@ -10,4 +10,6 @@ export default class MockNextApiResponse {
   public json(body: object) {
     this.body = body;
   }
+
+  public setHeader(..._: string[]) {}
 }
