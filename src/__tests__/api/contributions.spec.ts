@@ -27,9 +27,7 @@ describe("Contributions api", () => {
       }
     ];
 
-    (fetchContributionsPerRepo as jest.Mock).mockImplementation(() =>
-      Promise.resolve(MOCK_CONTRIBUTIONS)
-    );
+    (fetchContributionsPerRepo as jest.Mock).mockResolvedValue(MOCK_CONTRIBUTIONS);
 
     const res = new MockNextApiResponse();
 
@@ -44,9 +42,10 @@ describe("Contributions api", () => {
   });
 
   it("should forward errors", async () => {
-    (fetchContributionsPerRepo as jest.Mock).mockImplementation(() =>
-      Promise.reject({ status: 401, message: "Unauthorized" })
-    );
+    (fetchContributionsPerRepo as jest.Mock).mockRejectedValue({
+      status: 401,
+      message: "Unauthorized"
+    });
 
     const res = new MockNextApiResponse();
 

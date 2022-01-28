@@ -2,7 +2,12 @@ import { render } from "@testing-library/react";
 import Router from "next/router";
 import ErrorPage from "pages/error";
 
-jest.mock("next/router");
+jest.mock("next/router", () => ({
+  useRouter: () => ({
+    asPath: ""
+  }),
+  push: jest.fn()
+}));
 
 describe("Server Error Page", () => {
   it("should have an error message", async () => {

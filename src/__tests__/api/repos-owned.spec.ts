@@ -24,7 +24,7 @@ describe("Repos api", () => {
         languages: []
       }
     ];
-    (fetchReposOwned as jest.Mock).mockImplementation(() => Promise.resolve(MOCK_REPOS));
+    (fetchReposOwned as jest.Mock).mockResolvedValue(MOCK_REPOS);
 
     const res = new MockNextApiResponse();
 
@@ -39,9 +39,7 @@ describe("Repos api", () => {
   });
 
   it("should forward errors", async () => {
-    (fetchReposOwned as jest.Mock).mockImplementation(() =>
-      Promise.reject({ status: 403, message: "Forbidden" })
-    );
+    (fetchReposOwned as jest.Mock).mockRejectedValue({ status: 403, message: "Forbidden" });
 
     const res = new MockNextApiResponse();
 

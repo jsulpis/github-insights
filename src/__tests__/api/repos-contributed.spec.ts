@@ -22,9 +22,7 @@ describe("Repos api", () => {
         commitCount: 38
       }
     ];
-    (fetchReposContributedTo as jest.Mock).mockImplementation(() =>
-      Promise.resolve(MOCK_REPOS)
-    );
+    (fetchReposContributedTo as jest.Mock).mockResolvedValue(MOCK_REPOS);
 
     const res = new MockNextApiResponse();
 
@@ -39,9 +37,7 @@ describe("Repos api", () => {
   });
 
   it("should forward errors", async () => {
-    (fetchReposContributedTo as jest.Mock).mockImplementation(() =>
-      Promise.reject({ status: 403, message: "Forbidden" })
-    );
+    (fetchReposContributedTo as jest.Mock).mockRejectedValue({ status: 403, message: "Forbidden" });
 
     const res = new MockNextApiResponse();
 

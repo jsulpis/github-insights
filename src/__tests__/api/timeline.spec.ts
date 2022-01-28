@@ -24,11 +24,7 @@ describe("Timeline api", () => {
         { month: "Nov", contributions: 4 }
       ]
     };
-
-    (fetchContributionsCalendar as jest.Mock).mockImplementation(() =>
-      Promise.resolve(MOCK_CONTRIBS)
-    );
-
+    (fetchContributionsCalendar as jest.Mock).mockResolvedValue(MOCK_CONTRIBS);
     const res = new MockNextApiResponse();
 
     // When
@@ -42,10 +38,10 @@ describe("Timeline api", () => {
   });
 
   it("should forward errors", async () => {
-    (fetchContributionsCalendar as jest.Mock).mockImplementation(() =>
-      Promise.reject({ status: 401, message: "Unauthorized" })
-    );
-
+    (fetchContributionsCalendar as jest.Mock).mockRejectedValue({
+      status: 401,
+      message: "Unauthorized"
+    });
     const res = new MockNextApiResponse();
 
     // When
