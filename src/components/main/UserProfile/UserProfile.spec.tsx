@@ -1,4 +1,4 @@
-import { render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { UserProfile } from "components/main/UserProfile/UserProfile";
 import { RepositoryOwned } from "models/Repository";
 import User from "models/User";

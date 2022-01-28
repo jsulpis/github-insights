@@ -1,12 +1,13 @@
 import { render } from "@testing-library/react";
-import Router from "next/router";
 import ErrorPage from "pages/error";
+
+const mockRouterPush = jest.fn();
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
-    asPath: ""
-  }),
-  push: jest.fn()
+    query: {},
+    push: mockRouterPush
+  })
 }));
 
 describe("Server Error Page", () => {
@@ -26,6 +27,6 @@ describe("Server Error Page", () => {
     getByRole("button").click();
 
     // Then
-    expect(Router.push).toHaveBeenCalledWith("/[username]", "/jsulpis");
+    expect(mockRouterPush).toHaveBeenCalledWith("/jsulpis");
   });
 });
