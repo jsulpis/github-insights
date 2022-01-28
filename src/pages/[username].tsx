@@ -42,7 +42,11 @@ const UserPage: NextPage<UserPageProps> = ({
   }
 
   return (
-    <Page>
+    <Page
+      title={`GitHub Insights - ${user.name || username}`}
+      description={`Insights into ${user.name || username}'s GitHub account.`}
+      ogImage={user.avatarUrl}
+    >
       <FadeIn>
         <SearchForm searchUser={onNewUsernameSubmitted} />
         <UserProfile user={user} repos={reposOwned} />

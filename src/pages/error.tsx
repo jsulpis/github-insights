@@ -4,7 +4,7 @@ import Router from "next/router";
 
 export default function Error() {
   return (
-    <Page description="Error Page">
+    <Page title="GitHub Insights - Error" description="Error Page">
       <p style={{ fontWeight: "bold", color: "red" }}>Server error. Please try again later.</p>
       <HomeSearchForm searchUser={username => Router.push("/[username]", "/" + username)} />
     </Page>
