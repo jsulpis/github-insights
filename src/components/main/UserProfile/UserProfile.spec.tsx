@@ -84,9 +84,9 @@ describe("UserProfile", () => {
     expect(getByRole("link", { name: "website" }).getAttribute("href")).toBe(
       "https://" + MOCK_USER.website
     );
-    expect(getByRole("img", { name: "profile picture" }).getAttribute("src")).toBe(
-      MOCK_USER.avatarUrl
-    );
+    expect(
+      getByRole("img", { name: "Julien Sulpis's GitHub profile picture" }).getAttribute("src")
+    ).toBe(MOCK_USER.avatarUrl);
     expect(getByLabelText("description").textContent).toBe(MOCK_USER.bio);
     expect(getByLabelText("Followers").textContent).toBe(`${MOCK_USER.followers}`);
   });

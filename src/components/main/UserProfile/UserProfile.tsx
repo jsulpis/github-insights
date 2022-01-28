@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   faCode,
   faCodeBranch,
@@ -41,10 +42,15 @@ export const UserProfile: FC<UserProfileProps> = ({ user = {}, repos = [] }) => 
       <img
         className={"image " + styles.image}
         src={`https://picsum.photos/seed/${backgroundPictureSeed}/800/130`}
+        alt=""
       ></img>
       <CardBody>
         <div className="author">
-          <img alt="profile picture" className="avatar border-gray" src={user.avatarUrl} />
+          <img
+            className="avatar border-gray"
+            src={user.avatarUrl}
+            alt={`${user.name || user.username}'s GitHub profile picture`}
+          />
           <h1 aria-label="full name" className={styles.fullname}>
             {user.name}
           </h1>
