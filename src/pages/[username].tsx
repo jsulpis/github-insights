@@ -35,6 +35,9 @@ const UserPage: NextPage<UserPageProps> = ({
   function onNewUsernameSubmitted(newUsername) {
     if (newUsername !== username) {
       router.push("/[username]", "/" + newUsername);
+      // Prefetch background picture
+      const backgroundPictureSeed = newUsername + new Date().getMinutes().toString();
+      new Image().src = `https://picsum.photos/seed/${backgroundPictureSeed}/800/130`;
     }
   }
 
