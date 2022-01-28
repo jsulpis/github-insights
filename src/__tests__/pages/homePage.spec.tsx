@@ -1,12 +1,13 @@
 import { render } from "@testing-library/react";
-import Router from "next/router";
 import HomePage from "pages";
+
+const mockRouterPush = jest.fn();
 
 jest.mock("next/router", () => ({
   useRouter: () => ({
-    asPath: ""
-  }),
-  push: jest.fn()
+    query: {},
+    push: mockRouterPush
+  })
 }));
 
 describe("Home Page", () => {
@@ -20,6 +21,6 @@ describe("Home Page", () => {
     getByRole("button").click();
 
     // Then
-    expect(Router.push).toHaveBeenCalledWith("/[username]", "/jsulpis");
+    expect(mockRouterPush).toHaveBeenCalledWith("/jsulpis");
   });
 });

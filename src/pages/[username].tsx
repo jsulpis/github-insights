@@ -32,13 +32,9 @@ const UserPage: NextPage<UserPageProps> = ({
   const router = useRouter();
   const username = router.query.username;
 
-  function onNewUsernameSubmitted(newUsername) {
-    if (newUsername !== username) {
-      router.push("/[username]", "/" + newUsername);
-      // Prefetch background picture
-      const backgroundPictureSeed = newUsername + new Date().getMinutes().toString();
-      new Image().src = `https://picsum.photos/seed/${backgroundPictureSeed}/800/130`;
-    }
+  function prefetchBackgroundPicture(newUsername) {
+    const backgroundPictureSeed = newUsername + new Date().getMinutes().toString();
+    new Image().src = `https://picsum.photos/seed/${backgroundPictureSeed}/800/130`;
   }
 
   return (
@@ -48,7 +44,7 @@ const UserPage: NextPage<UserPageProps> = ({
       ogImage={user.avatarUrl}
     >
       <FadeIn>
-        <SearchForm searchUser={onNewUsernameSubmitted} />
+        <SearchForm onBeforeRedirect={prefetchBackgroundPicture} />
         <UserProfile user={user} repos={reposOwned} />
         <ContributionsChart
           timelineData={timelineData}
