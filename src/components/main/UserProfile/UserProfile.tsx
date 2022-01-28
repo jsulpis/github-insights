@@ -57,9 +57,11 @@ export const UserProfile: FC<UserProfileProps> = ({ user = {}, repos = [] }) => 
           <p aria-label="location" className={styles.location}>
             {user.location}
           </p>
-          <a aria-label="website" className={styles.website} href={userWebsite}>
-            {user.website}
-          </a>
+          {user.website && (
+            <a aria-label="website" className={styles.website} href={userWebsite}>
+              {user.website}
+            </a>
+          )}
         </div>
         <p aria-label="description" className="card-description text-center">
           {user.bio}
