@@ -1,4 +1,5 @@
 import httpGet from "./httpGet";
+import { ROOT_URL } from "./constants";
 
 /**
  * Helper function to make API calls and testing pages easier
@@ -6,7 +7,6 @@ import httpGet from "./httpGet";
  * @param headers: optional headers
  */
 export default async function apiGet<T>(name: string, headers?: HeadersInit): Promise<T> {
-  const ROOT_URL = process.env.NEXT_PUBLIC_VERCEL_URL;
   const API_URL = "/api";
 
   return httpGet<T>(ROOT_URL + API_URL + name, headers);
