@@ -8,7 +8,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     .then(user => {
       res.setHeader(
         "Cache-Control",
-        `max-age=${60 * 60 * 12}, stale-while-revalidate=${60 * 60 * 24}`
+        `public, max-age=${60 * 60 * 12}, stale-while-revalidate=${60 * 60 * 24}`
       );
       res.status(200).json(user);
     })
