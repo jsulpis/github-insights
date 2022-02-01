@@ -1,5 +1,14 @@
+import { render } from "@testing-library/react";
 import { RepositoryContributedTo } from "models/Repository";
-import { makeChartDataFromRepos } from "./RepositoriesCharts";
+import { RepositoriesCharts } from "./RepositoriesCharts";
+
+jest.mock(
+  "../BubbleChart/BubbleChart",
+  () =>
+    function BubbleChart({ data }) {
+      return <div data-testid="mockBubbleChart" data-repos={JSON.stringify(data)}></div>;
+    }
+);
 
 describe("RepositoriesCharts", () => {
   it("should construct its data from the props", () => {
@@ -21,7 +30,11 @@ describe("RepositoriesCharts", () => {
       }
     ];
 
-    expect(makeChartDataFromRepos(repos)).toEqual([
+    const { getByTestId } = render(<RepositoriesCharts repos={repos}></RepositoriesCharts>);
+
+    const chartData = getByTestId("mockBubbleChart").dataset.repos;
+
+    expect(JSON.parse(chartData)).toEqual([
       {
         name: "owner/Repo1",
         color: "red",
