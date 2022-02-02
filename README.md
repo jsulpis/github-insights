@@ -1,9 +1,9 @@
 <h1 align="center">GitHub Insights</h1>
 <h3 align="center">Insights into a GitHub profile</h3>
 <p align="center">
-	<a href="https://travis-ci.org/jsulpis/github-insights">
-		<img alt="Build Status" src="https://travis-ci.org/jsulpis/github-insights.svg?branch=master" />
-	</a>
+  <a href="https://github.com/jsulpis/github-insights/actions/workflows/build.yml">
+    <img alt="CI" src="https://github.com/jsulpis/github-insights/actions/workflows/build.yml/badge.svg" />
+  </a>
   <a href="https://sonarcloud.io/dashboard?id=github-stats">
 		<img alt="Quality Gate Status" src="https://sonarcloud.io/api/project_badges/measure?project=github-stats&metric=alert_status" />
 	</a>
@@ -16,7 +16,7 @@
 </p>
 
 <a align="center" href="https://github-insights.vercel.app">
-  <img class="repo-preview" src="https://raw.githubusercontent.com/jsulpis/github-insights/master/preview.png" alt="Screenshot image"/>
+  <img class="repo-preview" src="https://raw.githubusercontent.com/jsulpis/github-insights/master/preview.png" alt="Screenshot of the application"/>
 </a>
 
 ## Installation
@@ -35,7 +35,7 @@ You will need a GitHub OAuth token to query the GraphQL endpoint. See the [docum
 
 ### Development
 
-Serve with hot reload at localhost:3000.
+Serve with hot reload at localhost:3000
 
 ```
 npm run dev
@@ -43,23 +43,19 @@ npm run dev
 
 ### Build
 
-Build for production: next.js automatically renders static HTML pages when possible. Then if you deploy on Zeit Now you can have both statically rendered pages and server-side rendered pages (as lambdas functions).
+Build for production: next.js automatically generates a mix of static HTML pages when possible, and lambda functions for server-side rendered pages. This is supported out-of-the-box by Vercel.
 
 ```
 npm run build
 ```
 
-Launch a server for server-side rendering (after building the application):
+Serve the production build with SSR:
 
 ```
 npm start
 ```
 
-Generate a fully static project with pre-rendered pages to put directly on a server or any static website hosting platform. Note that you lose the possibility to have server-side rendered pages. With Zeit Now you should not have to run this command.
-
-```
-npm run export
-```
+See package.json for other scripts.
 
 ## License
 
